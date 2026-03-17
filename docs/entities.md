@@ -55,6 +55,7 @@ Coach є підтипом Employee, який відповідає за пров�
 ```
 Client :: Person
 {
+    Id,
     Subscription,
     Category
 }
