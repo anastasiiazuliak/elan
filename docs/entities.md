@@ -2,11 +2,11 @@
 
 ## Користувач
 ```
-User
+"User": 
 {
-    Id
-    Username,
-    PersonId
+    "Id": "int",
+    "Username": "string",
+    "PersonId": "int"
 }
 ```
 
@@ -14,14 +14,14 @@ User
 
 ## Людинка
 ```
-Person
+"Person": 
 {
-    Id,
-    FirstName,
-    LastName,
-    Patronymic,
-    BirthDate,
-    PhoneNumber
+    "Id": "int",
+    "FirstName": "string",
+    "LastName": "string",
+    "Patronymic": "string",
+    "BirthDate": "datetime",
+    "PhoneNumber": "string"
 }
 ```
 
@@ -29,35 +29,42 @@ Person є базовою сутністю, що містить персонал�
 
 ## Працівник
 ```
-Employee :: Person
+"Employee": 
 {
-    Position,
-    Email
+    "Id": "int",
+    "LocationId": "int",
+    "Email": "string"
 }
 ```
 
-Сутність Employee успадковує всі атрибути Person та додає специфічні для працівника характеристики: посаду (Position) та робочу електронну адресу (Email). До цієї сутності належать адміністратори, директори та тренери.
+Сутність Employee успадковує всі атрибути Person та додає специфічні для працівника характеристики: локацію (Location) та робочу електронну адресу (Email). До цієї сутності належать адміністратори, директори та тренери.
 
 ## Тренер
 ```
-Coach :: Employee
+"Coach": 
 {
-    Position = coach,
-    Styles,
-    Description,
-    Socials
+    "Id": "int",
+    "Styles": "string[]",
+    "Description": "string",
+    "Socials": "string[]"
 }
 ```
 
-Coach є підтипом Employee, який відповідає за проведення занять танцю. Основні атрибути включають перелік стилів танцю, які викладає тренер (Styles), опис (Description) а також контакти у соціальних мережах (Socials). Кожна група у студії має прив’язаного тренера.
+Coach є успадковує всі атрибути Person та додає специфічні для тренера характеристики. Основні атрибути включають перелік стилів танцю, які викладає тренер (Styles), опис (Description) а також контакти у соціальних мережах (Socials). Кожна група у студії має прив’язаного тренера.
 
 ## Клієнт
 ```
-Client :: Person
+"Client": 
 {
+<<<<<<< Updated upstream
     Id,
     Subscription,
     Category
+=======
+    "Id": "int",
+    "SubscriptionId": "int",
+    "Category": "string"
+>>>>>>> Stashed changes
 }
 ```
 
@@ -65,13 +72,13 @@ Client :: Person
 
 ## Група
 ```
-Group
+"Group": 
 {
-    Id,
-    CoachId,
-    Style,          //contemp, hip-hop, fitness, pilates, high-heels etc.
-    SkillLevel,     // beginner, intermediate, advanced
-    Clients[]
+    "Id": "int",
+    "CoachId": "int",
+    "Style": "string",          //contemp, hip-hop, fitness, pilates, high-heels etc.
+    "SkillLevel": "string",     // beginner, intermediate, advanced
+    "Clients": "Client[]"
 }
 ```
 
@@ -79,11 +86,11 @@ Group містить інформацію про певну танцювальн
 
 ## Локація
 ```
-Location
+"Location": 
 {
-    Id,
-    Adress,
-    Halls[]
+    "Id": "int",
+    "Address": "string",
+    "Halls": "Hall[]"
 }
 ```
 
@@ -91,11 +98,11 @@ Location
 
 ## Зал
 ```
-Hall
+"Hall": 
 {
-    Id,
-    Type,        // Large, Medium, Individual
-    Capacity
+    "Id": "int",
+    "Type": "string",           // Large, Medium, Individual
+    "Capacity": "int"
 }
 ```
 
@@ -103,15 +110,15 @@ Hall представляє фізичний зал для занять танц
 
 ## Абонемент
 ```
-Subscription
+"Subscription": 
 {
-    Id,
-    Name,
-    Categories,
-    Duration ??
-    1,
-    8,
-    12
+    "Id": "int",
+    "Name": "string",
+    "Categories": "string[]",
+    "Duration": "int", ??
+    "1": "int",
+    "8": "int",
+    "12: "int"
 }
 ```
 
