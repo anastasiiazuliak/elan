@@ -56,15 +56,9 @@ Coach є успадковує всі атрибути Person та додає с�
 ```
 "Client": 
 {
-<<<<<<< Updated upstream
-    Id,
-    Subscription,
-    Category
-=======
     "Id": "int",
     "SubscriptionId": "int",
     "Category": "string"
->>>>>>> Stashed changes
 }
 ```
 
