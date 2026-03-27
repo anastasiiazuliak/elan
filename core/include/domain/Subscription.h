@@ -1,12 +1,14 @@
 #pragma once
 
+#include "Client.h"
+
 namespace domain
 {
-    struct Subscription
+    class Subscription
     {
         int Id;
-        char *Name;
-        char *Category;
+        char Name[30];
+        Categories Category;
         int Duration;
         int ForOneWorkout;
         int ForEightWorkouts;

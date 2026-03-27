@@ -1,15 +1,23 @@
 #pragma once
 
 #include "Style.h"
+#include "Client.h"
 
 namespace domain
 {
-    struct Group
+    enum class SkillLevel
+    {
+        Beginner, 
+        Intermediate, 
+        Advanced
+    };
+
+    class Group
     {
         int Id;
         int CoachId;
         Style Style;
-        char *SkillLevel;
-        // Client* Clients[];
+        SkillLevel SkillLevel;
+        Client Clients[25];
     };
 }

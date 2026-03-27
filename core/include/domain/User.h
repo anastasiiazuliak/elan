@@ -2,10 +2,18 @@
 
 namespace domain
 {
-    struct User
+    enum class Role
+    {
+        Client,
+        Employee,
+        Coach
+    };
+
+    class User
     {
         int Id;
         int PersonId;
-        char *Username;
+        Role Role;
+        char Username[20];
     };
 }

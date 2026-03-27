@@ -70,7 +70,7 @@ Coach є успадковує всі атрибути Person та додає с�
 {
     "Id": "int",
     "CoachId": "int",
-    "Style": "string",          //contemp, hip-hop, fitness, pilates, high-heels etc.
+    "Style": "Style",
     "SkillLevel": "string",     // beginner, intermediate, advanced
     "Clients": "Client[]"
 }
@@ -117,3 +117,40 @@ Hall представляє фізичний зал для занять танц
 ```
 
 Сутність Subscription відповідає за тарифи та пакети занять студії. Основні атрибути: Id, назва пакету (Name), категорії клієнтів (Categories[]), кількість занять. Абонементи дозволяють контролювати доступ клієнтів до занять у системі.
+
+##Стиль
+```
+"Style": 
+{
+    "Id": "int",
+    "Name": "string",
+    "Description": "string"
+}
+```
+
+```
+
+    ###Стилі
+        Contemporary,
+        HipHop,
+        HighHeels,
+        Pilates,
+        FitnessMix,
+        FlyYoga,
+        BabyDance,
+        Modern,
+        JazzFunk,
+        StreetDance,
+        ChoreoDance,
+        BodyBallet,
+        GirlsDance,
+        FlyGimnastic,
+        Acrobatics,
+        LatinaDance,
+        Stretching,
+        MobilityMFR,
+        Yoga,
+        StepAerobics
+```
+
+Сутність стиль має атрибути Id, назву стилю(Name) i опис стилю Description

@@ -4,10 +4,10 @@
 
 namespace domain
 {
-    struct Location
+    class Location
     {
         int Id;
         char Address;
-        Hall *Halls[];
+        Hall Halls[5];
     };
 }

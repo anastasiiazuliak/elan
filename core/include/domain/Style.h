@@ -1,8 +1,11 @@
 #pragma once
 
-struct Style
+namespace domain
 {
-    int Id;
-    char* Name;
-    char* Description;
-};
+    struct Style
+    {
+        int Id;
+        char Name[30];
+        char Description[200];
+    };
+}
