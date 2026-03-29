@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Date.h"
+#include "../common/Date.h"
 
 namespace domain
 {
@@ -10,7 +10,7 @@ namespace domain
         char FirstName[20];
         char LastName[20];
         char Patronymic[20];
-        Date BirthDate;
+        common::Date BirthDate;
         char Phone[13];
     };
 }
