@@ -10,8 +10,6 @@ namespace domain
         char Name[30];
         Categories Category;
         int Duration;
-        int ForOneWorkout;
-        int ForEightWorkouts;
-        int ForTwelweWorkouts;
+        int NumberOfWorkouts;
     };
 }

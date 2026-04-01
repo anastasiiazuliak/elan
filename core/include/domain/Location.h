@@ -7,7 +7,7 @@ namespace domain
     class Location
     {
         int Id;
-        char Address;
+        char Address[36];
         Hall Halls[5];
     };
 }
