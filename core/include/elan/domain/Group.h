@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Style.h"
-#include "Client.h"
+#include "elan/domain/Client.h"
+#include "elan/domain/Style.h"
 
 namespace domain
 {
     enum class SkillLevel
     {
-        Beginner, 
-        Intermediate, 
+        Beginner,
+        Intermediate,
         Advanced
     };
 

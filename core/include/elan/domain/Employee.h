@@ -1,6 +1,6 @@
-#pragma once 
+#pragma once
 
-#include "Person.h"
+#include "elan/domain/Person.h"
 
 namespace domain
 {

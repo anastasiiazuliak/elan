@@ -7,5 +7,10 @@ namespace common
         int Day;
         int Month;
         int Year;
+
+        Date();
+        Date(int day, int month, int year);
     };
+
+    bool isDateValid(int day, int month, int year);
 }

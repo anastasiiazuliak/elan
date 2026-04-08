@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Person.h"
-#include "Style.h"
+#include "elan/domain/Person.h"
+#include "elan/domain/Style.h"
 
 namespace domain
 {

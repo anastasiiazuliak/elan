@@ -1,6 +1,5 @@
 #pragma once
- 
-#include "Person.h"
+#include "elan/domain/Person.h"
 
 namespace domain
 {
@@ -14,10 +13,15 @@ namespace domain
         Age_14_plus,
         Age_16_plus
     };
+    Categories determineCategory(int age);
 
     class Client : public Person
     {
         int SubscriptionId;
         Categories Category;
+
+    public:
+        Client();
+        Client(int Id, const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone, int SubscriptionId);
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../common/Date.h"
+#include "elan/common/Date.h"
 
 namespace domain
 {
@@ -12,5 +12,11 @@ namespace domain
         char Patronymic[20];
         common::Date BirthDate;
         char Phone[13];
+
+    public:
+        Person();
+        Person(int Id, const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone);
+        int getAge();
     };
+
 }

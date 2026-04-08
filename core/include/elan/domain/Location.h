@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hall.h"
+#include "elan/domain/Hall.h"
 
 namespace domain
 {
