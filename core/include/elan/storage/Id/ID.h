@@ -1,0 +1,16 @@
+#pragma once
+
+namespace id
+{
+    class ID
+    {
+        std::string file_name;
+
+        int Read();
+        void Write(int Id);
+
+    public:
+        ID(const std::string &file_name);
+        int Get();
+    };
+}
