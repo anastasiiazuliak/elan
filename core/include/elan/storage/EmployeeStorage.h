@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <optional>
 #include "elan/domain/Employee.h"
 
 namespace storage
@@ -7,9 +8,10 @@ namespace storage
     class EmployeeStorage
     {
     public:
-        void AddEmployee(const domain::Employee &employee);
-        std::vector<domain::Employee> GetAllEmployees();
-        void UpdateEmployee (const domain::Employee);
-        void DeleteEmployee(int Id);
+        void Add(const domain::Employee &employee);
+        std::optional<domain::Employee> GetById(int id);
+        std::vector<domain::Employee> GetAll();
+        void Update(const domain::Employee &employee);
+        void Delete(int Id);
     };
 }
