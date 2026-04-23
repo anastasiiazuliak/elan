@@ -15,9 +15,8 @@ namespace domain
         strcpy(Phone, "");
     };
 
-    Person::Person(int Id, const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone)
+    Person::Person(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone)
     {
-        this->Id = Id;
         strcpy(this->FirstName, FirstName);
         strcpy(this->LastName, LastName);
         strcpy(this->Patronymic, Patronymic);
@@ -25,7 +24,7 @@ namespace domain
         strcpy(this->Phone, Phone);
     };
     
-    int Person::getAge()
+    int Person::GetAge()
     {
         std::time_t t = std::time(nullptr);
         std::tm *now = std::localtime(&t);
@@ -40,4 +39,14 @@ namespace domain
 
         return age;
     };
+
+    void Person::SetId(int id)
+    {
+        Id = id;
+    }
+
+    int Person::GetId() const
+    {
+        return Id;
+    }
 }
