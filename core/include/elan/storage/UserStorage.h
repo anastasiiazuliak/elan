@@ -8,10 +8,10 @@ namespace storage
     class UserStorage
     {
     public:
-        void Add(const domain::User &user);
+        void Add(domain::User &user);
         std::optional<domain::User> GetById(int id);
         std::vector<domain::User> GetAll();
-        void Update(const domain::User &user);
-        void Delete(int Id);
+        bool Update(const domain::User &user);
+        bool Delete(int id);
     };
 }

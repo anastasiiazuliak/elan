@@ -8,10 +8,10 @@ namespace storage
     class CoachStorage
     {
     public:
-        void Add(const domain::Coach &coach);
+        void Add(domain::Coach &coach);
         std::optional<domain::Coach> GetById(int id);
         std::vector<domain::Coach> GetAll();
-        void Update(const domain::Coach &coach);
-        void Delete(int Id);
+        bool Update(const domain::Coach &coach);
+        bool Delete(int id);
     };
 }

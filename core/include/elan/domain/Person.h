@@ -15,8 +15,11 @@ namespace domain
 
     public:
         Person();
-        Person(int Id, const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone);
-        int getAge();
+        Person(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone);
+        int GetAge();
+
+        void SetId(int id);
+        int GetId() const;
     };
 
 }

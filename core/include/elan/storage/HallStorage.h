@@ -8,10 +8,10 @@ namespace storage
     class HallStorage
     {
     public:
-        void Add(const domain::Hall &hall);
+        void Add(domain::Hall &hall);
         std::optional<domain::Hall> GetById(int id);
         std::vector<domain::Hall> GetAll();
-        void Update (const domain::Hall &hall);
-        void Delete(int Id);
+        bool Update (const domain::Hall &hall);
+        bool Delete(int id);
     };
 }

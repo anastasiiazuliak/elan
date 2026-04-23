@@ -22,6 +22,6 @@ namespace domain
 
     public:
         Client();
-        Client(int Id, const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone, int SubscriptionId);
+        Client(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone, int SubscriptionId);
     };
 }
