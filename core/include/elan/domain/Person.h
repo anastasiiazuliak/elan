@@ -4,9 +4,7 @@
 
 namespace storage
 {
-    class ClientStorage
-    {
-    };
+    class ClientStorage;
 }
 
 namespace domain

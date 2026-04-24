@@ -6,7 +6,7 @@
 #include <algorithm>
 
 constexpr const char *FILE_NAME = "../data/clients_file.bin";
-constexpr const char *ID_FILE = "../data/id/clients_id.bin";
+constexpr const char *ID_FILE = "../data/clients_id.bin";
 
 namespace storage
 {
