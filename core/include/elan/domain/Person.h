@@ -2,6 +2,13 @@
 
 #include "elan/common/Date.h"
 
+namespace storage
+{
+    class ClientStorage
+    {
+    };
+}
+
 namespace domain
 {
     class Person
@@ -13,12 +20,16 @@ namespace domain
         common::Date BirthDate;
         char Phone[13];
 
+        void SetId(int id);
+
+        
+        friend class storage::ClientStorage;
+
     public:
         Person();
         Person(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone);
         int GetAge();
 
-        void SetId(int id);
         int GetId() const;
     };
 

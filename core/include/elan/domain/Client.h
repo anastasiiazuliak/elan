@@ -13,6 +13,7 @@ namespace domain
         Age_14_plus,
         Age_16_plus
     };
+
     Categories determineCategory(int age);
 
     class Client : public Person
