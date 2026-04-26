@@ -4,7 +4,8 @@
 
 namespace storage
 {
-    class ClientStorage;
+    template <typename T>
+    class Storage;
 }
 
 namespace domain
@@ -20,8 +21,8 @@ namespace domain
 
         void SetId(int id);
 
-        
-        friend class storage::ClientStorage;
+        template <typename T>
+        friend class storage::Storage;
 
     public:
         Person();

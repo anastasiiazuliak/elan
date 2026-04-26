@@ -1,46 +1,161 @@
 #include <iostream>
-#include "elan/storage/ClientStorage.h"
 
+#include "elan/storage/Storage.h"
+
+#include "elan/domain/Client.h"
+#include "elan/domain/User.h"
 
 int main()
 {
-    storage::ClientStorage storage;
+    //-----------------------------------
+    // CLIENT TESTS
+    //-----------------------------------
 
-    // 1. Створюємо 3 клієнти
-    domain::Client c1("Ivan", "Petrenko", "O.", {2000,1,1}, "111", 1);
-    domain::Client c2("Petro", "Ivanenko", "O.", {2001,2,2}, "222", 2);
-    domain::Client c3("Anna", "Shevchenko", "O.", {2002,3,3}, "333", 3);
+    storage::Storage<domain::Client> clients(
+        "../data/clients.bin",
+        "../data/clients_id.bin"
+    );
 
-    // 2. Додаємо
-    storage.Add(c1);
-    storage.Add(c2);
-    storage.Add(c3);
+    common::Date d1{2005,1,10};
+    common::Date d2{2006,5,20};
+    common::Date d3{2007,8,15};
 
-    std::cout << "Added 3 clients\n";
+    domain::Client c1(
+        "Ivan",
+        "Petrenko",
+        "Ivanovych",
+        d1,
+        "111111111111",
+        1
+    );
 
-    // 3. Перевіряємо всі
-    auto all = storage.GetAll();
-    std::cout << "All clients: " << all.size() << "\n";
+    domain::Client c2(
+        "Oleh",
+        "Ivanenko",
+        "Petrovych",
+        d2,
+        "222222222222",
+        2
+    );
 
-    // 4. Видаляємо другого (припустимо id = 2)
-    bool deleted = storage.Delete(2);
+    domain::Client c3(
+        "Andrii",
+        "Shevchenko",
+        "Mykolayovych",
+        d3,
+        "333333333333",
+        3
+    );
 
-    std::cout << "Deleted id 2: " << (deleted ? "yes" : "no") << "\n";
+    clients.Add(c1);
+    clients.Add(c2);
+    clients.Add(c3);
 
-    // 5. Перевіряємо знову
-    all = storage.GetAll();
-    std::cout << "After delete: " << all.size() << "\n";
+    std::cout
+        << "\n=== CLIENTS CREATED ===\n";
 
-    // 6. Перевірка GetById
-    auto client = storage.GetById(1);
+    auto allClients = clients.GetAll();
 
-    if (client)
-        std::cout << "Found client with id 1\n";
-    else
-        std::cout << "Not found\n";
+    for(auto& c : allClients)
+    {
+        std::cout
+            << "Client ID: "
+            << c.GetId()
+            << "\n";
+    }
 
-    return 0;
+    //-----------------------------------
+    // DELETE SECOND CLIENT
+    //-----------------------------------
 
-    std::cout<<"hello world";
+    clients.Delete(2);
+
+    std::cout
+        << "\n=== AFTER DELETE CLIENT 2 ===\n";
+
+    for(auto& c : clients.GetAll())
+    {
+        std::cout
+            << "Client ID: "
+            << c.GetId()
+            << "\n";
+    }
+
+    //-----------------------------------
+    // GET BY ID
+    //-----------------------------------
+
+    auto foundClient =
+        clients.GetById(1);
+
+    std::cout
+      << "\nClient #1 "
+      << (foundClient
+            ? "FOUND"
+            : "NOT FOUND")
+      << "\n";
+
+
+    //-----------------------------------
+    // USER TESTS
+    //-----------------------------------
+
+    storage::Storage<domain::User> users(
+        "../data/users.bin",
+        "../data/users_id.bin"
+    );
+
+    // якщо є конструктор User(...)
+    domain::User u1, u2;
+
+    users.Add(u1);
+    users.Add(u2);
+
+    std::cout
+        << "\n=== USERS CREATED ===\n";
+
+    for(auto& u : users.GetAll())
+    {
+        std::cout
+            << "User ID: "
+            << u.GetId()
+            << "\n";
+    }
+
+    //-----------------------------------
+    // DELETE USER 1
+    //-----------------------------------
+
+    users.Delete(1);
+
+    std::cout
+        << "\n=== USERS AFTER DELETE ===\n";
+
+    for(auto& u : users.GetAll())
+    {
+        std::cout
+            << "User ID: "
+            << u.GetId()
+            << "\n";
+    }
+
+    //-----------------------------------
+    // USER GET TEST
+    //-----------------------------------
+
+    auto foundUser=
+        users.GetById(2);
+
+    std::cout
+        << "\nUser #2 "
+        << (foundUser
+              ? "FOUND"
+              : "NOT FOUND")
+        << "\n";
+
+
+    std::cout
+        << "\nALL TESTS DONE\n";
+
     return 0;
 }
