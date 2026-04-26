@@ -4,11 +4,11 @@ namespace domain
 {
     void Style::SetId(int id)
     {
-        Id = id;
+        this-> id= id;
     }
 
     int Style::GetId() const
     {
-        return Id;
+        return id;
     }
 }

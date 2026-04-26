@@ -21,14 +21,14 @@ namespace domain
 
     Client::Client() : Person()
     {
-        SubscriptionId = 0;
-        Category = Categories::Age_16_plus;
+        subscriptionId = 0;
+        category = Categories::Age_16_plus;
     };
 
-    Client::Client(const char* FirstName, const char* LastName, const char* Patronymic, common::Date BirthDate, const char* Phone, int SubscriptionId) : Person(FirstName, LastName, Patronymic, BirthDate, Phone)
+    Client::Client(const char* firstName, const char* lastName, const char* patronymic, common::Date birthDate, const char* phone, int subscriptionId) : Person(firstName, lastName, patronymic, birthDate, phone)
     {
-        this->SubscriptionId = SubscriptionId;
+        this->subscriptionId = subscriptionId;
         int age = GetAge();
-        Category = determineCategory(age);
+        category = determineCategory(age);
     }
 }

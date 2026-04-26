@@ -132,7 +132,7 @@ cmake ..
 cmake --build .
 
 4.Запустити програму
-build\Debug\ELAN.exe
+Debug\ELAN.exe
 ```
 
 ---

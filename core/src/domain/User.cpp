@@ -4,11 +4,11 @@ namespace domain
 {
     void User::SetId(int id)
     {
-        Id = id;
+        this->id = id;
     }
 
     int User::GetId() const
     {
-        return Id;
+        return id;
     }
 }

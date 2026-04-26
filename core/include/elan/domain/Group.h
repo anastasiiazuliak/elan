@@ -20,11 +20,11 @@ namespace domain
 
     class Group
     {
-        int Id;
-        int CoachId;
-        Style Style;
-        SkillLevel SkillLevel;
-        Client Clients[25];
+        int id;
+        int coachId;
+        Style style;
+        SkillLevel skillLevel;
+        Client clients[constants::MAX_CLIENTS];
 
         void SetId(int id);
 

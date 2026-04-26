@@ -18,11 +18,11 @@ namespace domain
 
     class Client : public Person
     {
-        int SubscriptionId;
-        Categories Category;
+        int subscriptionId;
+        Categories category;
 
     public:
         Client();
-        Client(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone, int SubscriptionId);
+        Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId);
     };
 }

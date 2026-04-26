@@ -15,11 +15,11 @@ namespace domain
         Individual
     };
 
-    struct Hall
+    class Hall
     {
-        int Id;
-        HallType Type;
-        int Capacity;
+        int id;
+        HallType type;
+        int capacity;
 
         void SetId(int id);
 

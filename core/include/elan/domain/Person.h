@@ -1,6 +1,7 @@
 #pragma once
 
 #include "elan/common/Date.h"
+#include "elan/common/Constants.h"
 
 namespace storage
 {
@@ -12,12 +13,12 @@ namespace domain
 {
     class Person
     {
-        int Id;
-        char FirstName[20];
-        char LastName[20];
-        char Patronymic[20];
-        common::Date BirthDate;
-        char Phone[13];
+        int id;
+        char firstName[constants::NAME_LENGTH];
+        char lastName[constants::NAME_LENGTH];
+        char patronymic[constants::NAME_LENGTH];
+        common::Date birthDate;
+        char phone[constants::PHONE_LENGTH];
 
         void SetId(int id);
 
@@ -26,7 +27,7 @@ namespace domain
 
     public:
         Person();
-        Person(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone);
+        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone);
         int GetAge();
 
         int GetId() const;

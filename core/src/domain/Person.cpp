@@ -7,21 +7,21 @@ namespace domain
 {
     Person::Person()
     {
-        Id = 0;
-        strcpy(FirstName, "");
-        strcpy(LastName, "");
-        strcpy(Patronymic, "");
-        BirthDate = common::Date(1, 1, 2000);
-        strcpy(Phone, "");
+        id = 0;
+        strcpy(firstName, "");
+        strcpy(lastName, "");
+        strcpy(patronymic, "");
+        birthDate = common::Date(1, 1, 2000);
+        strcpy(phone, "");
     };
 
-    Person::Person(const char *FirstName, const char *LastName, const char *Patronymic, common::Date BirthDate, const char *Phone)
+    Person::Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone)
     {
-        strcpy(this->FirstName, FirstName);
-        strcpy(this->LastName, LastName);
-        strcpy(this->Patronymic, Patronymic);
-        this->BirthDate = BirthDate;
-        strcpy(this->Phone, Phone);
+        strcpy(this->firstName, firstName);
+        strcpy(this->lastName, lastName);
+        strcpy(this->patronymic, patronymic);
+        this->birthDate = birthDate;
+        strcpy(this->phone, phone);
     };
     
     int Person::GetAge()
@@ -29,10 +29,10 @@ namespace domain
         std::time_t t = std::time(nullptr);
         std::tm *now = std::localtime(&t);
 
-        int age = (now->tm_year + 1900) - BirthDate.Year;
+        int age = (now->tm_year + 1900) - birthDate.Year;
 
-        if ((BirthDate.Month > now->tm_mon + 1) ||
-            (BirthDate.Month == now->tm_mon + 1 && BirthDate.Day > now->tm_mday))
+        if ((birthDate.Month > now->tm_mon + 1) ||
+            (birthDate.Month == now->tm_mon + 1 && birthDate.Day > now->tm_mday))
         {
             age--;
         }
@@ -42,11 +42,11 @@ namespace domain
 
     void Person::SetId(int id)
     {
-        Id = id;
+        this->id = id;
     }
 
     int Person::GetId() const
     {
-        return Id;
+        return id;
     }
 }

@@ -1,12 +1,13 @@
 #pragma once
 
 #include "elan/domain/Person.h"
+#include "elan/common/Constants.h"
 
 namespace domain
 {
     class Employee : public Person
     {
-        int LocationId;
-        char Email[40];
+        int locationId;
+        char email[constants::EMAIL_LENGTH];
     };
 }

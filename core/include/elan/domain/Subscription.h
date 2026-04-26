@@ -1,6 +1,7 @@
 #pragma once
 
 #include "elan/domain/Client.h"
+#include "elan/common/Constants.h"
 
 namespace storage
 {
@@ -12,11 +13,11 @@ namespace domain
 {
     class Subscription
     {
-        int Id;
-        char Name[30];
-        Categories Category;
-        int Duration;
-        int NumberOfWorkouts;
+        int id;
+        char name[constants::NAME_LENGTH];
+        Categories category;
+        int duration;
+        int numberOfWorkouts;
 
         void SetId(int id);
 

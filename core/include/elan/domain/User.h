@@ -1,5 +1,7 @@
 #pragma once
 
+#include "elan/common/Constants.h"
+
 namespace storage
 {
     template <typename T>
@@ -10,6 +12,7 @@ namespace domain
 {
     enum class Role
     {
+        Admin,
         Client,
         Employee,
         Coach
@@ -17,10 +20,10 @@ namespace domain
 
     class User
     {
-        int Id;
-        int PersonId;
-        Role Role;
-        char Username[20];
+        int id;
+        int personId;
+        Role role;
+        char username[constants::NAME_LENGTH];
 
         void SetId(int id);
 

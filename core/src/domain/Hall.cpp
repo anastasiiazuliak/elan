@@ -4,11 +4,11 @@ namespace domain
 {
     void Hall::SetId(int id)
     {
-        Id = id;
+        this->id = id;
     }
 
     int Hall::GetId() const
     {
-        return Id;
+        return id;
     }
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "elan/common/Constants.h"
+
 namespace storage
 {
     template <typename T>
@@ -10,9 +12,9 @@ namespace domain
 {
     struct Style
     {
-        int Id;
-        char Name[30];
-        char Description[200];
+        int id;
+        char name[constants::NAME_LENGTH];
+        char description[constants::DESCRIPTION_LENGTH];
 
         void SetId(int id);
 

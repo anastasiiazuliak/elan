@@ -4,11 +4,11 @@ namespace domain
 {
     void Group::SetId(int id)
     {
-        Id = id;
+        this->id = id;
     }
 
     int Group::GetId() const
     {
-        return Id;
+        return id;
     }
 }

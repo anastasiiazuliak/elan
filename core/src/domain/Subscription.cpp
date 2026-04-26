@@ -4,11 +4,11 @@ namespace domain
 {
     void Subscription::SetId(int id)
     {
-        Id = id;
+        this->id = id;
     }
 
     int Subscription::GetId() const
     {
-        return Id;
+        return id;
     }
 }

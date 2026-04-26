@@ -1,6 +1,7 @@
 #pragma once
 
 #include "elan/domain/Hall.h"
+#include "elan/common/Constants.h"
 
 namespace storage
 {
@@ -12,9 +13,9 @@ namespace domain
 {
     class Location
     {
-        int Id;
-        char Address[36];
-        Hall Halls[5];
+        int id;
+        char address[constants::ADDRES_LENGTH];
+        Hall halls[constants::MAX_HALLS];
 
         void SetId(int id);
 
