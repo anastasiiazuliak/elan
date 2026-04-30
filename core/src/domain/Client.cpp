@@ -25,7 +25,7 @@ namespace domain
         category = Categories::Age_16_plus;
     };
 
-    Client::Client(const char* firstName, const char* lastName, const char* patronymic, common::Date birthDate, const char* phone, int subscriptionId) : Person(firstName, lastName, patronymic, birthDate, phone)
+    Client::Client(const char* firstName, const char* lastName, const char* patronymic, common::Date birthDate, const char* phone, int subscriptionId, char* username) : Person(firstName, lastName, patronymic, birthDate, phone, username)
     {
         this->subscriptionId = subscriptionId;
         int age = GetAge();

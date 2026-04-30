@@ -11,6 +11,14 @@ namespace storage
 
 namespace domain
 {
+    enum class Role
+    {
+        Admin,
+        Client,
+        Employee,
+        Coach
+    };
+
     class Person
     {
         int id;
@@ -19,6 +27,9 @@ namespace domain
         char patronymic[constants::NAME_LENGTH];
         common::Date birthDate;
         char phone[constants::PHONE_LENGTH];
+        Role role;
+        unsigned long password;
+        char username[constants::NAME_LENGTH];
 
         void SetId(int id);
 
@@ -27,10 +38,11 @@ namespace domain
 
     public:
         Person();
-        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone);
+        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, char *username);
         int GetAge();
 
         int GetId() const;
     };
 
+    
 }

@@ -18,11 +18,12 @@ namespace domain
 
     class Client : public Person
     {
+        Role role = Role::Client;
         int subscriptionId;
         Categories category;
 
     public:
         Client();
-        Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId);
+        Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, char *username);
     };
 }

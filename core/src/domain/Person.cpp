@@ -1,7 +1,8 @@
+#include "elan/domain/Person.h"
+
 #include <iostream>
 #include <ctime>
 #include <cstring>
-#include "elan/domain/Person.h"
 
 namespace domain
 {
@@ -13,26 +14,28 @@ namespace domain
         strcpy(patronymic, "");
         birthDate = common::Date(1, 1, 2000);
         strcpy(phone, "");
+        strcpy(username, "");
     };
 
-    Person::Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone)
+    Person::Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, char *username)
     {
         strcpy(this->firstName, firstName);
         strcpy(this->lastName, lastName);
         strcpy(this->patronymic, patronymic);
         this->birthDate = birthDate;
         strcpy(this->phone, phone);
+        strcpy(this->username, username);
     };
-    
+
     int Person::GetAge()
     {
         std::time_t t = std::time(nullptr);
         std::tm *now = std::localtime(&t);
 
-        int age = (now->tm_year + 1900) - birthDate.Year;
+        int age = (now->tm_year + 1900) - birthDate.year;
 
-        if ((birthDate.Month > now->tm_mon + 1) ||
-            (birthDate.Month == now->tm_mon + 1 && birthDate.Day > now->tm_mday))
+        if ((birthDate.month > now->tm_mon + 1) ||
+            (birthDate.month == now->tm_mon + 1 && birthDate.day > now->tm_mday))
         {
             age--;
         }

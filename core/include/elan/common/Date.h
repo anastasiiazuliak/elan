@@ -4,9 +4,9 @@ namespace common
 {
     struct Date
     {
-        int Day;
-        int Month;
-        int Year;
+        int day;
+        int month;
+        int year;
 
         Date();
         Date(int day, int month, int year);

@@ -6,9 +6,9 @@ namespace common
 {
     Date::Date()
     {
-        Day = 1;
-        Month = 1;
-        Year = 2000;
+        day = 1;
+        month = 1;
+        year = 2000;
     };
 
     bool isDateValid(int day, int month, int year)
@@ -36,15 +36,15 @@ namespace common
     {
         if (isDateValid(day, month, year))
         {
-            Day = day;
-            Month = month;
-            Year = year;
+            day = day;
+            month = month;
+            year = year;
         }
         else
         {
-            Day = 1;
-            Month = 1;
-            Year = 2000;
+            day = 1;
+            month = 1;
+            year = 2000;
         }
     };
 }
