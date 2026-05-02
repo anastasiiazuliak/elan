@@ -36,15 +36,15 @@ namespace common
     {
         if (isDateValid(day, month, year))
         {
-            day = day;
-            month = month;
-            year = year;
+            this->day = day;
+            this->month = month;
+            this->year = year;
         }
         else
         {
-            day = 1;
-            month = 1;
-            year = 2000;
+            this->day = 1;
+            this->month = 1;
+            this->year = 2000;
         }
     };
 }
