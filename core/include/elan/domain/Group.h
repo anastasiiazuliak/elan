@@ -33,5 +33,6 @@ namespace domain
 
     public:
         int GetId() const;
+        int GetCoachId();
     };
 }

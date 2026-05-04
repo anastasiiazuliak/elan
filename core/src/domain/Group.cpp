@@ -11,4 +11,9 @@ namespace domain
     {
         return id;
     }
+
+    int Group::GetCoachId()
+    {
+        return coachId;
+    }
 }
