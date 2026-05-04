@@ -1,7 +1,5 @@
 #pragma once
 
-#include "elan/common/Time.h"
-
 enum class Day
 {
     Monday,
@@ -12,13 +10,30 @@ enum class Day
     Saturday
 };
 
+enum class Time
+{
+    T08_00,
+    T09_00,
+    T10_00,
+    T11_00,
+    T12_00,
+    T13_00,
+    T14_00,
+    T15_00,
+    T16_00,
+    T17_00,
+    T18_00,
+    T19_00,
+    T20_00
+};
+
 class Schedule
 {
     int id;
     int groupId = -1;
     int hallId;
     Day day;
-    common::Time time;
+    Time time;
 
     void SetId(int id);
 

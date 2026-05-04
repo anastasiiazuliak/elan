@@ -1,4 +1,5 @@
 #include "elan/domain/Person.h"
+#include "elan/common/Utils.h"
 
 #include <iostream>
 #include <ctime>
@@ -52,4 +53,15 @@ namespace domain
     {
         return id;
     }
+
+    void Person::SetPassword(const char *password)
+    {
+        this->password = utils::Hash(password);
+    }
+
+    bool Person::CheckPassword(const char *password) const
+    {
+        return this->password == utils::Hash(password);
+    }
+
 }

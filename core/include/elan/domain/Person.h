@@ -39,10 +39,12 @@ namespace domain
     public:
         Person();
         Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, char *username);
-        int GetAge();
 
+        int GetAge();
         int GetId() const;
+
+        void SetPassword(const char *password);
+        bool CheckPassword(const char *password) const;
     };
 
-    
 }
