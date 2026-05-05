@@ -27,13 +27,14 @@ enum class Time
     T20_00
 };
 
-class Schedule
+struct Schedule
 {
     int id;
     int groupId = -1;
     int hallId;
     Day day;
     Time time;
+    bool isOccupied = false;
 
     void SetId(int id);
 

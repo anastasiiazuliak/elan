@@ -3,12 +3,12 @@
 #include "elan/services/AuthService.h"
 #include "elan/domain/Person.h"
 
+storage::Storage<domain::Group> persons(
+    "../data/persons.bin",
+    "../data/persons_id.bin");
+
 namespace service
 {
-    AuthService::AuthService(storage::Storage<domain::Person> &persons) : persons(persons)
-    {
-    }
-
     domain::Person *AuthService::Login(const char *username, const char *password)
     {
         std::vector<domain::Person> allPersons = persons.GetAll();

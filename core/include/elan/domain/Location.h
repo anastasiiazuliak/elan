@@ -17,6 +17,7 @@ namespace domain
         int id;
         char address[constants::ADDRES_LENGTH];
         Hall halls[constants::MAX_HALLS];
+        int hallCount;
         Schedule schedule[constants::WORKING_DAYS][constants::WORKING_HOURS][constants::MAX_HALLS];
 
         void SetId(int id);
@@ -25,6 +26,14 @@ namespace domain
         friend class storage::Storage;
 
     public:
+        Location(const char *address);
         int GetId() const;
+
+        bool AddHall(Hall &hall);
+        bool RemoveHall(int hallId);
+        int FindHallIndexById(int hallId);
+
+        bool AddSchedule(Schedule &schedule);
+        bool RemoveSchedule(Schedule &Schedule);
     };
 }

@@ -25,6 +25,7 @@ namespace domain
         Style style;
         SkillLevel skillLevel;
         Client clients[constants::MAX_CLIENTS];
+        int countClients = 0;
 
         void SetId(int id);
 
@@ -32,7 +33,10 @@ namespace domain
         friend class storage::Storage;
 
     public:
+        Group(int coachId, Style style, SkillLevel skillLevel);
         int GetId() const;
         int GetCoachId();
+        bool AddClient(const Client &client);
+        bool RemoveClient(int clientId);
     };
 }

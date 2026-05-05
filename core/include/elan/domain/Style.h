@@ -10,7 +10,7 @@ namespace storage
 
 namespace domain
 {
-    class Style
+    struct Style
     {
         int id;
         char name[constants::NAME_LENGTH];

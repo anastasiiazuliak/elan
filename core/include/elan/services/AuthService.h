@@ -4,8 +4,6 @@ namespace service
 {
     class AuthService
     {
-        storage::Storage<domain::Person> &persons;
-
     public:
         AuthService(storage::Storage<domain::Person> &persons);
 

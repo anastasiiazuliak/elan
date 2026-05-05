@@ -3,7 +3,7 @@
 
 namespace domain
 {
-    enum class Categories
+    enum class Category
     {
         Age_3_5,
         Age_5_plus,
@@ -14,16 +14,17 @@ namespace domain
         Age_16_plus
     };
 
-    Categories determineCategory(int age);
+    Category determineCategory(int age);
 
     class Client : public Person
     {
         Role role = Role::Client;
         int subscriptionId;
-        Categories category;
+        Category category;
 
     public:
         Client();
         Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, char *username);
+        void ChangeSubscription(int subscriptionId);
     };
 }

@@ -15,7 +15,7 @@ namespace domain
     {
         int id;
         char name[constants::NAME_LENGTH];
-        Categories category;
+        Category category;
         int duration;
         int numberOfWorkouts;
 
@@ -25,6 +25,8 @@ namespace domain
         friend class storage::Storage;
 
     public:
+        Subscription();
+        Subscription(char *name, Category category, int duration, int numberOfWorkouts);
         int GetId() const;
     };
 }
