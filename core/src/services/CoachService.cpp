@@ -1,0 +1,52 @@
+#include "elan/services/CoachService.h"
+
+namespace service
+{
+    storage::Storage<domain::Coach> &coaches(
+        "../data/coaches.bin",
+        "../data/coaches_id.bin");
+
+    storage::Storage<domain::Style> &styles(
+        "../data/styles.bin",
+        "../data/styles_id.bin");
+
+    bool CoachService::AddStyleToCoach(int coachId, int styleId)
+    {
+        auto coachOpt = coaches.GetById(coachId);
+        auto styleOpt = styles.GetById(styleId);
+
+        if (!coachOpt.has_value() || !styleOpt.has_value())
+        {
+            return false;
+        }
+
+        auto coach = *coachOpt;
+        auto style = *styleOpt;
+
+        if (!coach.AddStyle(style))
+        {
+            return false;
+        }
+
+        return coaches.Update(coach);
+    }
+
+    bool CoachService::RemoveStyleFromCoach(int coachId, int styleId)
+    {
+        auto coachOpt = coaches.GetById(coachId);
+
+        if (!coachOpt.has_value())
+        {
+            return false;
+        }
+
+        auto coach = *coachOpt;
+
+        if (!coach.RemoveStyle(styleId))
+        {
+            return false;
+        }
+
+        return coaches.Update(coach);
+    }
+}

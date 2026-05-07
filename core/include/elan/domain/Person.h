@@ -38,7 +38,7 @@ namespace domain
 
     public:
         Person();
-        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, char *username);
+        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char* password, const char *username);
 
         int GetAge();
         int GetId() const;

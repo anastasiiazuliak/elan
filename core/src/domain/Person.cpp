@@ -18,13 +18,15 @@ namespace domain
         strcpy(username, "");
     };
 
-    Person::Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, char *username)
+    Person::Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char *password, const char *username)
     {
         strcpy(this->firstName, firstName);
         strcpy(this->lastName, lastName);
         strcpy(this->patronymic, patronymic);
         this->birthDate = birthDate;
         strcpy(this->phone, phone);
+        unsigned long p = utils::Hash(password);
+        this->password = p;
         strcpy(this->username, username);
     };
 

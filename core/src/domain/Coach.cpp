@@ -1,7 +1,21 @@
 #include "elan/domain/Coach.h"
 
+#include <cstring>
+
 namespace domain
 {
+        Coach::Coach(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone,   const char *description, domain::Style inputStyles[constants::MAX_STYLES], const char* password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
+        {
+            strcpy(this->description, description);
+
+            stylesCount = 0;
+            for (int i = 0; i < constants::MAX_STYLES; i++)
+            {
+                styles[stylesCount++] = inputStyles[i];
+            }
+        }
+
+
     bool Coach::AddStyle(Style &style)
     {
         if (stylesCount >= constants::MAX_STYLES)
