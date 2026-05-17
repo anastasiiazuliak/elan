@@ -2,11 +2,11 @@
 
 namespace service
 {
-    storage::Storage<domain::Coach> &coaches(
+    storage::Storage<domain::Coach> CoachService::coaches(
         "../data/coaches.bin",
         "../data/coaches_id.bin");
 
-    storage::Storage<domain::Style> &styles(
+    storage::Storage<domain::Style> CoachService::styles(
         "../data/styles.bin",
         "../data/styles_id.bin");
 

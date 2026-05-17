@@ -17,15 +17,17 @@ namespace domain
         int id;
         char address[constants::ADDRES_LENGTH];
         Hall halls[constants::MAX_HALLS];
-        int hallCount;
+        int hallCount = 0;
         Schedule schedule[constants::WORKING_DAYS][constants::WORKING_HOURS][constants::MAX_HALLS];
 
         void SetId(int id);
+        int GetNextHallId();
 
         template <typename T>
         friend class storage::Storage;
 
     public:
+        Location() = default;
         Location(const char *address);
         int GetId() const;
 
@@ -33,7 +35,12 @@ namespace domain
         bool RemoveHall(int hallId);
         int FindHallIndexById(int hallId);
 
-        bool AddSchedule(Schedule &schedule);
-        bool RemoveSchedule(Schedule &Schedule);
+        bool AddSchedule(const Schedule &schedule);
+        bool RemoveSchedule(const Schedule &schedule);
+
+        // Удаліть
+        void PrintLocation();
+        void PrintLocationHalls();
+        void PrintLocationSchedule();
     };
 }

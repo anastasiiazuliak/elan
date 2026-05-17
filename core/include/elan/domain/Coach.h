@@ -13,8 +13,12 @@ namespace domain
         char description[constants::DESCRIPTION_LENGTH];
 
     public:
-        Coach(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone,  const char *description, domain::Style inputStyles[constants::MAX_STYLES], const char* password, const char *username);
-        bool AddStyle(Style &style);
+        Coach() = default;
+        Coach(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone,  const char *description, const char* password, const char *username);
+        bool AddStyle(const Style &style);
         bool RemoveStyle(int styleId);
+
+        //Удаліть
+        void PrintCoach();
     };
 }

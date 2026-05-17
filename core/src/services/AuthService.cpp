@@ -1,24 +1,53 @@
 #include <cstring>
 
 #include "elan/services/AuthService.h"
-#include "elan/domain/Person.h"
-
-storage::Storage<domain::Group> persons(
-    "../data/persons.bin",
-    "../data/persons_id.bin");
 
 namespace service
 {
-    domain::Person *AuthService::Login(const char *username, const char *password)
-    {
-        std::vector<domain::Person> allPersons = persons.GetAll();
+    storage::Storage<domain::Employee> AuthService::employees(
+        "../data/employees.bin",
+        "../data/employees_id.bin");
 
-        for (auto &p : allPersons)
+    storage::Storage<domain::Coach> AuthService::coaches(
+        "../data/coaches.bin",
+        "../data/coaches_id.bin");
+
+    storage::Storage<domain::Client> AuthService::clients(
+        "../data/clients.bin",
+        "../data/clients_id.bin");
+
+    std::unique_ptr<domain::Person>
+    AuthService::Login(const char *username, const char *password)
+    {
+        auto cl = clients.GetAll();
+
+        for (auto &c : cl)
         {
-            if (strcmp(person.username, username) == 0 &&
-                person.CheckPassword(password))
+            if (strcmp(c.GetUsername(), username) == 0 &&
+                c.CheckPassword(password))
             {
-                return &person;
+                return std::make_unique<domain::Client>(c);
+            }
+        }
+
+        auto em = employees.GetAll();
+
+        for (auto &e : em)
+        {
+            if (strcmp(e.GetUsername(), username) == 0 &&
+                e.CheckPassword(password))
+            {
+                return std::make_unique<domain::Employee>(e);
+            }
+        }
+
+        auto coa = coaches.GetAll();
+
+        for (auto &co : coa)
+        {
+            if (strcmp(co.GetUsername(), username) == 0 && co.CheckPassword(password))
+            {
+                return std::make_unique<domain::Coach>(co);
             }
         }
 

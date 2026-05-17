@@ -1,22 +1,16 @@
 #include "elan/domain/Coach.h"
 
 #include <cstring>
+#include <iostream>
 
 namespace domain
 {
-        Coach::Coach(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone,   const char *description, domain::Style inputStyles[constants::MAX_STYLES], const char* password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
-        {
-            strcpy(this->description, description);
+    Coach::Coach(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char *description, const char *password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
+    {
+        strcpy(this->description, description);
+    }
 
-            stylesCount = 0;
-            for (int i = 0; i < constants::MAX_STYLES; i++)
-            {
-                styles[stylesCount++] = inputStyles[i];
-            }
-        }
-
-
-    bool Coach::AddStyle(Style &style)
+    bool Coach::AddStyle(const Style &style)
     {
         if (stylesCount >= constants::MAX_STYLES)
         {
@@ -63,5 +57,35 @@ namespace domain
         stylesCount--;
 
         return true;
+    }
+
+    // Удаліть
+    void Coach::PrintCoach()
+    {
+        std::cout << "========== COACH ==========\n";
+
+        std::cout << "ID: " << id << "\n";
+
+        std::cout << "Name: "
+                  << firstName << " "
+                  << lastName << " "
+                  << patronymic << "\n";
+
+        std::cout << "Phone: "
+                  << phone << "\n";
+
+        std::cout << "Description: "
+                  << description << "\n";
+
+        std::cout << "Styles:\n";
+
+        for (int i = 0; i < stylesCount; i++)
+        {
+            std::cout << "- "
+                      << styles[i].GetName()
+                      << "\n";
+        }
+
+        std::cout << "\n";
     }
 }

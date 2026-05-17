@@ -9,7 +9,8 @@ namespace service
 {
     class GroupService
     {
-        
+        static storage::Storage<domain::Group> groups;
+        static storage::Storage<domain::Client> clients;
     public:
         std::vector<domain::Group> GetGroupsByCoachId(int id);
         

@@ -1,11 +1,5 @@
 #pragma once
 
-namespace storage
-{
-    template <typename T>
-    class Storage;
-}
-
 namespace domain
 {
     enum class HallType
@@ -21,16 +15,13 @@ namespace domain
         HallType type;
         int capacity;
 
-        void SetId(int id);
         void SetTypeByCapacity(int capacity);
 
-        template <typename T>
-        friend class storage::Storage;
-
-    public:
-        Hall();
+        Hall() = default;
         Hall(int capacity);
 
-        int GetId() const;
+
+        //Удаліть
+        void PrintHall();
     };
 }

@@ -1,13 +1,12 @@
 #include "elan/services/LocationService.h"
-#include "elan/storage/Storage.h"
-
-storage::Storage<domain::Location> locations(
-    "../data/location.bin",
-    "../data/location_id.bin");
 
 namespace service
 {
-    bool LocationService::AddHall(int locationId, domain::Hall& hall)
+    storage::Storage<domain::Location> LocationService::locations(
+        "../data/locations.bin",
+        "../data/locations_id.bin");
+
+    bool LocationService::AddHall(int locationId, domain::Hall &hall)
     {
         auto locOpt = locations.GetById(locationId);
         if (!locOpt.has_value())
@@ -43,7 +42,7 @@ namespace service
         return locations.Update(loc);
     }
 
-        bool LocationService::AddSchedule(int locationId, domain::Schedule s)
+    bool LocationService::AddSchedule(int locationId, const domain::Schedule &s)
     {
         auto locOpt = locations.GetById(locationId);
         if (!locOpt.has_value())
@@ -61,7 +60,7 @@ namespace service
         return locations.Update(loc);
     }
 
-    bool LocationService::RemoveSchedule(int locationId, domain::Schedule s)
+    bool LocationService::RemoveSchedule(int locationId, const domain::Schedule &s)
     {
         auto locOpt = locations.GetById(locationId);
         if (!locOpt.has_value())

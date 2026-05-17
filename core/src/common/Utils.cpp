@@ -2,7 +2,7 @@
 
 namespace utils
 {
-    static unsigned long Hash(const std::string &password)
+    unsigned long Hash(const std::string &password)
     {
         unsigned long hash = 5381;
 

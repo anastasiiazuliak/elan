@@ -1,15 +1,10 @@
 #include "elan/domain/Hall.h"
 #include <stdexcept>
 
+#include <iostream>
+
 namespace domain
 {
-    Hall::Hall()
-    {
-        id = -1;
-        type = HallType::Medium;
-        capacity = 10;
-    }
-
     void Hall::SetTypeByCapacity(int capacity)
     {
         if (capacity <= 8)
@@ -37,13 +32,32 @@ namespace domain
         SetTypeByCapacity(capacity);
     }
 
-    void Hall::SetId(int id)
+    //Удаліть
+    void Hall::PrintHall()
     {
-        this->id = id;
-    }
+        std::cout << "========== HALL ==========\n";
 
-    int Hall::GetId() const
-    {
-        return id;
+        std::cout << "ID: " << id << "\n";
+
+        std::cout << "Type: ";
+
+        switch (type)
+        {
+        case HallType::Individual:
+            std::cout << "Individual";
+            break;
+
+        case HallType::Medium:
+            std::cout << "Medium";
+            break;
+
+        case HallType::Large:
+            std::cout << "Large";
+            break;
+        }
+
+        std::cout << "\nCapacity: " << capacity << "\n";
+
+        std::cout << "\n";
     }
 }

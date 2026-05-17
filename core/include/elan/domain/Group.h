@@ -33,10 +33,14 @@ namespace domain
         friend class storage::Storage;
 
     public:
+        Group() = default;
         Group(int coachId, Style style, SkillLevel skillLevel);
         int GetId() const;
         int GetCoachId();
         bool AddClient(const Client &client);
         bool RemoveClient(int clientId);
+
+        // Удаліть
+        void PrintGroup();
     };
 }

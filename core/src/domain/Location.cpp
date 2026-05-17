@@ -1,6 +1,8 @@
 #include "elan/domain/Location.h"
 #include <cstring>
 
+#include <iostream>
+
 namespace domain
 {
     Location::Location(const char *address)
@@ -9,28 +11,42 @@ namespace domain
         this->address[constants::ADDRES_LENGTH - 1] = '\0';
 
         hallCount = 0;
+
+        for (int d = 0; d < constants::WORKING_DAYS; d++)
+            for (int t = 0; t < constants::WORKING_HOURS; t++)
+                for (int h = 0; h < constants::MAX_HALLS; h++)
+                    schedule[d][t][h].isOccupied = false;
+    }
+
+    int Location::GetNextHallId()
+    {
+        int maxId = 0;
+
+        for (int i = 0; i < hallCount; i++)
+        {
+            if (halls[i].id > maxId)
+            {
+                maxId = halls[i].id;
+            }
+        }
+
+        return maxId + 1;
     }
 
     bool Location::AddHall(Hall &hall)
     {
+        hall.id = GetNextHallId();
         if (hallCount >= constants::MAX_HALLS)
-        {
             return false;
+
+        for (int i = 0; i < hallCount; i++)
+        {
+            if (halls[i].id == hall.id)
+                return false;
         }
 
-        if (hallCount == 0)
-        {
-            halls[hallCount] = hall;
-            hallCount++;
-        }
-        else
-        {
-            for (int i = 0; i < hallCount; i++)
-            {
-                halls[i].GetId() == hall.GetId();
-                return false;
-            }
-        }
+        halls[hallCount++] = hall;
+        return true;
     }
 
     bool Location::RemoveHall(int hallId)
@@ -39,7 +55,7 @@ namespace domain
 
         for (int i = 0; i < hallCount; i++)
         {
-            if (halls[i].GetId() == hallId)
+            if (halls[i].id == hallId)
             {
                 index = i;
                 break;
@@ -65,7 +81,7 @@ namespace domain
     {
         for (int i = 0; i < hallCount; i++)
         {
-            if (halls[i].GetId() == hallId)
+            if (halls[i].id == hallId)
             {
                 return i;
             }
@@ -74,7 +90,7 @@ namespace domain
         return -1;
     }
 
-    bool Location::AddSchedule(Schedule &s)
+    bool Location::AddSchedule(const Schedule &s)
     {
         int d = static_cast<int>(s.day);
         int t = static_cast<int>(s.time);
@@ -97,7 +113,7 @@ namespace domain
         return true;
     }
 
-    bool Location::RemoveSchedule(Schedule &s)
+    bool Location::RemoveSchedule(const Schedule &s)
     {
         int d = static_cast<int>(s.day);
         int t = static_cast<int>(s.time);
@@ -127,5 +143,65 @@ namespace domain
     int Location::GetId() const
     {
         return id;
+    }
+
+    // Удаліть
+    void Location::PrintLocation()
+    {
+        std::cout << "========== LOCATION ==========\n";
+
+        std::cout << "ID: " << id << "\n";
+        std::cout << "Address: " << address << "\n";
+
+        std::cout << "Halls count: " << hallCount << "\n";
+
+        std::cout << "\n";
+    }
+
+    void Location::PrintLocationHalls()
+    {
+        std::cout << "========== HALLS ==========\n";
+
+        if (hallCount == 0)
+        {
+            std::cout << "No halls available\n";
+            return;
+        }
+
+        for (int i = 0; i < hallCount; i++)
+        {
+            std::cout << "Hall #" << i + 1 << "\n";
+            halls[i].PrintHall();
+            std::cout << "--------------------------\n";
+        }
+    }
+
+    void Location::PrintLocationSchedule()
+    {
+        std::cout << "========== SCHEDULE ==========\n";
+
+        bool empty = true;
+
+        for (int d = 0; d < constants::WORKING_DAYS; d++)
+        {
+            for (int t = 0; t < constants::WORKING_HOURS; t++)
+            {
+                for (int h = 0; h < hallCount; h++)
+                {
+                    if (schedule[d][t][h].isOccupied)
+                    {
+                        empty = false;
+                        schedule[d][t][h].PrintSchedule();
+                    }
+                }
+            }
+        }
+
+        if (empty)
+        {
+            std::cout << "No scheduled sessions\n";
+        }
+
+        std::cout << "\n";
     }
 }

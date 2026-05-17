@@ -1,7 +1,7 @@
 #pragma once
 
-#include "elan/domain/Client.h"
 #include "elan/common/Constants.h"
+#include "elan/common/Category.h"
 
 namespace storage
 {
@@ -15,7 +15,7 @@ namespace domain
     {
         int id;
         char name[constants::NAME_LENGTH];
-        Category category;
+        common::Category category;
         int duration;
         int numberOfWorkouts;
 
@@ -25,8 +25,12 @@ namespace domain
         friend class storage::Storage;
 
     public:
-        Subscription();
-        Subscription(char *name, Category category, int duration, int numberOfWorkouts);
+        Subscription() = default;
+        Subscription(char *name, common::Category category, int duration, int numberOfWorkouts);
         int GetId() const;
+        const char* GetName() const;
+
+        //Удаліть
+        void PrintSubscription();
     };
 }

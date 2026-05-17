@@ -10,7 +10,7 @@ namespace storage
 
 namespace domain
 {
-    struct Style
+    class Style
     {
         int id;
         char name[constants::NAME_LENGTH];
@@ -22,6 +22,12 @@ namespace domain
         friend class storage::Storage;
 
     public:
+        Style() = default;
+        Style(const char *name, const char *description);
         int GetId() const;
+
+        // Удаліть
+        void PrintStyle();
+        const char* GetName();
     };
 }

@@ -21,6 +21,7 @@ namespace domain
 
     class Person
     {
+    protected:
         int id;
         char firstName[constants::NAME_LENGTH];
         char lastName[constants::NAME_LENGTH];
@@ -38,10 +39,12 @@ namespace domain
 
     public:
         Person();
-        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char* password, const char *username);
+        Person(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char *password, const char *username);
 
         int GetAge();
         int GetId() const;
+
+        const char* GetUsername() const;
 
         void SetPassword(const char *password);
         bool CheckPassword(const char *password) const;

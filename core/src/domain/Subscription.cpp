@@ -1,17 +1,11 @@
 #include "elan/domain/Subscription.h"
 #include <cstring>
 
+#include <iostream>
+
 namespace domain
 {
-     Subscription::Subscription()
-    {
-        id = -1;
-        name[0] = '\0';
-        duration = 0;
-        numberOfWorkouts = 0;
-    }
-
-    Subscription::Subscription(char *name, Category category, int duration, int numberOfWorkouts)
+    Subscription::Subscription(char *name, common::Category category, int duration, int numberOfWorkouts)
     {
         this->id = -1;
 
@@ -31,5 +25,51 @@ namespace domain
     int Subscription::GetId() const
     {
         return id;
+    }
+
+    const char *Subscription::GetName() const
+    {
+        return name;
+    }
+
+    //Удаліть
+    void Subscription::PrintSubscription()
+    {
+        std::cout << "========== SUBSCRIPTION ==========\n";
+
+        std::cout << "ID: " << id << "\n";
+        std::cout << "Name: " << name << "\n";
+
+        std::cout << "Category: ";
+
+        switch (category)
+        {
+        case common::Category::Age_3_5:
+            std::cout << "3-5 years";
+            break;
+        case common::Category::Age_5_plus:
+            std::cout << "5+ years";
+            break;
+        case common::Category::Age_6_plus:
+            std::cout << "6+ years";
+            break;
+        case common::Category::Age_7_plus:
+            std::cout << "7+ years";
+            break;
+        case common::Category::Age_10_12:
+            std::cout << "10-12 years";
+            break;
+        case common::Category::Age_14_plus:
+            std::cout << "14+ years";
+            break;
+        case common::Category::Age_16_plus:
+            std::cout << "16+ years";
+            break;
+        }
+
+        std::cout << "\nDuration: " << duration << " days\n";
+        std::cout << "Workouts: " << numberOfWorkouts << "\n";
+
+        std::cout << "\n";
     }
 }

@@ -56,6 +56,11 @@ namespace domain
         return id;
     }
 
+    const char* Person::GetUsername() const
+    {
+        return username;
+    }
+
     void Person::SetPassword(const char *password)
     {
         this->password = utils::Hash(password);

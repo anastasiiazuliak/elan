@@ -1,12 +1,22 @@
+#pragma once
+
+#include <memory>
+
+#include "elan/domain/Client.h"
+#include "elan/domain/Coach.h"
+#include "elan/domain/Employee.h"
 #include "elan/storage/Storage.h"
 
 namespace service
 {
     class AuthService
     {
-    public:
-        AuthService(storage::Storage<domain::Person> &persons);
+        static storage::Storage<domain::Client> clients;
+        static storage::Storage<domain::Coach> coaches;
+        static storage::Storage<domain::Employee> employees;
 
-        domain::Person *Login(const char *username, const char *password);
+    public:
+        static std::unique_ptr<domain::Person>
+        Login(const char *username, const char *password);
     };
 }
