@@ -43,4 +43,4 @@
 # Build folder
 build/
 
-.bin
+*.bin
