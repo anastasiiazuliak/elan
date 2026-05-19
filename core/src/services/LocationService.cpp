@@ -21,7 +21,7 @@ namespace service
             return false;
         }
 
-        return locations.Update(loc);
+        return locations.Update(locationId, loc);
     }
 
     bool LocationService::RemoveHall(int locationId, int hallId)
@@ -39,7 +39,7 @@ namespace service
             return false;
         }
 
-        return locations.Update(loc);
+        return locations.Update(locationId, loc);
     }
 
     bool LocationService::AddSchedule(int locationId, const domain::Schedule &s)
@@ -57,7 +57,7 @@ namespace service
             return false;
         }
 
-        return locations.Update(loc);
+        return locations.Update(locationId, loc);
     }
 
     bool LocationService::RemoveSchedule(int locationId, const domain::Schedule &s)
@@ -75,6 +75,6 @@ namespace service
             return false;
         }
 
-        return locations.Update(loc);
+        return locations.Update(locationId, loc);
     }
 }

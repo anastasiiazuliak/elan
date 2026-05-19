@@ -3,6 +3,9 @@
 #include "elan/common/Constants.h"
 #include "elan/common/Category.h"
 
+#include <cstring>
+#include <iostream>
+
 namespace storage
 {
     template <typename T>
@@ -26,9 +29,12 @@ namespace domain
 
     public:
         Subscription() = default;
-        Subscription(char *name, common::Category category, int duration, int numberOfWorkouts);
+        Subscription(const char* name, common::Category category, int duration, int numberOfWorkouts);
         int GetId() const;
         const char* GetName() const;
+        const common::Category GetCategory() const;
+        const int GetDuration() const;
+        const int GetNumberOfWorkouts() const;
 
         //Удаліть
         void PrintSubscription();

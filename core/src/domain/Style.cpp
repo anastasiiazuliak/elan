@@ -1,7 +1,7 @@
 #include "elan/domain/Style.h"
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 namespace domain
 {
@@ -24,9 +24,14 @@ namespace domain
         this->description[constants::DESCRIPTION_LENGTH - 1] = '\0';
     }
 
-    const char* Style::GetName()
+    const char *Style::GetName() const
     {
         return name;
+    }
+
+    const char *Style::GetDescription() const
+    {
+        return description;
     }
 
     // Удаліть

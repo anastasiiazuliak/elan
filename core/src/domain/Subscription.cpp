@@ -5,7 +5,8 @@
 
 namespace domain
 {
-    Subscription::Subscription(char *name, common::Category category, int duration, int numberOfWorkouts)
+
+    Subscription::Subscription(const char *name, common::Category category, int duration, int numberOfWorkouts)
     {
         this->id = -1;
 
@@ -30,6 +31,21 @@ namespace domain
     const char *Subscription::GetName() const
     {
         return name;
+    }
+
+    const common::Category Subscription::GetCategory()
+    {
+        return category;
+    }
+
+    const int Subscription::GetDuration()
+    {
+        return duration;
+    }
+
+    const int Subscription::GetNumberOfWorkouts()
+    {
+        return numberOfWorkouts;
     }
 
     //Удаліть

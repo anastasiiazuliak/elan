@@ -10,8 +10,6 @@ namespace domain
     {
         std::cout << "========== SCHEDULE ==========\n";
 
-        std::cout << "ID: " << id << "\n";
-
         std::cout << "Group ID: " << groupId << "\n";
         std::cout << "Hall ID: " << hallId << "\n";
 

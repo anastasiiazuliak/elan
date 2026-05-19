@@ -44,7 +44,7 @@ namespace service
             return false;
         }
 
-        return groups.Update(group);
+        return groups.Update(group.GetId(), group);
     }
 
     bool GroupService::RemoveClientFromGroup(int groupId, int clientId)
@@ -63,6 +63,6 @@ namespace service
             return false;
         }
 
-        return groups.Update(group);
+        return groups.Update(group.GetId(), group);
     }
 }

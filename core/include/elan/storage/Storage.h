@@ -15,7 +15,7 @@ namespace storage
         void Add(T& entity);
         std::optional<T> GetById(int id);
         std::vector<T> GetAll();
-        bool Update(const T& updated);
+        bool Update(int id, const T& updated);
         bool Delete(int id);
     };
 }

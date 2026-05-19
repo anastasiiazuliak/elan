@@ -23,6 +23,6 @@ namespace service
 
         client.ChangeSubscription(subscriptionId);
 
-        return clients.Update(client);
+        return clients.Update(client.GetId(), client);
     }
 }

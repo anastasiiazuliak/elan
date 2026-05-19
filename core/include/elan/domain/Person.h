@@ -43,6 +43,7 @@ namespace domain
 
         int GetAge();
         int GetId() const;
+        Role GetRole();
 
         const char* GetUsername() const;
 

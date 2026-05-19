@@ -71,4 +71,8 @@ namespace domain
         return this->password == utils::Hash(password);
     }
 
+    Role Person::GetRole()
+    {
+        return role;
+    }
 }

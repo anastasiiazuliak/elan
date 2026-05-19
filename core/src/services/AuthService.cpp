@@ -15,6 +15,10 @@ namespace service
     storage::Storage<domain::Client> AuthService::clients(
         "../data/clients.bin",
         "../data/clients_id.bin");
+        
+    storage::Storage<domain::Admin> AuthService::admin(
+        "../data/admin.bin",
+        "../data/admin_id.bin");
 
     std::unique_ptr<domain::Person>
     AuthService::Login(const char *username, const char *password)
@@ -48,6 +52,16 @@ namespace service
             if (strcmp(co.GetUsername(), username) == 0 && co.CheckPassword(password))
             {
                 return std::make_unique<domain::Coach>(co);
+            }
+        }
+
+        auto ad = admin.GetAll();
+
+        for (auto &a : ad)
+        {
+            if (strcmp(a.GetUsername(), username) == 0 && a.CheckPassword(password))
+            {
+                return std::make_unique<domain::Admin>(a);
             }
         }
 

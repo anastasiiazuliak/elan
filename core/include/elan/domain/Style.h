@@ -25,9 +25,11 @@ namespace domain
         Style() = default;
         Style(const char *name, const char *description);
         int GetId() const;
+        const char* GetName() const;
+        const char*GetDescription() const;
 
         // Удаліть
         void PrintStyle();
-        const char* GetName();
+        
     };
 }

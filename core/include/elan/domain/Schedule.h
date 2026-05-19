@@ -31,8 +31,7 @@ namespace domain
 
     struct Schedule
     {
-        int id;
-        int groupId = -1;
+        int groupId;
         int hallId;
         Day day;
         Time time;

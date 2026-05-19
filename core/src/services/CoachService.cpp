@@ -28,7 +28,7 @@ namespace service
             return false;
         }
 
-        return coaches.Update(coach);
+        return coaches.Update(coach.GetId(), coach);
     }
 
     bool CoachService::RemoveStyleFromCoach(int coachId, int styleId)
@@ -47,6 +47,6 @@ namespace service
             return false;
         }
 
-        return coaches.Update(coach);
+        return coaches.Update(coach.GetId(), coach);
     }
 }

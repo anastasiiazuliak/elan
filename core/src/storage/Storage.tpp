@@ -59,7 +59,7 @@ namespace storage
     }
 
     template <typename T>
-    bool Storage<T>::Update(const T &updated)
+    bool Storage<T>::Update(int id, const T &updated)
     {
         auto all = GetAll();
 
@@ -67,9 +67,10 @@ namespace storage
 
         for (auto &x : all)
         {
-            if (x.GetId() == updated.GetId())
+            if (x.GetId() == id)
             {
                 x = updated;
+                x.SetId(id); 
                 found = true;
                 break;
             }
@@ -80,8 +81,11 @@ namespace storage
 
         std::ofstream file(file_Name, std::ios::binary | std::ios::trunc);
 
-        for (auto &x : all)
-            file.write(reinterpret_cast<char *>(&x), sizeof(T));
+        if (!file.is_open())
+            return false;
+
+        for (const auto &item : all)
+            file.write(reinterpret_cast<const char *>(&item), sizeof(T));
 
         return true;
     }
