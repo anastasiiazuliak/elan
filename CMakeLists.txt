@@ -31,8 +31,10 @@ include_directories(
 # when new files are added.
 file(GLOB_RECURSE SOURCES
     app/*.cpp
+    core/src/api/*.cpp
     core/src/common/*.cpp
     core/src/domain/*.cpp
+    core/src/dtos/*.cpp
     core/src/services/*.cpp
     core/src/storage/*.cpp
 )
@@ -42,6 +44,13 @@ file(GLOB_RECURSE SOURCES
 # ============================================
 # Create the final executable from collected source files.
 add_executable(ELAN ${SOURCES})
+
+# ============================================
+# Link Libraries
+# ============================================
+target_include_directories(ELAN PRIVATE
+    ${CMAKE_SOURCE_DIR}/vcpkg/installed/x64-mingw-dynamic/include
+)
 
 # ============================================
 # Notes

@@ -3,8 +3,13 @@
         {
             "name": "Win32",
             "includePath": [
+                "${workspaceFolder}/vcpkg/installed/x64-mingw-dynamic/include",
+
                 "${workspaceFolder}/core/include",
-                "${workspaceFolder}/src"
+                "${workspaceFolder}/core/src"
+
+                
+
             ],
             "defines": [
                 "_DEBUG",
