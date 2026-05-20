@@ -3,12 +3,12 @@
 namespace service
 {
     storage::Storage<domain::Group> GroupService::groups(
-        "../data/groups.bin",
-        "../data/groups_id.bin");
+        constants::GROUPS_FILE,
+        constants::GROUPS_ID_FILE);
 
     storage::Storage<domain::Client> GroupService::clients(
-        "../data/clients.bin",
-        "../data/clients_id.bin");
+        constants::CLIENTS_FILE,
+        constants::CLIENTS_ID_FILE);
 
     std::vector<domain::Group> GroupService::GetGroupsByCoachId(int id)
     {

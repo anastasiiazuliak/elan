@@ -2,36 +2,36 @@
 #include <iostream>
 
 storage::Storage<domain::Subscription> App::subscriptions(
-    "../data/subscriptions.bin",
-    "../data/subscriptions_id.bin");
+    constants::SUBSCRIPTIONS_FILE,
+    constants::SUBSCRIPTIONS_ID_FILE);
 
 storage::Storage<domain::Client> App::clients(
-    "../data/clients.bin",
-    "../data/clients_id.bin");
+    constants::CLIENTS_FILE,
+    constants::CLIENTS_ID_FILE);
 
 storage::Storage<domain::Style> App::styles(
-    "../data/styles.bin",
-    "../data/styles_id.bin");
+    constants::STYLES_FILE,
+    constants::STYLES_ID_FILE);
 
 storage::Storage<domain::Location> App::locations(
-    "../data/locations.bin",
-    "../data/locations_id.bin");
+    constants::LOCATIONS_FILE,
+    constants::LOCATIONS_ID_FILE);
 
 storage::Storage<domain::Group> App::groups(
-    "../data/groups.bin",
-    "../data/groups_id.bin");
+    constants::GROUPS_FILE,
+    constants::GROUPS_ID_FILE);
 
 storage::Storage<domain::Employee> App::employees(
-    "../data/employees.bin",
-    "../data/employees_id.bin");
+    constants::EMPLOYEES_FILE,
+    constants::EMPLOYEES_ID_FILE);
 
 storage::Storage<domain::Coach> App::coaches(
-    "../data/coaches.bin",
-    "../data/coaches_id.bin");
+    constants::COACHES_FILE,
+    constants::COACHES_ID_FILE);
 
 storage::Storage<domain::Admin> App::admin(
-        "../data/admin.bin",
-        "../data/admin_id.bin");
+        constants::ADMIN_FILE,
+        constants::ADMIN_ID_FILE);
 
 void App::addTestData()
 {

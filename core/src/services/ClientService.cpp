@@ -3,12 +3,12 @@
 namespace service
 {
     storage::Storage<domain::Subscription> ClientService::subscriptions(
-        "../data/subscriptions.bin",
-        "../data/subscriptions_id.bin");
+        constants::SUBSCRIPTIONS_FILE,
+        constants::SUBSCRIPTIONS_ID_FILE);
 
     storage::Storage<domain::Client> ClientService::clients(
-        "../data/clients.bin",
-        "../data/clients_id.bin");
+        constants::CLIENTS_FILE,
+        constants::CLIENTS_ID_FILE);
 
     bool ClientService::ChangeClientSubscription(int clientId, int subscriptionId)
     {

@@ -8,8 +8,8 @@
 namespace api
 {
     storage::Storage<domain::Subscription> SubscriptionController::subscriptions(
-        "../data/subscriptions.bin",
-        "../data/subscriptions_id.bin"
+        constants::SUBSCRIPTIONS_FILE,
+        constants::SUBSCRIPTIONS_ID_FILE
     );
 
     void SubscriptionController::RegisterRoutes(crow::SimpleApp &app)

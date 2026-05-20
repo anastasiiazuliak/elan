@@ -3,8 +3,8 @@
 namespace service
 {
     storage::Storage<domain::Location> LocationService::locations(
-        "../data/locations.bin",
-        "../data/locations_id.bin");
+        constants::LOCATIONS_FILE,
+        constants::LOCATIONS_ID_FILE);
 
     bool LocationService::AddHall(int locationId, domain::Hall &hall)
     {

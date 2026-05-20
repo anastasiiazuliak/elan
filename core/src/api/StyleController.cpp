@@ -8,8 +8,8 @@
 namespace api
 {
     storage::Storage<domain::Style> StyleController::styles(
-        "../data/styles.bin",
-        "../data/styles_id.bin"
+        constants::STYLES_FILE,
+        constants::STYLES_ID_FILE
     );
 
     void StyleController::RegisterRoutes(crow::SimpleApp &app)

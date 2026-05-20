@@ -5,20 +5,20 @@
 namespace service
 {
     storage::Storage<domain::Employee> AuthService::employees(
-        "../data/employees.bin",
-        "../data/employees_id.bin");
+        constants::EMPLOYEES_FILE,
+        constants::EMPLOYEES_ID_FILE);
 
     storage::Storage<domain::Coach> AuthService::coaches(
-        "../data/coaches.bin",
-        "../data/coaches_id.bin");
+        constants::COACHES_FILE,
+        constants::COACHES_ID_FILE);
 
     storage::Storage<domain::Client> AuthService::clients(
-        "../data/clients.bin",
-        "../data/clients_id.bin");
+        constants::CLIENTS_FILE,
+        constants::CLIENTS_ID_FILE);
         
     storage::Storage<domain::Admin> AuthService::admin(
-        "../data/admin.bin",
-        "../data/admin_id.bin");
+        constants::ADMIN_FILE,
+        constants::ADMIN_ID_FILE);
 
     std::unique_ptr<domain::Person>
     AuthService::Login(const char *username, const char *password)

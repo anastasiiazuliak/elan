@@ -3,12 +3,12 @@
 namespace service
 {
     storage::Storage<domain::Coach> CoachService::coaches(
-        "../data/coaches.bin",
-        "../data/coaches_id.bin");
+        constants::COACHES_FILE,
+        constants::COACHES_ID_FILE);
 
     storage::Storage<domain::Style> CoachService::styles(
-        "../data/styles.bin",
-        "../data/styles_id.bin");
+        constants::STYLES_FILE,
+        constants::STYLES_ID_FILE);
 
     bool CoachService::AddStyleToCoach(int coachId, int styleId)
     {
