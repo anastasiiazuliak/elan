@@ -33,17 +33,17 @@ namespace domain
         return name;
     }
 
-    const common::Category Subscription::GetCategory()
+    const common::Category Subscription::GetCategory() const
     {
         return category;
     }
 
-    const int Subscription::GetDuration()
+    const int Subscription::GetDuration() const
     {
         return duration;
     }
 
-    const int Subscription::GetNumberOfWorkouts()
+    const int Subscription::GetNumberOfWorkouts() const
     {
         return numberOfWorkouts;
     }
