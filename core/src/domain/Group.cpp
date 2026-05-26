@@ -4,25 +4,25 @@
 
 namespace domain
 {
-    Group::Group(int coachId, Style style, SkillLevel skillLevel)
+    Group::Group(int coachId, int styleId, SkillLevel skillLevel)
     {
         this->coachId = coachId;
-        this->style = style;
+        this->styleId = styleId;
         this->skillLevel = skillLevel;
     }
 
     bool Group::AddClient(const Client &client)
     {
-        if (countClients >= constants::MAX_CLIENTS)
+        if (clientsCount >= constants::MAX_CLIENTS)
             return false;
 
-        for (int i = 0; i < countClients; i++)
+        for (int i = 0; i < clientsCount; i++)
         {
             if (clients[i].GetId() == client.GetId())
                 return false;
         }
 
-        clients[countClients++] = client;
+        clients[clientsCount++] = client;
         return true;
     }
 
@@ -30,7 +30,7 @@ namespace domain
     {
         int index = -1;
 
-        for (int i = 0; i < countClients; i++)
+        for (int i = 0; i < clientsCount; i++)
         {
             if (clients[i].GetId() == clientId)
             {
@@ -44,12 +44,12 @@ namespace domain
             return false;
         }
 
-        for (int i = index; i < countClients - 1; i++)
+        for (int i = index; i < clientsCount - 1; i++)
         {
             clients[i] = clients[i + 1];
         }
 
-        countClients--;
+        clientsCount--;
 
         return true;
     }
@@ -64,12 +64,27 @@ namespace domain
         return id;
     }
 
-    int Group::GetCoachId()
+    int Group::GetCoachId() const
     {
         return coachId;
     }
 
-    //Удаліть
+    SkillLevel Group::GetSkillLevel() const
+    {
+        return skillLevel;
+    }
+
+    int Group::GetStyleId() const
+    {
+        return styleId;
+    }
+
+    int Group::GetClientCount() const
+    {
+        return clientsCount;
+    }
+
+    // Удаліть
     void Group::PrintGroup()
     {
         std::cout << "========== GROUP ==========\n";
@@ -94,11 +109,11 @@ namespace domain
 
         std::cout << "\n";
 
-        std::cout << "Style: " << style.GetName() << "\n";
+        std::cout << "Style: " << styleId << "\n";
 
-        std::cout << "Clients (" << countClients << "):\n";
+        std::cout << "Clients (" << clientsCount << "):\n";
 
-        for (int i = 0; i < countClients; i++)
+        for (int i = 0; i < clientsCount; i++)
         {
             std::cout << "- "
                       << i + 1 << ". "

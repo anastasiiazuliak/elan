@@ -10,7 +10,7 @@ namespace dtos
             s.GetDescription()};
     }
 
-    domain::Style FromDto(const dtos::StyleDto &dto)
+    domain::Style FromDto(const StyleDto &dto)
     {
         return domain::Style(
             dto.name.c_str(),

@@ -145,6 +145,16 @@ namespace domain
         return id;
     }
 
+    const char *Location::GetAddress() const
+    {
+        return address;
+    }
+
+    int Location::GetHallCount() const
+    {
+        return hallCount;
+    }
+
     // Удаліть
     void Location::PrintLocation()
     {

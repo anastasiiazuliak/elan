@@ -22,10 +22,10 @@ namespace domain
     {
         int id;
         int coachId;
-        Style style;
+        int styleId;
         SkillLevel skillLevel;
         Client clients[constants::MAX_CLIENTS];
-        int countClients = 0;
+        int clientsCount = 0;
 
         void SetId(int id);
 
@@ -34,9 +34,12 @@ namespace domain
 
     public:
         Group() = default;
-        Group(int coachId, Style style, SkillLevel skillLevel);
+        Group(int coachId, int styleId, SkillLevel skillLevel);
         int GetId() const;
-        int GetCoachId();
+        int GetCoachId() const;
+        SkillLevel GetSkillLevel() const;
+        int GetStyleId() const;
+        int GetClientCount() const;
         bool AddClient(const Client &client);
         bool RemoveClient(int clientId);
 

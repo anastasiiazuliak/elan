@@ -47,4 +47,32 @@ namespace common
             this->year = 2000;
         }
     };
+
+    Date ParseDate(const std::string &str)
+    {
+        Date d;
+
+        sscanf(
+            str.c_str(),
+            "%d-%d-%d",
+            &d.year,
+            &d.month,
+            &d.day);
+
+        return d;
+    }
+
+    std::string FormatDate(const Date &d)
+    {
+        char buffer[11];
+
+        sprintf(
+            buffer,
+            "%04d-%02d-%02d",
+            d.year,
+            d.month,
+            d.day);
+
+        return std::string(buffer);
+    }
 }

@@ -13,10 +13,13 @@ namespace domain
 
     public:
         Client();
-        Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, char* password, char *username);
+        Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, const char *password, const char *username);
+
+        int GetSubscriptionId() const;
+
         void ChangeSubscription(int subscriptionId);
 
-        //Удаліть
+        // Удаліть
         void PrintClient();
     };
 }

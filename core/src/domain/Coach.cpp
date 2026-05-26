@@ -10,7 +10,22 @@ namespace domain
         strcpy(this->description, description);
     }
 
-    bool Coach::AddStyle(const Style &style)
+    const int *Coach::GetStyleIds() const
+    {
+        return styles;
+    }
+
+    int Coach::GetStylesCount() const
+    {
+        return stylesCount;
+    }
+
+    const char *Coach::GetDescription() const
+    {
+        return description;
+    }
+
+    bool Coach::AddStyle(int &styleId)
     {
         if (stylesCount >= constants::MAX_STYLES)
         {
@@ -19,13 +34,13 @@ namespace domain
 
         for (int i = 0; i < stylesCount; i++)
         {
-            if (styles[i].GetId() == style.GetId())
+            if (styles[i] == styleId)
             {
                 return false;
             }
         }
 
-        styles[stylesCount] = style;
+        styles[stylesCount] = styleId;
         stylesCount++;
 
         return true;
@@ -37,7 +52,7 @@ namespace domain
 
         for (int i = 0; i < stylesCount; i++)
         {
-            if (styles[i].GetId() == styleId)
+            if (styles[i] == styleId)
             {
                 index = i;
                 break;
@@ -82,7 +97,7 @@ namespace domain
         for (int i = 0; i < stylesCount; i++)
         {
             std::cout << "- "
-                      << styles[i].GetName()
+                      << styles[i]
                       << "\n";
         }
 

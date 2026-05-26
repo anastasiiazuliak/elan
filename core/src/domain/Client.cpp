@@ -10,11 +10,16 @@ namespace domain
         category = common::Category::Age_16_plus;
     };
 
-    Client::Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, char *password, char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
+    Client::Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, const char *password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
     {
         this->subscriptionId = subscriptionId;
         int age = GetAge();
         category = common::determineCategory(age);
+    }
+
+    int Client::GetSubscriptionId() const
+    {
+        return subscriptionId;
     }
 
     void Client::ChangeSubscription(int subscriptionId)

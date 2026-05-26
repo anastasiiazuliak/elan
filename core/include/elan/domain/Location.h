@@ -30,6 +30,8 @@ namespace domain
         Location() = default;
         Location(const char *address);
         int GetId() const;
+        const char *GetAddress() const;
+        int GetHallCount() const;
 
         bool AddHall(Hall &hall);
         bool RemoveHall(int hallId);

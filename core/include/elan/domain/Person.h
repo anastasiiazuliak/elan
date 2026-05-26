@@ -43,9 +43,13 @@ namespace domain
 
         int GetAge();
         int GetId() const;
+        const char *GetFirstName() const;
+        const char *GetLastName() const;
+        const char *GetPatronymic() const;
+        common::Date GetBirthDate() const;
+        const char *GetPhone() const;
+        const char *GetUsername() const;
         Role GetRole();
-
-        const char* GetUsername() const;
 
         void SetPassword(const char *password);
         bool CheckPassword(const char *password) const;

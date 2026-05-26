@@ -56,7 +56,32 @@ namespace domain
         return id;
     }
 
-    const char* Person::GetUsername() const
+    const char *Person::GetFirstName() const
+    {
+        return firstName;
+    }
+
+    const char *Person::GetLastName() const
+    {
+        return lastName;
+    }
+
+    const char *Person::GetPatronymic() const
+    {
+        return patronymic;
+    }
+
+    common::Date Person::GetBirthDate() const
+    {
+        return birthDate;
+    }
+
+    const char *Person::GetPhone() const
+    {
+        return phone;
+    }
+
+    const char *Person::GetUsername() const
     {
         return username;
     }

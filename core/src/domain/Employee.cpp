@@ -12,7 +12,17 @@ namespace domain
         this->email[constants::EMAIL_LENGTH - 1] = '\0';
     }
 
-    //Удаліть
+    int Employee::GetLocationId() const
+    {
+        return locationId;
+    }
+
+    const char *Employee::GetEmail() const
+    {
+        return email;
+    }
+
+    // Удаліть
     void Employee::PrintEmployee()
     {
         std::cout << "========== EMPLOYEE ==========\n";

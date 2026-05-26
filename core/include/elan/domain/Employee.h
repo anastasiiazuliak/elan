@@ -14,6 +14,9 @@ namespace domain
         Employee() = default;
         Employee(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int locationId, const char *email, const char *password, const char *username);
 
+        int GetLocationId() const;
+        const char *GetEmail() const;
+
         // Удаліть
         void PrintEmployee();
     };
