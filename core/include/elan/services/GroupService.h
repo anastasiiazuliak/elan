@@ -12,9 +12,9 @@ namespace service
         static storage::Storage<domain::Group> groups;
         static storage::Storage<domain::Client> clients;
     public:
-        std::vector<domain::Group> GetGroupsByCoachId(int id);
+        static std::vector<domain::Group> GetGroupsByCoachId(int id);
         
-        bool AddClientToGroup(int groupId, int clientId);
-        bool RemoveClientFromGroup(int groupId, int clientId);
+        static bool AddClientToGroup(int groupId, int clientId);
+        static bool RemoveClientFromGroup(int groupId, int clientId);
     };
 }

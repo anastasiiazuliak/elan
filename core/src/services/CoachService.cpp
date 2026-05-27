@@ -21,9 +21,8 @@ namespace service
         }
 
         auto coach = *coachOpt;
-        auto style = *styleOpt;
 
-        if (!coach.AddStyle(style))
+        if (!coach.AddStyle(styleId))
         {
             return false;
         }

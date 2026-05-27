@@ -15,7 +15,7 @@ namespace service
         std::vector<domain::Group> allGroups = groups.GetAll();
         std::vector<domain::Group> coachGroups;
 
-        for (auto g : allGroups)
+        for (const auto &g : allGroups)
         {
             if (g.GetCoachId() == id)
             {
