@@ -196,5 +196,24 @@ namespace api
 
             return crow::response(200, "client removed");
         });
+
+        //SCHEDULE FOR GROUP
+        CROW_ROUTE(app, "/groups/<int>/schedule")
+        ([](int groupId)
+        {
+            auto schedule = service::GroupService::GetScheduleByGroup(groupId);
+
+            crow::json::wvalue res;
+
+            for (size_t i = 0; i < schedule.size(); i++)
+            {
+                res[i]["groupId"] = schedule[i].groupId;
+                res[i]["hallId"] = schedule[i].hallId;
+                res[i]["day"] = static_cast<int>(schedule[i].day);
+                res[i]["time"] = static_cast<int>(schedule[i].time);
+            }
+
+            return crow::response(res);
+        });
     }
 }

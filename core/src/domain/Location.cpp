@@ -77,7 +77,30 @@ namespace domain
         return true;
     }
 
-    int Location::FindHallIndexById(int hallId)
+    bool Location::UpdateHall(int hallId, int capacity)
+    {
+        int index = FindHallIndexById(hallId);
+
+        if (index == -1)
+            return false;
+
+        halls[index].capacity = capacity;
+        halls[index].SetTypeByCapacity(capacity);
+
+        return true;
+    }
+
+    std::vector<Hall> Location::GetHalls() const
+    {
+        std::vector<Hall> result;
+
+        for (int i = 0; i < hallCount; i++)
+            result.push_back(halls[i]);
+
+        return result;
+    }
+
+    int Location::FindHallIndexById(int hallId) const
     {
         for (int i = 0; i < hallCount; i++)
         {
@@ -88,6 +111,16 @@ namespace domain
         }
 
         return -1;
+    }
+
+     const Hall* Location::GetHallById(int hallId) const
+    {
+        int index = FindHallIndexById(hallId);
+
+        if (index == -1)
+            return nullptr;
+
+        return &halls[index];
     }
 
     bool Location::AddSchedule(const Schedule &s)
@@ -135,6 +168,25 @@ namespace domain
         return true;
     }
 
+    std::vector<Schedule> Location::GetScheduleList() const
+    {
+        std::vector<Schedule> result;
+
+        for (int d = 0; d < constants::WORKING_DAYS; d++)
+        {
+            for (int t = 0; t < constants::WORKING_HOURS; t++)
+            {
+                for (int h = 0; h < constants::MAX_HALLS; h++)
+                {
+                    if (schedule[d][t][h].isOccupied)
+                        result.push_back(schedule[d][t][h]);
+                }
+            }
+        }
+
+        return result;
+    }
+
     void Location::SetId(int id)
     {
         this->id = id;
@@ -148,6 +200,12 @@ namespace domain
     const char *Location::GetAddress() const
     {
         return address;
+    }
+
+    void Location::SetAddress(const char *address)
+    {
+        strncpy(this->address, address, sizeof(this->address) - 1);
+        this->address[sizeof(this->address) - 1] = '\0';
     }
 
     int Location::GetHallCount() const

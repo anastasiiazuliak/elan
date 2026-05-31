@@ -10,6 +10,10 @@ namespace service
         constants::CLIENTS_FILE,
         constants::CLIENTS_ID_FILE);
 
+    storage::Storage<domain::Location> GroupService::locations(
+        constants::LOCATIONS_FILE,
+        constants::LOCATIONS_ID_FILE);
+
     std::vector<domain::Group> GroupService::GetGroupsByCoachId(int id)
     {
         std::vector<domain::Group> allGroups = groups.GetAll();
@@ -64,5 +68,24 @@ namespace service
         }
 
         return groups.Update(group.GetId(), group);
+    }
+
+    std::vector<domain::Schedule> GroupService::GetScheduleByGroup(int groupId)
+    {
+        std::vector<domain::Schedule> result;
+
+        auto locationsAll = locations.GetAll();
+
+        for (const auto& loc : locationsAll)
+        {
+            auto part = service::LocationService::GetScheduleByGroup(
+                loc.GetId(),
+                groupId
+            );
+
+            result.insert(result.end(), part.begin(), part.end());
+        }
+
+        return result;
     }
 }

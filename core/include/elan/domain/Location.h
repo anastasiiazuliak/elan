@@ -4,6 +4,8 @@
 #include "elan/common/Constants.h"
 #include "elan/domain/Schedule.h"
 
+#include <vector>
+
 namespace storage
 {
     template <typename T>
@@ -29,16 +31,23 @@ namespace domain
     public:
         Location() = default;
         Location(const char *address);
+
+        void SetAddress(const char* address);
+
         int GetId() const;
         const char *GetAddress() const;
         int GetHallCount() const;
+        std::vector<Hall> Location::GetHalls() const;
 
         bool AddHall(Hall &hall);
         bool RemoveHall(int hallId);
-        int FindHallIndexById(int hallId);
+        bool Location::UpdateHall(int hallId, int capacity);
+        const Hall* GetHallById(int hallId) const;
+        int FindHallIndexById(int hallId) const;
 
         bool AddSchedule(const Schedule &schedule);
         bool RemoveSchedule(const Schedule &schedule);
+        std::vector<Schedule> Location::GetScheduleList() const;
 
         // Удаліть
         void PrintLocation();
