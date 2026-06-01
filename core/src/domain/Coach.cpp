@@ -25,7 +25,7 @@ namespace domain
         return description;
     }
 
-    bool Coach::AddStyle(int &styleId)
+    bool Coach::AddStyle(int styleId)
     {
         if (stylesCount >= constants::MAX_STYLES)
         {

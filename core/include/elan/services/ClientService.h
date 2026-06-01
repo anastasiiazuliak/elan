@@ -12,6 +12,6 @@ namespace service
         static storage::Storage<domain::Client> clients;
 
     public:
-        bool ChangeClientSubscription(int clientId, int subscriptionId);
+        static bool ChangeClientSubscription(int clientId, int subscriptionId);
     };
 }

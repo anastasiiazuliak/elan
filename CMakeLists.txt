@@ -65,4 +65,7 @@ target_include_directories(ELAN PRIVATE
 #     Windows / Linux / macOS
 #
 # - Designed for scalability and clean project structure
-# ============================================
+# ===========================================
+
+#Compiler definition
+add_compile_definitions(_WIN32_WINNT=0x0601)

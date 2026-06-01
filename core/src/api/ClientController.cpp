@@ -1,0 +1,165 @@
+#include "elan/api/ClientController.h"
+#include "elan/dtos/ClientDto.h"
+#include "elan/services/ClientService.h"
+
+#ifdef DELETE
+#undef DELETE
+#endif
+
+namespace api
+{
+    storage::Storage<domain::Client> ClientController::clients(
+        constants::CLIENTS_FILE,
+        constants::CLIENTS_ID_FILE
+    );
+
+    void ClientController::RegisterRoutes(crow::SimpleApp& app)
+    {
+        // CREATE
+        CROW_ROUTE(app, "/clients")
+        .methods(crow::HTTPMethod::POST)
+        ([](const crow::request& req)
+        {
+            auto body = crow::json::load(req.body);
+
+            if (!body)
+                return crow::response(400, "Invalid JSON");
+
+            dtos::ClientRequestDto dto;
+
+            dto.firstName = std::string(body["firstName"].s());
+            dto.lastName = std::string(body["lastName"].s());
+            dto.patronymic = std::string(body["patronymic"].s());
+            dto.birthDate = std::string(body["birthDate"].s());
+            dto.phone = std::string(body["phone"].s());
+            dto.username = std::string(body["username"].s());
+            dto.password = std::string(body["password"].s());
+            dto.subscriptionId = body["subscriptionId"].i();
+
+            auto client = dtos::FromDto(dto);
+
+            clients.Add(client);
+
+            return crow::response(201, "created");
+        });
+
+        // READ ALL
+        CROW_ROUTE(app, "/clients")
+        ([]()
+        {
+            auto all = clients.GetAll();
+
+            crow::json::wvalue res;
+
+            int i = 0;
+
+            for (const auto& c : all)
+            {
+                auto dto = dtos::ToDto(c);
+
+                res[i]["id"] = dto.id;
+                res[i]["firstName"] = dto.firstName;
+                res[i]["lastName"] = dto.lastName;
+                res[i]["patronymic"] = dto.patronymic;
+                res[i]["birthDate"] = dto.birthDate;
+                res[i]["phone"] = dto.phone;
+                res[i]["username"] = dto.username;
+                res[i]["subscriptionId"] = dto.subscriptionId;
+
+                i++;
+            }
+
+            return crow::response(res);
+        });
+
+        // READ ONE
+        CROW_ROUTE(app, "/clients/<int>")
+        ([](int id)
+        {
+            auto opt = clients.GetById(id);
+
+            if (!opt)
+                return crow::response(404, "Not found");
+
+            auto dto = dtos::ToDto(opt.value());
+
+            crow::json::wvalue res;
+
+            res["id"] = dto.id;
+            res["firstName"] = dto.firstName;
+            res["lastName"] = dto.lastName;
+            res["patronymic"] = dto.patronymic;
+            res["birthDate"] = dto.birthDate;
+            res["phone"] = dto.phone;
+            res["username"] = dto.username;
+            res["subscriptionId"] = dto.subscriptionId;
+
+            return crow::response(res);
+        });
+
+        // UPDATE
+        CROW_ROUTE(app, "/clients/<int>")
+        .methods(crow::HTTPMethod::PUT)
+        ([](const crow::request& req, int id)
+        {
+            auto body = crow::json::load(req.body);
+
+            if (!body)
+                return crow::response(400, "Invalid JSON");
+
+            auto opt = clients.GetById(id);
+
+            if (!opt)
+                return crow::response(404, "Not found");
+
+            dtos::ClientRequestDto dto;
+
+            dto.firstName = std::string(body["firstName"].s());
+            dto.lastName = std::string(body["lastName"].s());
+            dto.patronymic = std::string(body["patronymic"].s());
+            dto.birthDate = std::string(body["birthDate"].s());
+            dto.phone = std::string(body["phone"].s());
+            dto.username = std::string(body["username"].s());
+            dto.password = std::string(body["password"].s());
+            dto.subscriptionId = body["subscriptionId"].i();
+
+            auto updated = dtos::FromDto(dto);
+
+            clients.Update(id, updated);
+
+            return crow::response("updated");
+        });
+
+        // DELETE
+        CROW_ROUTE(app, "/clients/<int>")
+        .methods(crow::HTTPMethod::DELETE)
+        ([](int id)
+        {
+            clients.Delete(id);
+
+            return crow::response("deleted");
+        });
+
+        // CHANGE SUBSCRIPTION
+        CROW_ROUTE(app, "/clients/<int>/subscription/<int>")
+        .methods(crow::HTTPMethod::PATCH)
+        ([](int clientId, int subscriptionId)
+        {
+            bool ok =
+                service::ClientService::ChangeClientSubscription(
+                    clientId,
+                    subscriptionId);
+
+            if (!ok)
+            {
+                return crow::response(
+                    400,
+                    "Cannot change subscription");
+            }
+
+            return crow::response(
+                200,
+                "subscription changed");
+        });
+    }
+}

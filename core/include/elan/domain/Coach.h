@@ -19,7 +19,7 @@ namespace domain
         int GetStylesCount() const;
         const char *GetDescription() const;
 
-        bool AddStyle(int &style);
+        bool AddStyle(int style);
         bool RemoveStyle(int styleId);
 
         // Удаліть

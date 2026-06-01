@@ -6,11 +6,11 @@ int main()
 {
     App t;
     //t.addTestData();
-    t.LoginMenu();
-   // crow::SimpleApp app;
+    //t.LoginMenu();
+   crow::SimpleApp app;
 
-    //api::StyleController::RegisterRoutes(app);
+    api::StyleController::RegisterRoutes(app);
 
-    //app.port(18080).multithreaded().run();
+    app.port(18080).multithreaded().run();
     return 0;
 }

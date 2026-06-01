@@ -30,12 +30,12 @@ storage::Storage<domain::Coach> App::coaches(
     constants::COACHES_ID_FILE);
 
 storage::Storage<domain::Admin> App::admin(
-        constants::ADMIN_FILE,
-        constants::ADMIN_ID_FILE);
+    constants::ADMIN_FILE,
+    constants::ADMIN_ID_FILE);
 
 void App::addTestData()
 {
-    //Адмін
+    // Адмін
     domain::Admin a("Анастасія", "Зуляк", "Любомирівна", common::Date(28, 11, 2008), "0955681473", "2008", "anastasiiazuliak");
 
     admin.Add(a);
@@ -144,29 +144,29 @@ void App::addTestData()
         "sofia123",
         "sofia_coach");
 
-    coach1.AddStyle(s1);
-    coach1.AddStyle(s3);
-    coach1.AddStyle(s5);
+    coach1.AddStyle(s1.GetId());
+    coach1.AddStyle(s3.GetId());
+    coach1.AddStyle(s5.GetId());
 
-    coach2.AddStyle(s2);
-    coach2.AddStyle(s6);
-    coach2.AddStyle(s8);
+    coach2.AddStyle(s2.GetId());
+    coach2.AddStyle(s6.GetId());
+    coach2.AddStyle(s8.GetId());
 
-    coach3.AddStyle(s8);
-    coach3.AddStyle(s1);
-    coach3.AddStyle(s4);
+    coach3.AddStyle(s8.GetId());
+    coach3.AddStyle(s1.GetId());
+    coach3.AddStyle(s4.GetId());
 
     coaches.Add(coach1);
     coaches.Add(coach2);
     coaches.Add(coach3);
 
     // Групи
-    domain::Group g1(1, s1, domain::SkillLevel::Beginner);
-    domain::Group g2(2, s2, domain::SkillLevel::Intermediate);
-    domain::Group g3(3, s3, domain::SkillLevel::Advanced);
-    domain::Group g4(1, s4, domain::SkillLevel::Beginner);
-    domain::Group g5(2, s5, domain::SkillLevel::Intermediate);
-    domain::Group g6(3, s6, domain::SkillLevel::Advanced);
+    domain::Group g1(1, s1.GetId(), domain::SkillLevel::Beginner);
+    domain::Group g2(2, s2.GetId(), domain::SkillLevel::Intermediate);
+    domain::Group g3(3, s3.GetId(), domain::SkillLevel::Advanced);
+    domain::Group g4(1, s4.GetId(), domain::SkillLevel::Beginner);
+    domain::Group g5(2, s5.GetId(), domain::SkillLevel::Intermediate);
+    domain::Group g6(3, s6.GetId(), domain::SkillLevel::Advanced);
 
     groups.Add(g1);
     groups.Add(g2);
@@ -597,7 +597,7 @@ void App::GroupsMenu()
 
             domain::Group group(
                 coachId,
-                style,
+                style.GetId(),
                 static_cast<domain::SkillLevel>(skillLevelInt));
 
             groups.Add(group);
@@ -1211,34 +1211,34 @@ void App::LoginMenu()
 
     std::cout << "\nLogin successful!\n";
 
-/*
-    switch (user->GetRole())
-    {
-    case domain::Role::Admin:
-        std::cout << "Logged as ADMIN\n";
-        ShowMainMenu();
-        break;
+    /*
+        switch (user->GetRole())
+        {
+        case domain::Role::Admin:
+            std::cout << "Logged as ADMIN\n";
+            ShowMainMenu();
+            break;
 
-    case domain::Role::Coach:
-        std::cout << "Logged as COACH\n";
-        CoachesMenu();
-        break;
+        case domain::Role::Coach:
+            std::cout << "Logged as COACH\n";
+            CoachesMenu();
+            break;
 
-    case domain::Role::Employee:
-        std::cout << "Logged as EMPLOYEE\n";
-        EmployeesMenu();
-        break;
+        case domain::Role::Employee:
+            std::cout << "Logged as EMPLOYEE\n";
+            EmployeesMenu();
+            break;
 
-    case domain::Role::Client:
-        std::cout << "Logged as CLIENT\n";
-        ClientsMenu();
-        break;
-    
+        case domain::Role::Client:
+            std::cout << "Logged as CLIENT\n";
+            ClientsMenu();
+            break;
 
-    default:
-        std::cout << "Unknown role\n";
-        break;
-    }*/
+
+        default:
+            std::cout << "Unknown role\n";
+            break;
+        }*/
 
     ShowMainMenu();
 }

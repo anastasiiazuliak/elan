@@ -11,7 +11,7 @@ namespace service
         static storage::Storage<domain::Coach> coaches;
         static storage::Storage<domain::Style> styles;
     public:
-        bool AddStyleToCoach(int coachId, int styleId);
-        bool RemoveStyleFromCoach(int coachId, int styleId);
+        static bool AddStyleToCoach(int coachId, int styleId);
+        static bool RemoveStyleFromCoach(int coachId, int styleId);
     };
 }

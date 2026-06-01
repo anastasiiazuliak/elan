@@ -1,6 +1,6 @@
-#include <cstring>
-
 #include "elan/services/AuthService.h"
+
+#include <cstring>
 
 namespace service
 {
@@ -15,56 +15,51 @@ namespace service
     storage::Storage<domain::Client> AuthService::clients(
         constants::CLIENTS_FILE,
         constants::CLIENTS_ID_FILE);
-        
+
     storage::Storage<domain::Admin> AuthService::admin(
         constants::ADMIN_FILE,
         constants::ADMIN_ID_FILE);
 
-    std::unique_ptr<domain::Person>
-    AuthService::Login(const char *username, const char *password)
+    template <typename T>
+    std::optional<AuthResult> AuthService::TryAuth(const std::vector<T>& users, const char* username, const char* password, domain::Role role)
     {
-        auto cl = clients.GetAll();
-
-        for (auto &c : cl)
+        for (const auto& u : users)
         {
-            if (strcmp(c.GetUsername(), username) == 0 &&
-                c.CheckPassword(password))
+            if (strcmp(u.GetUsername(), username) == 0 &&
+                u.CheckPassword(password))
             {
-                return std::make_unique<domain::Client>(c);
+                return AuthResult{
+                    u.GetId(),
+                    u.GetUsername(),
+                    role
+                };
             }
         }
 
-        auto em = employees.GetAll();
+        return std::nullopt;
+    }
 
-        for (auto &e : em)
-        {
-            if (strcmp(e.GetUsername(), username) == 0 &&
-                e.CheckPassword(password))
-            {
-                return std::make_unique<domain::Employee>(e);
-            }
-        }
+    std::optional<AuthResult>
+    AuthService::Login(const char* username, const char* password)
+    {
+        if (auto r = TryAuth(clients.GetAll(), username, password, domain::Role::Client))
+            return r;
 
-        auto coa = coaches.GetAll();
+        if (auto r = TryAuth(employees.GetAll(), username, password, domain::Role::Employee))
+            return r;
 
-        for (auto &co : coa)
-        {
-            if (strcmp(co.GetUsername(), username) == 0 && co.CheckPassword(password))
-            {
-                return std::make_unique<domain::Coach>(co);
-            }
-        }
+        if (auto r = TryAuth(coaches.GetAll(), username, password, domain::Role::Coach))
+            return r;
 
-        auto ad = admin.GetAll();
+        if (auto r = TryAuth(admin.GetAll(), username, password, domain::Role::Admin))
+            return r;
 
-        for (auto &a : ad)
-        {
-            if (strcmp(a.GetUsername(), username) == 0 && a.CheckPassword(password))
-            {
-                return std::make_unique<domain::Admin>(a);
-            }
-        }
+        return std::nullopt;
+    }
 
-        return nullptr;
+    void AuthService::Logout(int userId)
+    {
+        // stateless auth → поки заглушка
+        // майбутнє: JWT blacklist або sessions
     }
 }
