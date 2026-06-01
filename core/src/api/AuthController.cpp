@@ -19,11 +19,10 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            const char* username = body["username"].s();
-            const char* password = body["password"].s();
+            std::string username = body["username"].s();
+            std::string password = body["password"].s();
 
-            auto result = service::AuthService::Login(username, password);
-
+            auto result = service::AuthService::Login(username.c_str(), password.c_str());
             if (!result.has_value())
             {
                 return crow::response(401, "Invalid credentials");
