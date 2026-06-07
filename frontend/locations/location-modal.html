@@ -1,0 +1,47 @@
+<div id="location-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="location-modal-title">Додати локацію</div>
+      <button class="close-btn" id="location-close">✕</button>
+    </div>
+    <div class="form-grid cols-1">
+      <div class="form-group">
+        <label for="location-address">Адреса</label>
+        <input id="location-address" type="text" placeholder="вул. Хрещатик, 1, Київ" />
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="location-cancel">Скасувати</button>
+      <button class="btn btn-primary" id="location-save">Зберегти</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD HALL MODAL -->
+<div id="hall-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="hall-modal-title">Додати зал</div>
+      <button class="close-btn" id="hall-close">✕</button>
+    </div>
+    <div class="form-grid cols-2">
+      <div class="form-group">
+        <label for="hall-capacity">Місткість</label>
+        <input id="hall-capacity" type="number" min="1" placeholder="20" />
+      </div>
+      <div class="form-group">
+        <label for="hall-type">Тип залу</label>
+        <select id="hall-type">
+          <option value="0">Танцювальний</option>
+          <option value="1">Кардіо</option>
+          <option value="2">Силовий</option>
+          <option value="3">Йога</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="hall-cancel">Скасувати</button>
+      <button class="btn btn-primary" id="hall-save">Зберегти</button>
+    </div>
+  </div>
+</div>

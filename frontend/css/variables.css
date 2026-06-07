@@ -1,0 +1,52 @@
+/* ═══════════════════════════════════════
+   variables.css — кольори, шрифти, база
+═══════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+
+:root {
+  /* Pink palette */
+  --pink-50:  #fff0f5;
+  --pink-100: #ffd6e7;
+  --pink-200: #ffadd0;
+  --pink-400: #f472b6;
+  --pink-500: #ec4899;
+  --pink-600: #db2777;
+
+  /* Neutral */
+  --bg:              #fff6fa;
+  --surface:         #ffffff;
+  --text-primary:    #1e1220;
+  --text-secondary:  #6b5a63;
+  --text-muted:      #a8949d;
+  --border:          #f3e0ea;
+
+  /* Layout */
+  --sidebar-w: 240px;
+  --topbar-h:  64px;
+
+  /* Shape */
+  --radius:    12px;
+  --radius-sm: 8px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(236,72,153,.08);
+  --shadow:    0 4px 16px rgba(236,72,153,.12);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+
+  position: relative;
+  overflow-x: hidden;
+}

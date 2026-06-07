@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan — Абонементи</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/sidebar.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/forms.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <main class="content">
+      <div class="page-header">
+        <h1>Абонементи</h1>
+        <button id="add-subscription-btn" class="btn btn-primary">+ Додати абонемент</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Список абонементів</div>
+          <div class="search-bar">
+            <input type="text" placeholder="Пошук абонементу..." oninput="filterTable(this, 'subscriptions-table')" />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="subscriptions-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Назва</th>
+                <th>Категорія</th>
+                <th>Тривалість (дні)</th>
+                <th>К-сть тренувань</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div id="subscriptions-info">Завантаження...</div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/frontend/layouts/sidebar.js"></script>
+    <script type="module" src="/frontend/subscriptions/subscriptions.js"></script>
+  </body>
+</html>

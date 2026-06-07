@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan — Клієнти</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/sidebar.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/forms.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <main class="content">
+      <div class="page-header">
+        <h1>Клієнти</h1>
+        <button id="add-client-btn" class="btn btn-primary">+ Додати клієнта</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Список клієнтів</div>
+          <div class="search-bar">
+            <input type="text" placeholder="Пошук клієнта..." oninput="filterTable(this, 'clients-table')" />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="clients-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>Телефон</th>
+                <th>Дата народження</th>
+                <th>Абонемент</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div id="clients-info">Завантаження...</div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/frontend/layouts/sidebar.js"></script>
+    <script type="module" src="/frontend/clients/clients.js"></script>
+  </body>
+</html>

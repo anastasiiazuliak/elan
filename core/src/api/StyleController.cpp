@@ -1,5 +1,6 @@
 #include "elan/api/StyleController.h"
 #include "elan/dtos/StyleDto.h"
+#include "elan/api/FileServer.h"
 
 #ifdef DELETE
 #undef DELETE
@@ -9,15 +10,13 @@ namespace api
 {
     storage::Storage<domain::Style> StyleController::styles(
         constants::STYLES_FILE,
-        constants::STYLES_ID_FILE
-    );
+        constants::STYLES_ID_FILE);
 
     void StyleController::RegisterRoutes(crow::SimpleApp &app)
     {
         // CREATE
-        CROW_ROUTE(app, "/styles").methods(crow::HTTPMethod::POST)
-        ([](const crow::request &req)
-        {
+        CROW_ROUTE(app, "/styles").methods(crow::HTTPMethod::POST)([](const crow::request &req)
+                                                                   {
             auto body = crow::json::load(req.body);
 
             if (!body)
@@ -31,13 +30,12 @@ namespace api
 
             styles.Add(domainObj);
 
-            return crow::response(201, "created");
-        });
+            return crow::response(201, "created"); });
 
         // READ ALL
         CROW_ROUTE(app, "/styles")
         ([]()
-        {
+         {
             auto all = styles.GetAll();
 
             crow::json::wvalue res;
@@ -54,13 +52,12 @@ namespace api
                 i++;
             }
 
-            return crow::response(res);
-        });
+            return crow::response(res); });
 
         // READ ONE
         CROW_ROUTE(app, "/styles/<int>")
         ([](int id)
-        {
+         {
             auto opt = styles.GetById(id);
 
             if (!opt)
@@ -73,13 +70,11 @@ namespace api
             res["name"] = dto.name;
             res["description"] = dto.description;
 
-            return crow::response(res);
-        });
+            return crow::response(res); });
 
         // UPDATE
-        CROW_ROUTE(app, "/styles/<int>").methods(crow::HTTPMethod::PUT)
-        ([](const crow::request &req, int id)
-        {
+        CROW_ROUTE(app, "/styles/<int>").methods(crow::HTTPMethod::PUT)([](const crow::request &req, int id)
+                                                                        {
             auto body = crow::json::load(req.body);
 
             if (!body)
@@ -99,15 +94,12 @@ namespace api
 
             styles.Update(id, updated);
 
-            return crow::response("updated");
-        });
+            return crow::response("updated"); });
 
         // DELETE
-        CROW_ROUTE(app, "/styles/<int>").methods(crow::HTTPMethod::DELETE)
-        ([&](int id)
-        {
+        CROW_ROUTE(app, "/styles/<int>").methods(crow::HTTPMethod::DELETE)([&](int id)
+                                                                           {
             styles.Delete(id);
-            return crow::response("deleted");
-        });
+            return crow::response("deleted"); });
     }
 }

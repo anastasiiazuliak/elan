@@ -1,0 +1,54 @@
+<div id="employee-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="employee-modal-title">Додати працівника</div>
+      <button class="close-btn" id="employee-close">✕</button>
+    </div>
+
+    <div class="form-grid cols-2">
+      <div class="form-group">
+        <label for="employee-firstName">Ім'я</label>
+        <input id="employee-firstName" type="text" placeholder="Марія" />
+      </div>
+      <div class="form-group">
+        <label for="employee-lastName">Прізвище</label>
+        <input id="employee-lastName" type="text" placeholder="Шевченко" />
+      </div>
+      <div class="form-group">
+        <label for="employee-patronymic">По батькові</label>
+        <input id="employee-patronymic" type="text" placeholder="Іванівна" />
+      </div>
+      <div class="form-group">
+        <label for="employee-birthDate">Дата народження</label>
+        <input id="employee-birthDate" type="date" />
+      </div>
+      <div class="form-group">
+        <label for="employee-phone">Телефон</label>
+        <input id="employee-phone" type="text" placeholder="+380..." />
+      </div>
+      <div class="form-group">
+        <label for="employee-email">Email</label>
+        <input id="employee-email" type="email" placeholder="maria@elan.ua" />
+      </div>
+      <div class="form-group">
+        <label for="employee-location">Локація</label>
+        <select id="employee-location">
+          <option value="">— Оберіть локацію —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="employee-username">Логін</label>
+        <input id="employee-username" type="text" placeholder="maria_s" />
+      </div>
+      <div class="form-group" id="employee-password-group">
+        <label for="employee-password">Пароль</label>
+        <input id="employee-password" type="password" placeholder="••••••••" />
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="employee-cancel">Скасувати</button>
+      <button class="btn btn-primary" id="employee-save">Зберегти</button>
+    </div>
+  </div>
+</div>

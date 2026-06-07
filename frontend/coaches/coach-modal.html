@@ -1,0 +1,52 @@
+<div id="coach-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="coach-modal-title">Додати тренера</div>
+      <button class="close-btn" id="coach-close">✕</button>
+    </div>
+
+    <div class="form-grid cols-2">
+      <div class="form-group">
+        <label for="coach-firstName">Ім'я</label>
+        <input id="coach-firstName" type="text" placeholder="Олена" />
+      </div>
+      <div class="form-group">
+        <label for="coach-lastName">Прізвище</label>
+        <input id="coach-lastName" type="text" placeholder="Коваль" />
+      </div>
+      <div class="form-group">
+        <label for="coach-patronymic">По батькові</label>
+        <input id="coach-patronymic" type="text" placeholder="Василівна" />
+      </div>
+      <div class="form-group">
+        <label for="coach-birthDate">Дата народження</label>
+        <input id="coach-birthDate" type="date" />
+      </div>
+      <div class="form-group">
+        <label for="coach-phone">Телефон</label>
+        <input id="coach-phone" type="text" placeholder="+380..." />
+      </div>
+      <div class="form-group">
+        <label for="coach-username">Логін</label>
+        <input id="coach-username" type="text" placeholder="coach_olena" />
+      </div>
+      <div class="form-group" id="coach-password-group">
+        <label for="coach-password">Пароль</label>
+        <input id="coach-password" type="password" placeholder="••••••••" />
+      </div>
+      <div class="form-group span2">
+        <label for="coach-description">Опис</label>
+        <textarea id="coach-description" placeholder="Досвід, спеціалізація..."></textarea>
+      </div>
+      <div class="form-group span2">
+        <label>Стилі</label>
+        <div id="coach-styles-checkboxes" class="checkbox-group"></div>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="coach-cancel">Скасувати</button>
+      <button class="btn btn-primary" id="coach-save">Зберегти</button>
+    </div>
+  </div>
+</div>

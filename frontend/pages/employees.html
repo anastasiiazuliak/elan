@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan — Працівники</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/sidebar.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/forms.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <main class="content">
+      <div class="page-header">
+        <h1>Працівники</h1>
+        <button id="add-employee-btn" class="btn btn-primary">+ Додати працівника</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Список працівників</div>
+          <div class="search-bar">
+            <input type="text" placeholder="Пошук працівника..." oninput="filterTable(this, 'employees-table')" />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="employees-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th>Локація</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div id="employees-info">Завантаження...</div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/frontend/layouts/sidebar.js"></script>
+    <script type="module" src="/frontend/employees/employees.js"></script>
+  </body>
+</html>

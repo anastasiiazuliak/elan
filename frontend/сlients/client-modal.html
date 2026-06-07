@@ -1,0 +1,50 @@
+<div id="client-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="client-modal-title">Додати клієнта</div>
+      <button class="close-btn" id="client-close">✕</button>
+    </div>
+
+    <div class="form-grid cols-2">
+      <div class="form-group">
+        <label for="client-firstName">Ім'я</label>
+        <input id="client-firstName" type="text" placeholder="Іван" />
+      </div>
+      <div class="form-group">
+        <label for="client-lastName">Прізвище</label>
+        <input id="client-lastName" type="text" placeholder="Петренко" />
+      </div>
+      <div class="form-group">
+        <label for="client-patronymic">По батькові</label>
+        <input id="client-patronymic" type="text" placeholder="Олексійович" />
+      </div>
+      <div class="form-group">
+        <label for="client-birthDate">Дата народження</label>
+        <input id="client-birthDate" type="date" />
+      </div>
+      <div class="form-group">
+        <label for="client-phone">Телефон</label>
+        <input id="client-phone" type="text" placeholder="+380..." />
+      </div>
+      <div class="form-group">
+        <label for="client-subscription">Абонемент</label>
+        <select id="client-subscription">
+          <option value="">— Оберіть абонемент —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="client-username">Логін</label>
+        <input id="client-username" type="text" placeholder="ivan_p" />
+      </div>
+      <div class="form-group" id="client-password-group">
+        <label for="client-password">Пароль</label>
+        <input id="client-password" type="password" placeholder="••••••••" />
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="client-cancel">Скасувати</button>
+      <button class="btn btn-primary" id="client-save">Зберегти</button>
+    </div>
+  </div>
+</div>
