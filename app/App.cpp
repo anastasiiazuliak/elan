@@ -50,9 +50,9 @@ void App::addTestData()
     subscriptions.Add(sub3);
 
     // клієети
-    domain::Client c1("Karina", "Havriluik", "Ihorvna", common::Date(2010, 4, 10), "0956182688", 1, "200828", "karina_client");
-    domain::Client c2("Stanislav", "Moscalu", "Michailovych", common::Date(2012, 6, 18), "380671223344", 2, "200828", "stas_client");
-    domain::Client c3("Andrii", "Hodan", "Olehrovych", common::Date(2014, 3, 25), "380931122233", 3, "200828", "andrii_client");
+    domain::Client c1("Karina", "Havriluik", "Ihorvna", common::Date(10, 4, 2010), "0956182688", 1, "200828", "karina_client");
+    domain::Client c2("Stanislav", "Moscalu", "Michailovych", common::Date(18, 6, 2012), "380671223344", 2, "200828", "stas_client");
+    domain::Client c3("Andrii", "Hodan", "Olehrovych", common::Date(25, 3, 2014), "380931122233", 3, "200828", "andrii_client");
 
     clients.Add(c1);
     clients.Add(c2);
@@ -118,7 +118,7 @@ void App::addTestData()
         "Alina",
         "Petrenko",
         "Olehivna",
-        common::Date(1998, 5, 12),
+        common::Date(12, 5, 1998),
         "380991112233",
         "Contemporary and fitness trainer with 5 years of experience",
         "alina123",
@@ -128,7 +128,7 @@ void App::addTestData()
         "Maksym",
         "Bondarenko",
         "Serhiiovych",
-        common::Date(1995, 9, 21),
+        common::Date(21, 9, 1995),
         "380671234567",
         "Hip-Hop trainer and choreographer",
         "maks123",
@@ -138,7 +138,7 @@ void App::addTestData()
         "Sofiia",
         "Koval",
         "Ivanivna",
-        common::Date(1993, 2, 3),
+        common::Date(3, 2, 1993),
         "380931119988",
         "Professional ballet and stretching instructor",
         "sofia123",
@@ -180,7 +180,7 @@ void App::addTestData()
         "Olena",
         "Marchuk",
         "Vasylivna",
-        common::Date(1999, 7, 14),
+        common::Date(14, 7, 1999),
         "380501112233",
         1,
         "olena.elan@gmail.com",
@@ -191,7 +191,7 @@ void App::addTestData()
         "Dmytro",
         "Kovalchuk",
         "Petrovych",
-        common::Date(1997, 11, 2),
+        common::Date(2, 11, 1997),
         "380671234890",
         2,
         "dmytro.elan@gmail.com",
@@ -202,7 +202,7 @@ void App::addTestData()
         "Iryna",
         "Shevchenko",
         "Mykolaivna",
-        common::Date(2001, 1, 25),
+        common::Date(25, 1, 2001),
         "380931117744",
         3,
         "iryna.elan@gmail.com",
@@ -593,7 +593,13 @@ void App::GroupsMenu()
             std::cout << "Skill level (0 Beginner, 1 Intermediate, 2 Advanced): ";
             std::cin >> skillLevelInt;
 
-            domain::Style style = styles.GetById(styleId).value();
+            auto styleOpt = styles.GetById(styleId);
+            if (!styleOpt)
+            {
+                std::cout << "Style not found!\n";
+                break;
+            }
+            domain::Style style = *styleOpt;
 
             domain::Group group(
                 coachId,
