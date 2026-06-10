@@ -1,6 +1,8 @@
 #include "elan/api/StyleController.h"
+
 #include "elan/dtos/StyleDto.h"
 #include "elan/api/FileServer.h"
+#include "elan/storage/Storages.h"
 
 #ifdef DELETE
 #undef DELETE
@@ -8,10 +10,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Style> StyleController::styles(
-        constants::STYLES_FILE,
-        constants::STYLES_ID_FILE);
-
     void StyleController::RegisterRoutes(crow::SimpleApp &app)
     {
         // CREATE
@@ -28,7 +26,7 @@ namespace api
 
             auto domainObj = dtos::FromDto(dto);
 
-            styles.Add(domainObj);
+            storages::Styles().Add(domainObj);
 
             return crow::response(201, "created"); });
 
@@ -36,7 +34,7 @@ namespace api
         CROW_ROUTE(app, "/styles")
         ([]()
          {
-            auto all = styles.GetAll();
+            auto all = storages::Styles().GetAll();
 
             crow::json::wvalue res;
 
@@ -58,7 +56,7 @@ namespace api
         CROW_ROUTE(app, "/styles/<int>")
         ([](int id)
          {
-            auto opt = styles.GetById(id);
+            auto opt = storages::Styles().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -80,7 +78,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = styles.GetById(id);
+            auto opt = storages::Styles().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -92,14 +90,14 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            styles.Update(id, updated);
+            storages::Styles().Update(id, updated);
 
             return crow::response("updated"); });
 
         // DELETE
         CROW_ROUTE(app, "/styles/<int>").methods(crow::HTTPMethod::DELETE)([&](int id)
                                                                            {
-            styles.Delete(id);
+            storages::Styles().Delete(id);
             return crow::response("deleted"); });
     }
 }

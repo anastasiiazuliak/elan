@@ -1,4 +1,5 @@
 #include "elan/api/GroupController.h"
+
 #include "elan/dtos/GroupDto.h"
 
 #ifdef DELETE
@@ -7,11 +8,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Group> GroupController::groups(
-        constants::GROUPS_FILE,
-        constants::GROUPS_ID_FILE
-    );
-
     void GroupController::RegisterRoutes(crow::SimpleApp &app)
     {
         // CREATE
@@ -35,7 +31,7 @@ namespace api
 
             auto domainObj = dtos::FromDto(dto);
 
-            groups.Add(domainObj);
+            storages::Groups().Add(domainObj);
 
             return crow::response(201, "created");
         });
@@ -44,7 +40,7 @@ namespace api
         CROW_ROUTE(app, "/groups")
         ([]()
         {
-            auto all = groups.GetAll();
+            auto all = storages::Groups().GetAll();
 
             crow::json::wvalue res;
 
@@ -73,7 +69,7 @@ namespace api
         CROW_ROUTE(app, "/groups/<int>")
         ([](int id)
         {
-            auto opt = groups.GetById(id);
+            auto opt = storages::Groups().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -104,7 +100,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = groups.GetById(id);
+            auto opt = storages::Groups().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -123,7 +119,7 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            groups.Update(id, updated);
+            storages::Groups().Update(id, updated);
 
             return crow::response("updated");
         });
@@ -133,7 +129,7 @@ namespace api
         .methods(crow::HTTPMethod::DELETE)
         ([](int id)
         {
-            groups.Delete(id);
+            storages::Groups().Delete(id);
 
             return crow::response("deleted");
         });

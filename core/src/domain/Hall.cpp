@@ -1,6 +1,7 @@
 #include "elan/domain/Hall.h"
-#include <stdexcept>
 
+#include <stdexcept>
+#include <cstring>
 #include <iostream>
 
 namespace domain
@@ -21,8 +22,10 @@ namespace domain
         }
     }
 
-    Hall::Hall(int capacity)
+    Hall::Hall(const char *name, int capacity)
     {
+        strcpy(this->name, name);
+
         if (capacity <= 0 || capacity > 25)
         {
             throw std::invalid_argument("Invalid hall capacity");
@@ -38,6 +41,8 @@ namespace domain
         std::cout << "========== HALL ==========\n";
 
         std::cout << "ID: " << id << "\n";
+
+        std::cout << "Name: " << name << "\n";
 
         std::cout << "Type: ";
 

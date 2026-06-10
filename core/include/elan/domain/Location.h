@@ -41,7 +41,7 @@ namespace domain
 
         bool AddHall(Hall &hall);
         bool RemoveHall(int hallId);
-        bool Location::UpdateHall(int hallId, int capacity);
+        bool Location::UpdateHall(int hallId, const char *name, int capacity);
         const Hall* GetHallById(int hallId) const;
         int FindHallIndexById(int hallId) const;
 

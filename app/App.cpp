@@ -78,16 +78,16 @@ void App::addTestData()
     styles.Add(s8);
 
     // зали
-    domain::Hall h1(24);
-    domain::Hall h2(20);
-    domain::Hall h3(14);
-    domain::Hall h4(10);
-    domain::Hall h5(5);
-    domain::Hall h6(8);
-    domain::Hall h7(7);
-    domain::Hall h8(9);
-    domain::Hall h9(11);
-    domain::Hall h10(16);
+    domain::Hall h1("one", 24);
+    domain::Hall h2("one", 20);
+    domain::Hall h3("one", 14);
+    domain::Hall h4("one", 10);
+    domain::Hall h5("one", 5);
+    domain::Hall h6("one", 8);
+    domain::Hall h7("one", 7);
+    domain::Hall h8("one", 9);
+    domain::Hall h9("one", 11);
+    domain::Hall h10("one", 16);
 
     // зали
     domain::Location l1("Heroiv Maidanu");
@@ -727,7 +727,11 @@ void App::LocationHallsMenu()
             std::cout << "Capacity: ";
             std::cin >> capacity;
 
-            domain::Hall hall(capacity);
+            std::cout<<"Name: ";
+            char name[50];
+            std::cin >> name;
+
+            domain::Hall hall(name, capacity);
 
             service.AddHall(locationId, hall);
 

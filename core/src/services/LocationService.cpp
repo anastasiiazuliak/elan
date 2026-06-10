@@ -1,14 +1,11 @@
 #include "elan/services/LocationService.h"
 
+
 namespace service
 {
-    storage::Storage<domain::Location> LocationService::locations(
-        constants::LOCATIONS_FILE,
-        constants::LOCATIONS_ID_FILE);
-
     bool LocationService::AddHall(int locationId, domain::Hall &hall)
     {
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
         if (!locOpt.has_value())
         {
             return false;
@@ -21,12 +18,12 @@ namespace service
             return false;
         }
 
-        return locations.Update(locationId, loc);
+        return storages::Locations().Update(locationId, loc);
     }
 
     bool LocationService::RemoveHall(int locationId, int hallId)
     {
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
         if (!locOpt.has_value())
         {
             return false;
@@ -39,27 +36,27 @@ namespace service
             return false;
         }
 
-        return locations.Update(locationId, loc);
+        return storages::Locations().Update(locationId, loc);
     }
 
-    bool LocationService::UpdateHall(int locationId, int hallId, int capacity)
+    bool LocationService::UpdateHall(int locationId, int hallId, const char *name,int capacity)
     {
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
 
         if (!locOpt)
             return false;
 
         auto loc = locOpt.value();
 
-        if (!loc.UpdateHall(hallId, capacity))
+        if (!loc.UpdateHall(hallId, name, capacity))
             return false;
 
-        return locations.Update(locationId, loc);
+        return storages::Locations().Update(locationId, loc);
     }
 
     bool LocationService::AddSchedule(int locationId, const domain::Schedule &s)
     {
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
         if (!locOpt.has_value())
         {
             return false;
@@ -72,12 +69,12 @@ namespace service
             return false;
         }
 
-        return locations.Update(locationId, loc);
+        return storages::Locations().Update(locationId, loc);
     }
 
     bool LocationService::RemoveSchedule(int locationId, const domain::Schedule &s)
     {
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
         if (!locOpt.has_value())
         {
             return false;
@@ -90,14 +87,14 @@ namespace service
             return false;
         }
 
-        return locations.Update(locationId, loc);
+        return storages::Locations().Update(locationId, loc);
     }
 
     std::vector<domain::Schedule> LocationService::GetScheduleByHall(int locationId, int hallId)
     {
         std::vector<domain::Schedule> result;
 
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
 
         if (!locOpt)
             return result;
@@ -119,7 +116,7 @@ namespace service
     {
         std::vector<domain::Schedule> result;
 
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
 
         if (!locOpt)
             return result;
@@ -141,7 +138,7 @@ namespace service
     {
         std::vector<domain::Schedule> result;
 
-        auto locOpt = locations.GetById(locationId);
+        auto locOpt = storages::Locations().GetById(locationId);
 
         if (!locOpt)
             return result;

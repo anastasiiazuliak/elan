@@ -17,18 +17,23 @@ int main()
 {
     // Додаємо тестові дані при запуску, якщо потрібно
     //App::addTestData();
+    //App app;
+    //app.ShowMainMenu();
+
+    //return 0;
+
 
     crow::SimpleApp app;
 
     // =========================
     // API ROUTES
     // =========================
-    /*api::AuthController::RegisterRoutes(app);
+    api::AuthController::RegisterRoutes(app);
     api::ClientController::RegisterRoutes(app);
     api::CoachController::RegisterRoutes(app);
     api::EmployeeController::RegisterRoutes(app);
     api::GroupController::RegisterRoutes(app);
-    api::LocationController::RegisterRoutes(app);*/
+    api::LocationController::RegisterRoutes(app);
     api::StyleController::RegisterRoutes(app);
     api::SubscriptionController::RegisterRoutes(app);
 

@@ -8,6 +8,7 @@ namespace dtos
     struct HallDto
     {
         int id;
+        std::string name;
         int capacity;
         int type;
     };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "elan/common/constants.h"
+
 namespace domain
 {
     enum class HallType
@@ -12,13 +14,14 @@ namespace domain
     struct Hall
     {
         int id;
+        char name[constants::NAME_LENGTH];
         HallType type;
         int capacity;
 
         void SetTypeByCapacity(int capacity);
 
         Hall() = default;
-        Hall(int capacity);
+        Hall(const char *name, int capacity);
 
 
         //Удаліть

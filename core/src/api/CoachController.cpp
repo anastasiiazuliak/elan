@@ -9,11 +9,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Coach> CoachController::coaches(
-        constants::COACHES_FILE,
-        constants::COACHES_ID_FILE
-    );
-
     void CoachController::RegisterRoutes(crow::SimpleApp& app)
     {
         // CREATE
@@ -44,7 +39,7 @@ namespace api
 
             auto coach = dtos::FromDto(dto);
 
-            coaches.Add(coach);
+            storages::Coaches().Add(coach);
 
             return crow::response(201, "created");
         });
@@ -53,7 +48,7 @@ namespace api
         CROW_ROUTE(app, "/coaches")
         ([]()
         {
-            auto all = coaches.GetAll();
+            auto all = storages::Coaches().GetAll();
 
             crow::json::wvalue res;
 
@@ -87,7 +82,7 @@ namespace api
         CROW_ROUTE(app, "/coaches/<int>")
         ([](int id)
         {
-            auto opt = coaches.GetById(id);
+            auto opt = storages::Coaches().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -123,7 +118,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = coaches.GetById(id);
+            auto opt = storages::Coaches().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -146,7 +141,7 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            coaches.Update(id, updated);
+            storages::Coaches().Update(id, updated);
 
             return crow::response("updated");
         });
@@ -156,7 +151,7 @@ namespace api
         .methods(crow::HTTPMethod::DELETE)
         ([](int id)
         {
-            coaches.Delete(id);
+            storages::Coaches().Delete(id);
 
             return crow::response("deleted");
         });

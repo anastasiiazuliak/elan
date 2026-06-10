@@ -1,5 +1,7 @@
 #include "elan/api/EmployeeController.h"
+
 #include "elan/dtos/EmployeeDto.h"
+#include "elan/storage/Storages.h"
 
 #ifdef DELETE
 #undef DELETE
@@ -7,11 +9,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Employee> EmployeeController::employees(
-        constants::EMPLOYEES_FILE,
-        constants::EMPLOYEES_ID_FILE
-    );
-
     void EmployeeController::RegisterRoutes(crow::SimpleApp& app)
     {
         // CREATE
@@ -38,7 +35,7 @@ namespace api
 
             auto employee = dtos::FromDto(dto);
 
-            employees.Add(employee);
+            storages::Employees().Add(employee);
 
             return crow::response(201, "created");
         });
@@ -47,7 +44,7 @@ namespace api
         CROW_ROUTE(app, "/employees")
         ([]()
         {
-            auto all = employees.GetAll();
+            auto all = storages::Employees().GetAll();
 
             crow::json::wvalue res;
 
@@ -77,7 +74,7 @@ namespace api
         CROW_ROUTE(app, "/employees/<int>")
         ([](int id)
         {
-            auto opt = employees.GetById(id);
+            auto opt = storages::Employees().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -109,7 +106,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = employees.GetById(id);
+            auto opt = storages::Employees().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -128,7 +125,7 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            employees.Update(id, updated);
+            storages::Employees().Update(id, updated);
 
             return crow::response("updated");
         });
@@ -138,7 +135,7 @@ namespace api
         .methods(crow::HTTPMethod::DELETE)
         ([](int id)
         {
-            employees.Delete(id);
+            storages::Employees().Delete(id);
 
             return crow::response("deleted");
         });

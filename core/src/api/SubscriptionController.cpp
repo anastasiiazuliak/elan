@@ -1,5 +1,7 @@
 #include "elan/api/SubscriptionController.h"
+
 #include "elan/dtos/SubscriptionDto.h"
+#include "elan/storage/Storages.h"
 
 #ifdef DELETE
 #undef DELETE
@@ -7,11 +9,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Subscription> SubscriptionController::subscriptions(
-        constants::SUBSCRIPTIONS_FILE,
-        constants::SUBSCRIPTIONS_ID_FILE
-    );
-
     void SubscriptionController::RegisterRoutes(crow::SimpleApp &app)
     {
         // CREATE
@@ -36,7 +33,7 @@ namespace api
 
             auto domainObj = dtos::FromDto(dto);
 
-            subscriptions.Add(domainObj);
+            storages::Subscriptions().Add(domainObj);
 
             return crow::response(201, "created");
         });
@@ -45,7 +42,7 @@ namespace api
         CROW_ROUTE(app, "/subscriptions")
         ([]()
         {
-            auto all = subscriptions.GetAll();
+            auto all = storages::Subscriptions().GetAll();
 
             crow::json::wvalue res;
 
@@ -71,7 +68,7 @@ namespace api
         CROW_ROUTE(app, "/subscriptions/<int>")
         ([](int id)
         {
-            auto opt = subscriptions.GetById(id);
+            auto opt = storages::Subscriptions().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -99,7 +96,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = subscriptions.GetById(id);
+            auto opt = storages::Subscriptions().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -118,7 +115,7 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            subscriptions.Update(id, updated);
+            storages::Subscriptions().Update(id, updated);
 
             return crow::response("updated");
         });
@@ -128,7 +125,7 @@ namespace api
         .methods(crow::HTTPMethod::DELETE)
         ([](int id)
         {
-            subscriptions.Delete(id);
+            storages::Subscriptions().Delete(id);
 
             return crow::response("deleted");
         });

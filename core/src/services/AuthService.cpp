@@ -4,22 +4,6 @@
 
 namespace service
 {
-    storage::Storage<domain::Employee> AuthService::employees(
-        constants::EMPLOYEES_FILE,
-        constants::EMPLOYEES_ID_FILE);
-
-    storage::Storage<domain::Coach> AuthService::coaches(
-        constants::COACHES_FILE,
-        constants::COACHES_ID_FILE);
-
-    storage::Storage<domain::Client> AuthService::clients(
-        constants::CLIENTS_FILE,
-        constants::CLIENTS_ID_FILE);
-
-    storage::Storage<domain::Admin> AuthService::admin(
-        constants::ADMIN_FILE,
-        constants::ADMIN_ID_FILE);
-
     template <typename T>
     std::optional<AuthResult> AuthService::TryAuth(const std::vector<T>& users, const char* username, const char* password, domain::Role role)
     {
@@ -42,16 +26,16 @@ namespace service
     std::optional<AuthResult>
     AuthService::Login(const char* username, const char* password)
     {
-        if (auto r = TryAuth(clients.GetAll(), username, password, domain::Role::Client))
+        if (auto r = TryAuth(storages::Clients().GetAll(), username, password, domain::Role::Client))
             return r;
 
-        if (auto r = TryAuth(employees.GetAll(), username, password, domain::Role::Employee))
+        if (auto r = TryAuth(storages::Employees().GetAll(), username, password, domain::Role::Employee))
             return r;
 
-        if (auto r = TryAuth(coaches.GetAll(), username, password, domain::Role::Coach))
+        if (auto r = TryAuth(storages::Coaches().GetAll(), username, password, domain::Role::Coach))
             return r;
 
-        if (auto r = TryAuth(admin.GetAll(), username, password, domain::Role::Admin))
+        if (auto r = TryAuth(storages::Admins().GetAll(), username, password, domain::Role::Admin))
             return r;
 
         return std::nullopt;

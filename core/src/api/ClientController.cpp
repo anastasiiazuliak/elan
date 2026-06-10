@@ -1,4 +1,5 @@
 #include "elan/api/ClientController.h"
+
 #include "elan/dtos/ClientDto.h"
 #include "elan/services/ClientService.h"
 
@@ -8,11 +9,6 @@
 
 namespace api
 {
-    storage::Storage<domain::Client> ClientController::clients(
-        constants::CLIENTS_FILE,
-        constants::CLIENTS_ID_FILE
-    );
-
     void ClientController::RegisterRoutes(crow::SimpleApp& app)
     {
         // CREATE
@@ -38,7 +34,7 @@ namespace api
 
             auto client = dtos::FromDto(dto);
 
-            clients.Add(client);
+            storages::Clients().Add(client);
 
             return crow::response(201, "created");
         });
@@ -47,7 +43,7 @@ namespace api
         CROW_ROUTE(app, "/clients")
         ([]()
         {
-            auto all = clients.GetAll();
+            auto all = storages::Clients().GetAll();
 
             crow::json::wvalue res;
 
@@ -76,7 +72,7 @@ namespace api
         CROW_ROUTE(app, "/clients/<int>")
         ([](int id)
         {
-            auto opt = clients.GetById(id);
+            auto opt = storages::Clients().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -107,7 +103,7 @@ namespace api
             if (!body)
                 return crow::response(400, "Invalid JSON");
 
-            auto opt = clients.GetById(id);
+            auto opt = storages::Clients().GetById(id);
 
             if (!opt)
                 return crow::response(404, "Not found");
@@ -125,7 +121,7 @@ namespace api
 
             auto updated = dtos::FromDto(dto);
 
-            clients.Update(id, updated);
+            storages::Clients().Update(id, updated);
 
             return crow::response("updated");
         });
@@ -135,7 +131,7 @@ namespace api
         .methods(crow::HTTPMethod::DELETE)
         ([](int id)
         {
-            clients.Delete(id);
+            storages::Clients().Delete(id);
 
             return crow::response("deleted");
         });

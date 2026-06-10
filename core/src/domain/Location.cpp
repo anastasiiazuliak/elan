@@ -39,12 +39,6 @@ namespace domain
         if (hallCount >= constants::MAX_HALLS)
             return false;
 
-        for (int i = 0; i < hallCount; i++)
-        {
-            if (halls[i].id == hall.id)
-                return false;
-        }
-
         halls[hallCount++] = hall;
         return true;
     }
@@ -77,7 +71,7 @@ namespace domain
         return true;
     }
 
-    bool Location::UpdateHall(int hallId, int capacity)
+    bool Location::UpdateHall(int hallId, const char *name,int capacity)
     {
         int index = FindHallIndexById(hallId);
 
@@ -85,6 +79,7 @@ namespace domain
             return false;
 
         halls[index].capacity = capacity;
+        strcpy(halls[index].name, name);
         halls[index].SetTypeByCapacity(capacity);
 
         return true;

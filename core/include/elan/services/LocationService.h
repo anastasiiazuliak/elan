@@ -1,18 +1,16 @@
 #pragma once
 
 #include "elan/domain/Location.h"
-#include "elan/storage/Storage.h"
+#include "elan/storage/Storages.h"
 
 namespace service
 {
     class LocationService
     {
-        static storage::Storage<domain::Location> locations;
-
     public:
         static bool AddHall(int locationId, domain::Hall &hall);
         static bool RemoveHall(int locationId, int hallId);
-        static bool UpdateHall(int locationId, int hallId, int capacity);
+        static bool UpdateHall(int locationId, int hallId, const char *name,int capacity);
 
         static bool AddSchedule(int locationId, const domain::Schedule &s);
         static bool RemoveSchedule(int locationId, const domain::Schedule &s);

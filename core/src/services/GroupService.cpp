@@ -2,21 +2,9 @@
 
 namespace service
 {
-    storage::Storage<domain::Group> GroupService::groups(
-        constants::GROUPS_FILE,
-        constants::GROUPS_ID_FILE);
-
-    storage::Storage<domain::Client> GroupService::clients(
-        constants::CLIENTS_FILE,
-        constants::CLIENTS_ID_FILE);
-
-    storage::Storage<domain::Location> GroupService::locations(
-        constants::LOCATIONS_FILE,
-        constants::LOCATIONS_ID_FILE);
-
     std::vector<domain::Group> GroupService::GetGroupsByCoachId(int id)
     {
-        std::vector<domain::Group> allGroups = groups.GetAll();
+        std::vector<domain::Group> allGroups = storages::Groups().GetAll();
         std::vector<domain::Group> coachGroups;
 
         for (const auto &g : allGroups)
@@ -32,8 +20,8 @@ namespace service
 
     bool GroupService::AddClientToGroup(int groupId, int clientId)
     {
-        auto groupOpt = groups.GetById(groupId);
-        auto clientOpt = clients.GetById(clientId);
+        auto groupOpt = storages::Groups().GetById(groupId);
+        auto clientOpt = storages::Clients().GetById(clientId);
 
         if (!groupOpt.has_value() || !clientOpt.has_value())
         {
@@ -48,12 +36,12 @@ namespace service
             return false;
         }
 
-        return groups.Update(group.GetId(), group);
+        return storages::Groups().Update(group.GetId(), group);
     }
 
     bool GroupService::RemoveClientFromGroup(int groupId, int clientId)
     {
-        auto groupOpt = groups.GetById(groupId);
+        auto groupOpt = storages::Groups().GetById(groupId);
 
         if (!groupOpt.has_value())
         {
@@ -67,14 +55,14 @@ namespace service
             return false;
         }
 
-        return groups.Update(group.GetId(), group);
+        return storages::Groups().Update(group.GetId(), group);
     }
 
     std::vector<domain::Schedule> GroupService::GetScheduleByGroup(int groupId)
     {
         std::vector<domain::Schedule> result;
 
-        auto locationsAll = locations.GetAll();
+        auto locationsAll = storages::Locations().GetAll();
 
         for (const auto& loc : locationsAll)
         {
