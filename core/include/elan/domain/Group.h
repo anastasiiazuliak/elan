@@ -1,7 +1,8 @@
 #pragma once
 
-#include "elan/domain/Client.h"
-#include "elan/domain/Style.h"
+#include "elan/common/constants.h"
+
+#include <vector>
 
 namespace storage
 {
@@ -21,10 +22,11 @@ namespace domain
     class Group
     {
         int id;
+        char name[constants::NAME_LENGTH];
         int coachId;
         int styleId;
         SkillLevel skillLevel;
-        Client clients[constants::MAX_CLIENTS];
+        int clientIds[constants::MAX_CLIENTS];
         int clientsCount = 0;
 
         void SetId(int id);
@@ -34,16 +36,20 @@ namespace domain
 
     public:
         Group() = default;
-        Group(int coachId, int styleId, SkillLevel skillLevel);
+        Group(const char *name, int coachId, int styleId, SkillLevel skillLevel);
+
         int GetId() const;
+        const char *GetName() const;
         int GetCoachId() const;
         SkillLevel GetSkillLevel() const;
         int GetStyleId() const;
+
         int GetClientCount() const;
-        bool AddClient(const Client &client);
+        std::vector<int> GetClientIds() const;
+
+        bool AddClient(int clientId);
         bool RemoveClient(int clientId);
 
-        // Удаліть
         void PrintGroup();
     };
 }

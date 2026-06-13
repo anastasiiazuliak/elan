@@ -1,28 +1,30 @@
 #include "elan/domain/Group.h"
 
 #include <iostream>
+#include <cstring>
 
 namespace domain
 {
-    Group::Group(int coachId, int styleId, SkillLevel skillLevel)
+    Group::Group(const char *name, int coachId, int styleId, SkillLevel skillLevel)
     {
+        strcpy(this->name, name);
         this->coachId = coachId;
         this->styleId = styleId;
         this->skillLevel = skillLevel;
     }
 
-    bool Group::AddClient(const Client &client)
+    bool Group::AddClient(int clientId)
     {
         if (clientsCount >= constants::MAX_CLIENTS)
             return false;
 
         for (int i = 0; i < clientsCount; i++)
         {
-            if (clients[i].GetId() == client.GetId())
+            if (clientIds[i] == clientId)
                 return false;
         }
 
-        clients[clientsCount++] = client;
+        clientIds[clientsCount++] = clientId;
         return true;
     }
 
@@ -32,7 +34,7 @@ namespace domain
 
         for (int i = 0; i < clientsCount; i++)
         {
-            if (clients[i].GetId() == clientId)
+            if (clientIds[i] == clientId)
             {
                 index = i;
                 break;
@@ -40,13 +42,11 @@ namespace domain
         }
 
         if (index == -1)
-        {
             return false;
-        }
 
         for (int i = index; i < clientsCount - 1; i++)
         {
-            clients[i] = clients[i + 1];
+            clientIds[i] = clientIds[i + 1];
         }
 
         clientsCount--;
@@ -62,6 +62,11 @@ namespace domain
     int Group::GetId() const
     {
         return id;
+    }
+
+    const char *Group::GetName() const
+    {
+        return name;
     }
 
     int Group::GetCoachId() const
@@ -84,41 +89,29 @@ namespace domain
         return clientsCount;
     }
 
-    // Удаліть
+    std::vector<int> Group::GetClientIds() const
+    {
+        std::vector<int> result;
+
+        for (int i = 0; i < clientsCount; i++)
+        {
+            result.push_back(clientIds[i]);
+        }
+
+        return result;
+    }
+
     void Group::PrintGroup()
     {
         std::cout << "========== GROUP ==========\n";
-
         std::cout << "Group ID: " << id << "\n";
         std::cout << "Coach ID: " << coachId << "\n";
-
-        std::cout << "Skill level: ";
-
-        switch (skillLevel)
-        {
-        case SkillLevel::Beginner:
-            std::cout << "Beginner";
-            break;
-        case SkillLevel::Intermediate:
-            std::cout << "Intermediate";
-            break;
-        case SkillLevel::Advanced:
-            std::cout << "Advanced";
-            break;
-        }
-
-        std::cout << "\n";
-
-        std::cout << "Style: " << styleId << "\n";
-
+        std::cout << "Style ID: " << styleId << "\n";
         std::cout << "Clients (" << clientsCount << "):\n";
 
         for (int i = 0; i < clientsCount; i++)
         {
-            std::cout << "- "
-                      << i + 1 << ". "
-                      << clients[i].GetUsername()
-                      << "\n";
+            std::cout << "- Client ID: " << clientIds[i] << "\n";
         }
 
         std::cout << "\n";

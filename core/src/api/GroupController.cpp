@@ -1,5 +1,6 @@
 #include "elan/api/GroupController.h"
 
+#include "elan/dtos/ClientDto.h"
 #include "elan/dtos/GroupDto.h"
 
 #ifdef DELETE
@@ -21,13 +22,11 @@ namespace api
 
             dtos::GroupDto dto;
 
+            dto.name = body["name"].s();
             dto.coachId = body["coachId"].i();
             dto.styleId = body["styleId"].i();
-
-            dto.skillLevel =
-                static_cast<domain::SkillLevel>(
-                    body["skillLevel"].i()
-                );
+            dto.skillLevel = static_cast<domain::SkillLevel>(
+            body["skillLevel"].i());
 
             auto domainObj = dtos::FromDto(dto);
 
@@ -51,13 +50,16 @@ namespace api
                 auto dto = dtos::ToDto(g);
 
                 res[i]["id"] = dto.id;
+                res[i]["name"] = dto.name;
                 res[i]["coachId"] = dto.coachId;
                 res[i]["styleId"] = dto.styleId;
-
-                res[i]["skillLevel"] =
-                    static_cast<int>(dto.skillLevel);
-
+                res[i]["skillLevel"] = static_cast<int>(dto.skillLevel);
                 res[i]["clientCount"] = dto.clientCount;
+
+                for (size_t j = 0; j < dto.clientIds.size(); j++)
+                {
+                    res[i]["clientIds"][j] = dto.clientIds[j];
+                }
 
                 i++;
             }
@@ -79,13 +81,16 @@ namespace api
             crow::json::wvalue res;
 
             res["id"] = dto.id;
+            res["name"] = dto.name;
             res["coachId"] = dto.coachId;
             res["styleId"] = dto.styleId;
-
-            res["skillLevel"] =
-                static_cast<int>(dto.skillLevel);
-
+            res["skillLevel"] = static_cast<int>(dto.skillLevel);
             res["clientCount"] = dto.clientCount;
+
+            for (size_t i = 0; i < dto.clientIds.size(); i++)
+            {
+                res["clientIds"][i] = dto.clientIds[i];
+            }
 
             return crow::response(res);
         });
@@ -105,17 +110,19 @@ namespace api
             if (!opt)
                 return crow::response(404, "Not found");
 
+            auto oldGroup = opt.value();
+
             dtos::GroupDto dto;
 
             dto.id = id;
-
+            dto.name = body["name"].s();
             dto.coachId = body["coachId"].i();
             dto.styleId = body["styleId"].i();
-
             dto.skillLevel =
                 static_cast<domain::SkillLevel>(
-                    body["skillLevel"].i()
-                );
+                    body["skillLevel"].i());
+
+            dto.clientIds = oldGroup.GetClientIds();
 
             auto updated = dtos::FromDto(dto);
 
@@ -149,13 +156,16 @@ namespace api
                 auto dto = dtos::ToDto(g);
 
                 res[i]["id"] = dto.id;
+                res[i]["name"] = dto.name;
                 res[i]["coachId"] = dto.coachId;
                 res[i]["styleId"] = dto.styleId;
-
-                res[i]["skillLevel"] =
-                    static_cast<int>(dto.skillLevel);
-
+                res[i]["skillLevel"] = static_cast<int>(dto.skillLevel);
                 res[i]["clientCount"] = dto.clientCount;
+
+                for (size_t j = 0; j < dto.clientIds.size(); j++)
+                {
+                    res[i]["clientIds"][j] = dto.clientIds[j];
+                }
 
                 i++;
             }
@@ -168,14 +178,43 @@ namespace api
         .methods(crow::HTTPMethod::POST)
         ([](int groupId, int clientId)
         {
-            bool ok = service::GroupService::AddClientToGroup( groupId, clientId);
+            bool ok = service::GroupService::AddClientToGroup(groupId, clientId);
 
             if (!ok)
             {
-                return crow::response( 400, "Cannot add client");
+                return crow::response(400, "Cannot add client");
             }
 
             return crow::response(200, "client added");
+        });
+
+        // GET GROUP CLIENTS
+        CROW_ROUTE(app, "/groups/<int>/clients")
+        ([](int groupId)
+        {
+            auto clients = service::GroupService::GetClientsByGroup(groupId);
+
+            crow::json::wvalue res;
+
+            for (size_t i = 0; i < clients.size(); i++)
+            {
+                auto dto = dtos::ToDto(clients[i]);
+
+                res[i]["id"] = dto.id;
+                res[i]["firstName"] = dto.firstName;
+                res[i]["lastName"] = dto.lastName;
+                res[i]["patronymic"] = dto.patronymic;
+                res[i]["birthDate"] = dto.birthDate;
+                res[i]["phone"] = dto.phone;
+                res[i]["username"] = dto.username;
+                res[i]["subscriptionId"] = dto.subscriptionId;
+                res[i]["subscriptionStartDate"] = dto.subscriptionStartDate;
+                res[i]["subscriptionEndDate"] = dto.subscriptionEndDate;
+                res[i]["remainingWorkouts"] = dto.remainingWorkouts;
+                res[i]["completedWorkouts"] = dto.completedWorkouts;
+            }
+
+            return crow::response(res);
         });
 
         // REMOVE CLIENT FROM GROUP
@@ -193,7 +232,7 @@ namespace api
             return crow::response(200, "client removed");
         });
 
-        //SCHEDULE FOR GROUP
+        // SCHEDULE FOR GROUP
         CROW_ROUTE(app, "/groups/<int>/schedule")
         ([](int groupId)
         {

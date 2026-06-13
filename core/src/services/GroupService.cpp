@@ -16,7 +16,7 @@ namespace service
         }
 
         return coachGroups;
-    };
+    }
 
     bool GroupService::AddClientToGroup(int groupId, int clientId)
     {
@@ -28,10 +28,19 @@ namespace service
             return false;
         }
 
-        auto group = groupOpt.value();   // копія
-        auto client = clientOpt.value(); // копія
+        auto group = groupOpt.value();
 
-        if (!group.AddClient(client))
+        auto subscriptionOpt =
+            storages::Subscriptions().GetById(
+                clientOpt.value().GetSubscriptionId());
+
+        if (!subscriptionOpt.has_value() ||
+            subscriptionOpt.value().GetGroupId() != groupId)
+        {
+            return false;
+        }
+
+        if (!group.AddClient(clientId))
         {
             return false;
         }
@@ -58,18 +67,43 @@ namespace service
         return storages::Groups().Update(group.GetId(), group);
     }
 
+    std::vector<domain::Client> GroupService::GetClientsByGroup(int groupId)
+    {
+        auto groupOpt = storages::Groups().GetById(groupId);
+
+        if (!groupOpt.has_value())
+        {
+            return {};
+        }
+
+        std::vector<domain::Client> result;
+
+        auto clientIds = groupOpt.value().GetClientIds();
+
+        for (int clientId : clientIds)
+        {
+            auto clientOpt = storages::Clients().GetById(clientId);
+
+            if (clientOpt.has_value())
+            {
+                result.push_back(clientOpt.value());
+            }
+        }
+
+        return result;
+    }
+
     std::vector<domain::Schedule> GroupService::GetScheduleByGroup(int groupId)
     {
         std::vector<domain::Schedule> result;
 
         auto locationsAll = storages::Locations().GetAll();
 
-        for (const auto& loc : locationsAll)
+        for (const auto &loc : locationsAll)
         {
             auto part = service::LocationService::GetScheduleByGroup(
                 loc.GetId(),
-                groupId
-            );
+                groupId);
 
             result.insert(result.end(), part.begin(), part.end());
         }
