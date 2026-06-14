@@ -18,79 +18,64 @@ namespace service
         return coachGroups;
     }
 
-    bool GroupService::AddClientToGroup(int groupId, int clientId)
+    std::vector<int> GroupService::GetStyleIdsByCoachId(int coachId)
     {
-        auto groupOpt = storages::Groups().GetById(groupId);
-        auto clientOpt = storages::Clients().GetById(clientId);
+        auto coachOpt = storages::Coaches().GetById(coachId);
 
-        if (!groupOpt.has_value() || !clientOpt.has_value())
-        {
-            return false;
-        }
-
-        auto group = groupOpt.value();
-
-        auto subscriptionOpt =
-            storages::Subscriptions().GetById(
-                clientOpt.value().GetSubscriptionId());
-
-        if (!subscriptionOpt.has_value() ||
-            subscriptionOpt.value().GetGroupId() != groupId)
-        {
-            return false;
-        }
-
-        if (!group.AddClient(clientId))
-        {
-            return false;
-        }
-
-        return storages::Groups().Update(group.GetId(), group);
-    }
-
-    bool GroupService::RemoveClientFromGroup(int groupId, int clientId)
-    {
-        auto groupOpt = storages::Groups().GetById(groupId);
-
-        if (!groupOpt.has_value())
-        {
-            return false;
-        }
-
-        auto group = groupOpt.value();
-
-        if (!group.RemoveClient(clientId))
-        {
-            return false;
-        }
-
-        return storages::Groups().Update(group.GetId(), group);
-    }
-
-    std::vector<domain::Client> GroupService::GetClientsByGroup(int groupId)
-    {
-        auto groupOpt = storages::Groups().GetById(groupId);
-
-        if (!groupOpt.has_value())
+        if (!coachOpt.has_value())
         {
             return {};
         }
 
-        std::vector<domain::Client> result;
+        auto coach = coachOpt.value();
+        const int *styleIds = coach.GetStyleIds();
+        std::vector<int> result;
 
-        auto clientIds = groupOpt.value().GetClientIds();
-
-        for (int clientId : clientIds)
+        for (int i = 0; i < coach.GetStylesCount(); i++)
         {
-            auto clientOpt = storages::Clients().GetById(clientId);
-
-            if (clientOpt.has_value())
-            {
-                result.push_back(clientOpt.value());
-            }
+            result.push_back(styleIds[i]);
         }
 
         return result;
+    }
+    
+    bool GroupService::AddSubscriptionToGroup(int groupId, int subscriptionId)
+    {
+        auto groupOpt = storages::Groups().GetById(groupId);
+        auto subscriptionOpt = storages::Subscriptions().GetById(subscriptionId);
+
+        if (!groupOpt.has_value() || !subscriptionOpt.has_value())
+        {
+            return false;
+        }
+
+        auto group = groupOpt.value();
+
+        if (!group.AddSubscription(subscriptionId))
+        {
+            return false;
+        }
+
+        return storages::Groups().Update(group.GetId(), group);
+    }
+
+    bool GroupService::RemoveSubscriptionFromGroup(int groupId, int subscriptionId)
+    {
+        auto groupOpt = storages::Groups().GetById(groupId);
+
+        if (!groupOpt.has_value())
+        {
+            return false;
+        }
+
+        auto group = groupOpt.value();
+
+        if (!group.RemoveSubscription(subscriptionId))
+        {
+            return false;
+        }
+
+        return storages::Groups().Update(group.GetId(), group);
     }
 
     std::vector<domain::Schedule> GroupService::GetScheduleByGroup(int groupId)

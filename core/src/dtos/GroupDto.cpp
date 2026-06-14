@@ -10,8 +10,9 @@ namespace dtos
             g.GetCoachId(),
             g.GetStyleId(),
             g.GetSkillLevel(),
-            g.GetClientCount(),
-            g.GetClientIds()
+            g.GetCategory(),
+            g.GetSubscriptionCount(),
+            g.GetSubscriptionIds()
         };
     }
 
@@ -21,11 +22,13 @@ namespace dtos
             dto.name.c_str(),
             dto.coachId,
             dto.styleId,
-            dto.skillLevel);
+            dto.skillLevel,
+            dto.category
+        );
 
-        for (int clientId : dto.clientIds)
+        for (int subscriptionId : dto.subscriptionIds)
         {
-            group.AddClient(clientId);
+            group.AddSubscription(subscriptionId);
         }
 
         return group;

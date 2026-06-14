@@ -10,11 +10,11 @@ namespace service
     {
     public:
         static std::vector<domain::Group> GetGroupsByCoachId(int id);
+        static std::vector<int> GetStyleIdsByCoachId(int coachId);
         
-        static bool AddClientToGroup(int groupId, int clientId);
-        static bool RemoveClientFromGroup(int groupId, int clientId);
-        static std::vector<domain::Client> GetClientsByGroup(int groupId);
-
         static std::vector<domain::Schedule> GetScheduleByGroup(int groupId);
+
+        static bool AddSubscriptionToGroup(int groupId, int subscriptionId);
+        static bool RemoveSubscriptionFromGroup(int groupId, int subscriptionId);
     };
 }

@@ -5,36 +5,39 @@
 
 namespace domain
 {
-    Group::Group(const char *name, int coachId, int styleId, SkillLevel skillLevel)
+    Group::Group(const char *name, int coachId, int styleId, SkillLevel skillLevel, common::Category category)
     {
         strcpy(this->name, name);
         this->coachId = coachId;
         this->styleId = styleId;
         this->skillLevel = skillLevel;
+        this->category = category;
+
+        subscriptionsCount = 0;
     }
 
-    bool Group::AddClient(int clientId)
+    bool Group::AddSubscription(int subscriptionId)
     {
-        if (clientsCount >= constants::MAX_CLIENTS)
+        if (subscriptionsCount >= constants::MAX_SUBSCRIPTIONS)
             return false;
 
-        for (int i = 0; i < clientsCount; i++)
+        for (int i = 0; i < subscriptionsCount; i++)
         {
-            if (clientIds[i] == clientId)
+            if (subscriptionIds[i] == subscriptionId)
                 return false;
         }
 
-        clientIds[clientsCount++] = clientId;
+        subscriptionIds[subscriptionsCount++] = subscriptionId;
         return true;
     }
 
-    bool Group::RemoveClient(int clientId)
+    bool Group::RemoveSubscription(int subscriptionId)
     {
         int index = -1;
 
-        for (int i = 0; i < clientsCount; i++)
+        for (int i = 0; i < subscriptionsCount; i++)
         {
-            if (clientIds[i] == clientId)
+            if (subscriptionIds[i] == subscriptionId)
             {
                 index = i;
                 break;
@@ -44,13 +47,12 @@ namespace domain
         if (index == -1)
             return false;
 
-        for (int i = index; i < clientsCount - 1; i++)
+        for (int i = index; i < subscriptionsCount - 1; i++)
         {
-            clientIds[i] = clientIds[i + 1];
+            subscriptionIds[i] = subscriptionIds[i + 1];
         }
 
-        clientsCount--;
-
+        subscriptionsCount--;
         return true;
     }
 
@@ -79,23 +81,28 @@ namespace domain
         return skillLevel;
     }
 
+    common::Category Group::GetCategory() const
+    {
+        return category;
+    }
+
     int Group::GetStyleId() const
     {
         return styleId;
     }
 
-    int Group::GetClientCount() const
+    int Group::GetSubscriptionCount() const
     {
-        return clientsCount;
+        return subscriptionsCount;
     }
 
-    std::vector<int> Group::GetClientIds() const
+    std::vector<int> Group::GetSubscriptionIds() const
     {
         std::vector<int> result;
 
-        for (int i = 0; i < clientsCount; i++)
+        for (int i = 0; i < subscriptionsCount; i++)
         {
-            result.push_back(clientIds[i]);
+            result.push_back(subscriptionIds[i]);
         }
 
         return result;
@@ -107,11 +114,36 @@ namespace domain
         std::cout << "Group ID: " << id << "\n";
         std::cout << "Coach ID: " << coachId << "\n";
         std::cout << "Style ID: " << styleId << "\n";
-        std::cout << "Clients (" << clientsCount << "):\n";
 
-        for (int i = 0; i < clientsCount; i++)
+        switch (category)
         {
-            std::cout << "- Client ID: " << clientIds[i] << "\n";
+        case common::Category::Age_3_5:
+            std::cout << "3-5 years";
+            break;
+        case common::Category::Age_5_plus:
+            std::cout << "5+ years";
+            break;
+        case common::Category::Age_6_plus:
+            std::cout << "6+ years";
+            break;
+        case common::Category::Age_7_plus:
+            std::cout << "7+ years";
+            break;
+        case common::Category::Age_10_12:
+            std::cout << "10-12 years";
+            break;
+        case common::Category::Age_14_plus:
+            std::cout << "14+ years";
+            break;
+        case common::Category::Age_16_plus:
+            std::cout << "16+ years";
+            break;
+        }
+
+        std::cout << "Subscriptions (" << subscriptionsCount << "):\n";
+        for (int i = 0; i < subscriptionsCount; i++)
+        {
+            std::cout << "- Subscription ID: " << subscriptionIds[i] << "\n";
         }
 
         std::cout << "\n";

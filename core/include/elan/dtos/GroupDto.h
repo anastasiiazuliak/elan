@@ -2,6 +2,7 @@
 
 #include "elan/domain/Group.h"
 #include <string>
+#include <vector>
 
 namespace dtos
 {
@@ -12,8 +13,10 @@ namespace dtos
         int coachId;
         int styleId;
         domain::SkillLevel skillLevel;
-        int clientCount;
-        std::vector<int> clientIds;
+        common::Category category;
+
+        int subscriptionCount;
+        std::vector<int> subscriptionIds;
     };
 
     GroupDto ToDto(const domain::Group &g);
