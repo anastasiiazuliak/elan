@@ -54,11 +54,12 @@ namespace common
         std::time_t t = std::time(nullptr);
         std::tm *now = std::localtime(&t);
 
-        return Date(
-            now->tm_mday,
-            now->tm_mon + 1,
-            now->tm_year + 1900
-        );
+        Date today;
+        today.day = now->tm_mday;
+        today.month = now->tm_mon + 1;
+        today.year = now->tm_year + 1900;
+
+        return today;
     }
 
     static int DaysInMonth(int month, int year)
