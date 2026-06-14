@@ -29,7 +29,6 @@ namespace api
             dto.birthDate = body["birthDate"].s();
             dto.phone = body["phone"].s();
             dto.locationId = body["locationId"].i();
-            dto.email = body["email"].s();
             dto.password = body["password"].s();
             dto.username = body["username"].s();
 
@@ -61,7 +60,6 @@ namespace api
                 res[i]["birthDate"] = dto.birthDate;
                 res[i]["phone"] = dto.phone;
                 res[i]["locationId"] = dto.locationId;
-                res[i]["email"] = dto.email;
                 res[i]["username"] = dto.username;
 
                 i++;
@@ -90,7 +88,6 @@ namespace api
             res["birthDate"] = dto.birthDate;
             res["phone"] = dto.phone;
             res["locationId"] = dto.locationId;
-            res["email"] = dto.email;
             res["username"] = dto.username;
 
             return crow::response(res);
@@ -119,7 +116,6 @@ namespace api
             dto.birthDate = body["birthDate"].s();
             dto.phone = body["phone"].s();
             dto.locationId = body["locationId"].i();
-            dto.email = body["email"].s();
             dto.password = body["password"].s();
             dto.username = body["username"].s();
 

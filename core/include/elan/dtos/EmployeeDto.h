@@ -14,7 +14,6 @@ namespace dtos
         std::string birthDate;
         std::string phone;
         int locationId;
-        std::string email;
         std::string password;
         std::string username;
     };
@@ -28,7 +27,6 @@ namespace dtos
         std::string birthDate;
         std::string phone;
         int locationId;
-        std::string email;
         std::string username;
     };
 

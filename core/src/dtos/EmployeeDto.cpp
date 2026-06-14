@@ -12,7 +12,6 @@ namespace dtos
             common::FormatDate(e.GetBirthDate()),
             e.GetPhone(),
             e.GetLocationId(),
-            e.GetEmail(),
             e.GetUsername()};
     }
 
@@ -25,7 +24,6 @@ namespace dtos
             common::ParseDate(dto.birthDate),
             dto.phone.c_str(),
             dto.locationId,
-            dto.email.c_str(),
             dto.password.c_str(),
             dto.username.c_str());
     }
