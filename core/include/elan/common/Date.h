@@ -15,6 +15,10 @@ namespace common
     };
 
     bool isDateValid(int day, int month, int year);
+
     Date ParseDate(const std::string &str);
     std::string FormatDate(const Date &d);
+
+    Date Today();
+    Date AddDays(const Date &date, int days);
 }
