@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan - Вхід</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/forms.css" />
+    <link rel="stylesheet" href="/frontend/css/auth.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <div class="auth-brand">
+        <h1>Elan</h1>
+        <p>Вхід для працівників системи</p>
+      </div>
+
+      <div id="login-error" class="auth-error">Невірний логін або пароль</div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Логін</label>
+          <input id="username" name="username" type="text" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn btn-primary auth-submit" type="submit">Увійти</button>
+      </form>
+    </main>
+
+    <script type="module" src="/frontend/auth/login.js"></script>
+  </body>
+</html>

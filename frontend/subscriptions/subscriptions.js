@@ -1,39 +1,34 @@
-import { apiGet, apiPost, apiPut, apiDelete, renderTable, openModal, closeModal } from "/frontend/layouts/utils.js";
+import { apiDelete, apiGet, apiPost, apiPut, canManageCatalogs, closeModal, hideElement, openModal, renderTable } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
 const API = "http://localhost:18080/subscriptions";
 
-const CATEGORY_LABELS = { 0: "Базова", 1: "Стандарт", 2: "Преміум" };
-
 let editingId = null;
 let fields = {};
 
-// ---------- TABLE ----------
 async function loadSubscriptions() {
   try {
     const data = await apiGet(API);
-
-    const enriched = data.map(s => ({
-      ...s,
-      categoryName: CATEGORY_LABELS[s.category] ?? s.category
-    }));
+    const actions = canManageCatalogs()
+      ? {
+          edit: id => openEdit(id, data),
+          delete: id => openConfirm("Видалити цей абонемент?", async () => {
+            await apiDelete(`${API}/${id}`);
+            loadSubscriptions();
+          })
+        }
+      : {};
 
     renderTable(
       "subscriptions-table",
-      enriched,
+      data,
       [
         { key: "name" },
-        { key: "categoryName" },
         { key: "duration" },
-        { key: "numberOfWorkouts" }
+        { key: "numberOfWorkouts" },
+        { key: "price", render: row => formatPrice(row.price) }
       ],
-      {
-        edit:   (id) => openEdit(id, data),
-        delete: (id) => openConfirm("Видалити цей абонемент?", async () => {
-          await apiDelete(`${API}/${id}`);
-          loadSubscriptions();
-        })
-      }
+      actions
     );
 
     const info = document.getElementById("subscriptions-info");
@@ -43,19 +38,18 @@ async function loadSubscriptions() {
   }
 }
 
-// ---------- MODAL ----------
 async function loadSubscriptionModal() {
   if (document.getElementById("subscription-modal")) return;
 
-  const res  = await fetch("/frontend/subscriptions/subscription-modal.html");
+  const res = await fetch("/frontend/subscriptions/subscription-modal.html");
   const html = await res.text();
   document.body.insertAdjacentHTML("beforeend", html);
 
   fields = {
-    name:     document.getElementById("subscription-name"),
-    category: document.getElementById("subscription-category"),
+    name: document.getElementById("subscription-name"),
     duration: document.getElementById("subscription-duration"),
     workouts: document.getElementById("subscription-workouts"),
+    price: document.getElementById("subscription-price")
   };
 
   document.getElementById("subscription-close").onclick =
@@ -70,10 +64,10 @@ async function loadSubscriptionModal() {
 
 function resetForm() {
   editingId = null;
-  fields.name.value     = "";
-  fields.category.value = "0";
+  fields.name.value = "";
   fields.duration.value = "";
   fields.workouts.value = "";
+  fields.price.value = "";
   document.getElementById("subscription-modal-title").textContent = "Додати абонемент";
   document.getElementById("subscription-save").textContent = "Зберегти";
 }
@@ -84,14 +78,14 @@ function closeSubscriptionModal() {
 }
 
 function openEdit(id, data) {
-  const item = data.find(r => String(r.id) === String(id));
+  const item = data.find(row => String(row.id) === String(id));
   if (!item) return;
 
   editingId = id;
-  fields.name.value     = item.name              ?? "";
-  fields.category.value = item.category          ?? 0;
-  fields.duration.value = item.duration          ?? "";
-  fields.workouts.value = item.numberOfWorkouts  ?? "";
+  fields.name.value = item.name ?? "";
+  fields.duration.value = item.duration ?? "";
+  fields.workouts.value = item.numberOfWorkouts ?? "";
+  fields.price.value = item.price ?? "";
 
   document.getElementById("subscription-modal-title").textContent = "Редагувати абонемент";
   document.getElementById("subscription-save").textContent = "Оновити";
@@ -102,13 +96,16 @@ async function saveSubscription(e) {
   e.preventDefault();
 
   const payload = {
-    name:             fields.name.value.trim(),
-    category:         parseInt(fields.category.value),
-    duration:         parseInt(fields.duration.value) || 0,
+    name: fields.name.value.trim(),
+    duration: parseInt(fields.duration.value) || 0,
     numberOfWorkouts: parseInt(fields.workouts.value) || 0,
+    price: parseFloat(fields.price.value) || 0
   };
 
-  if (!payload.name) { fields.name.focus(); return; }
+  if (!payload.name) {
+    fields.name.focus();
+    return;
+  }
 
   try {
     if (editingId) {
@@ -123,15 +120,24 @@ async function saveSubscription(e) {
   }
 }
 
-// ---------- INIT ----------
+function formatPrice(value) {
+  const price = Number(value);
+  if (!Number.isFinite(price)) return "-";
+  return `${price.toLocaleString("uk-UA")} грн`;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   await loadConfirmModal();
   await loadSubscriptionModal();
 
-  document.getElementById("add-subscription-btn").onclick = () => {
-    resetForm();
-    openModal("subscription-modal");
-  };
+  if (canManageCatalogs()) {
+    document.getElementById("add-subscription-btn").onclick = () => {
+      resetForm();
+      openModal("subscription-modal");
+    };
+  } else {
+    hideElement("add-subscription-btn");
+  }
 
   loadSubscriptions();
 });

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elan — Тренери</title>
+    <title>Elan - Тренери</title>
     <link rel="stylesheet" href="/frontend/css/variables.css" />
     <link rel="stylesheet" href="/frontend/css/sidebar.css" />
     <link rel="stylesheet" href="/frontend/css/components.css" />
@@ -19,28 +19,16 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">Список тренерів</div>
-          <div class="search-bar">
-            <input type="text" placeholder="Пошук тренера..." oninput="filterTable(this, 'coaches-table')" />
+          <div class="toolbar-filters">
+            <input id="coach-search" type="text" placeholder="Пошук тренера..." />
+            <select id="coach-style-filter" aria-label="Фільтр за стилем">
+              <option value="">Усі стилі</option>
+            </select>
           </div>
         </div>
-        <div class="table-wrapper">
-          <table id="coaches-table">
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Ім'я</th>
-                <th>Прізвище</th>
-                <th>Телефон</th>
-                <th>Стилі</th>
-                <th>Опис</th>
-                <th>Дії</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <div id="coaches-grid" class="coach-grid"></div>
         <div class="pagination">
-          <div id="coaches-info">Завантаження...</div>
+          <div id="coaches-info">Немає даних</div>
         </div>
       </div>
     </main>

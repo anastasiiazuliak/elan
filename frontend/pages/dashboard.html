@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan - Поточні заняття</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/sidebar.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/dashboard.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <main class="content">
+      <div class="page-header">
+        <div>
+          <h1 id="dashboard-title">Поточні заняття</h1>
+          <p class="page-subtitle" id="dashboard-subtitle">Немає даних</p>
+        </div>
+        <div class="header-actions">
+          <span class="badge badge-pink" id="current-time">--:--</span>
+        </div>
+      </div>
+
+      <section class="dashboard-grid">
+        <div id="sessions" class="session-list">
+          <div class="card">
+            <div class="empty-panel">Немає даних</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/frontend/layouts/sidebar.js"></script>
+    <script type="module" src="/frontend/dashboard/dashboard.js"></script>
+  </body>
+</html>

@@ -180,8 +180,26 @@
   padding: 12px 14px 16px;
   margin-top: auto;
 
-  display: flex;
-  align-items: center;
+  display: grid;
+  gap: 8px;
 
   transform: translateY(-8px);
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.logout-btn:hover {
+  background: var(--pink-50);
+  color: var(--pink-600);
 }

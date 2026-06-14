@@ -2,7 +2,7 @@
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="subscription-modal-title">Додати абонемент</div>
-      <button class="close-btn" id="subscription-close">✕</button>
+      <button class="close-btn" id="subscription-close">x</button>
     </div>
 
     <div class="form-grid cols-2">
@@ -11,20 +11,16 @@
         <input id="subscription-name" type="text" placeholder="Місячний стандарт" />
       </div>
       <div class="form-group">
-        <label for="subscription-category">Категорія</label>
-        <select id="subscription-category">
-          <option value="0">Базова</option>
-          <option value="1">Стандарт</option>
-          <option value="2">Преміум</option>
-        </select>
-      </div>
-      <div class="form-group">
         <label for="subscription-duration">Тривалість (днів)</label>
         <input id="subscription-duration" type="number" min="1" placeholder="30" />
       </div>
       <div class="form-group">
-        <label for="subscription-workouts">К-сть тренувань</label>
+        <label for="subscription-workouts">Кількість тренувань</label>
         <input id="subscription-workouts" type="number" min="1" placeholder="12" />
+      </div>
+      <div class="form-group span2">
+        <label for="subscription-price">Вартість</label>
+        <input id="subscription-price" type="number" min="0" step="0.01" placeholder="1200" />
       </div>
     </div>
 

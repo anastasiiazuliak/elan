@@ -61,48 +61,54 @@
       /* schedule */
       .schedule-grid {
         display: grid;
-        grid-template-columns: 90px repeat(7, 1fr);
-        gap: 2px;
-        font-size: 12px;
-        min-width: 700px;
+        grid-template-columns: 80px repeat(6, 1fr);
+        gap: 1px;
+        min-width: 720px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
       }
       .sg-head {
         background: var(--pink-50);
-        padding: 8px 4px;
+        padding: 10px 6px;
         text-align: center;
+        font-size: 12px;
         font-weight: 700;
-        font-size: 11px;
-        color: var(--text-muted);
-        border-radius: 6px;
+        color: var(--text-secondary);
       }
       .sg-time {
         background: var(--pink-50);
-        padding: 8px 6px;
-        font-weight: 600;
+        padding: 10px 6px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
         color: var(--text-secondary);
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
       }
       .sg-cell {
-        min-height: 52px;
+        min-height: 76px;
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 6px;
         padding: 4px;
       }
-      .sg-cell:hover { background: var(--pink-50); }
       .sg-event {
         background: var(--pink-100);
         color: var(--pink-600);
-        border-radius: 4px;
-        padding: 3px 6px;
-        font-size: 11px;
-        font-weight: 600;
+        border-radius: 6px;
+        padding: 5px 7px;
+        font-size: 12px;
+        font-weight: 700;
         line-height: 1.3;
       }
+      .sg-event { position: relative; }
+      .sg-delete {
+        position: absolute;
+        top: 4px; right: 4px;
+        background: var(--surface);
+        color: var(--pink-600);
+        border: 1px solid var(--pink-200);
+        display: none;
+      }
+      .sg-event:hover .sg-delete { display: block; }
     </style>
   </head>
   <body>
@@ -114,14 +120,14 @@
       </div>
 
       <div class="tabs">
-        <button class="tab-btn active" data-tab="list">📍 Локації та зали</button>
-        <button class="tab-btn" data-tab="schedule">📅 Розклад залів</button>
+        <button class="tab-btn active" data-tab="list"><span class="tab-icon" data-icon="location"></span> Локації та зали</button>
+        <button class="tab-btn" data-tab="schedule"><span class="tab-icon" data-icon="calendar"></span> Розклад залів</button>
       </div>
 
       <!-- TAB: LIST -->
       <div id="tab-list" class="tab-panel active">
         <div id="location-cards" class="location-cards">
-          <div style="color:var(--text-muted); padding:40px;">Завантаження...</div>
+          <div style="color:var(--text-muted); padding:40px;">Немає даних</div>
         </div>
       </div>
 
@@ -146,7 +152,38 @@
       </div>
     </main>
 
+    <!-- MODAL: SCHEDULE -->
+    <div id="schedule-modal" class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">Додати в розклад</div>
+          <button class="close-btn" onclick="closeModal('schedule-modal')">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>День</label>
+            <input id="schedule-day" type="text" readonly />
+          </div>
+          <div class="form-group">
+            <label>Час</label>
+            <input id="schedule-time" type="text" readonly />
+          </div>
+          <div class="form-group">
+            <label>Група</label>
+            <select id="schedule-group">
+              <option value="">Немає даних</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="btn btn-ghost" onclick="closeModal('schedule-modal')">Скасувати</button>
+          <button class="btn btn-primary" onclick="saveSchedule()">Зберегти</button>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/frontend/layouts/sidebar.js"></script>
     <script type="module" src="/frontend/locations/locations.js"></script>
   </body>
 </html>
+

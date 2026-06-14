@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPut, apiDelete, renderTable, filterTable, openModal, closeModal } from "/frontend/layouts/utils.js";
+import { apiGet, apiPost, apiPut, apiDelete, canManageCatalogs, renderTable, filterTable, openModal, closeModal } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
 const API = "http://localhost:18080/styles";
@@ -11,6 +11,18 @@ async function loadStyles() {
   try {
     const data = await apiGet(API);
 
+    const actions = canManageCatalogs()
+      ? {
+          edit: (id) => openEdit(id, data),
+          delete: (id) => {
+            openConfirm("Ви впевнені, що хочете видалити цей стиль?", async () => {
+              await apiDelete(`${API}/${id}`);
+              loadStyles();
+            });
+          }
+        }
+      : {};
+
     renderTable(
       "styles-table",
       data,
@@ -18,15 +30,7 @@ async function loadStyles() {
         { key: "name" },
         { key: "description" }
       ],
-      {
-        edit: (id) => openEdit(id, data),
-        delete: (id) => {
-          openConfirm("Ви впевнені, що хочете видалити цей стиль?", async () => {
-            await apiDelete(`${API}/${id}`);
-            loadStyles();
-          });
-        }
-      }
+      actions
     );
 
     const info = document.getElementById("styles-info");
@@ -108,7 +112,8 @@ async function saveStyle(e) {
     description: descInput?.value?.trim() || ""
   };
 
-  if (!payload.name) {
+  if (!payload.name || !payload.description) {
+    alert("Назва та опис не можуть бути порожніми!");
     nameInput?.focus();
     return;
   }
@@ -139,10 +144,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchInput.addEventListener("input", () => filterTable(searchInput, "styles-table"));
   }
 
-  document.getElementById("add-style-btn").onclick = () => {
-    resetForm();
-    openModal("style-modal");
-  };
+  if (canManageCatalogs()) {
+    document.getElementById("add-style-btn").onclick = () => {
+      resetForm();
+      openModal("style-modal");
+    };
+  }
 
   loadStyles();
 });

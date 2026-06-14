@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elan — Клієнти</title>
+    <title>Elan - Клієнти</title>
     <link rel="stylesheet" href="/frontend/css/variables.css" />
     <link rel="stylesheet" href="/frontend/css/sidebar.css" />
     <link rel="stylesheet" href="/frontend/css/components.css" />
@@ -16,11 +16,14 @@
         <h1>Клієнти</h1>
         <button id="add-client-btn" class="btn btn-primary">+ Додати клієнта</button>
       </div>
-      <div class="card">
+      <div id="clients-list-panel" class="card">
         <div class="card-header">
           <div class="card-title">Список клієнтів</div>
-          <div class="search-bar">
-            <input type="text" placeholder="Пошук клієнта..." oninput="filterTable(this, 'clients-table')" />
+          <div class="toolbar-filters">
+            <input id="client-search" type="text" placeholder="Пошук клієнта..." />
+            <select id="client-category-filter" aria-label="Фільтр за категорією">
+              <option value="">Усі категорії</option>
+            </select>
           </div>
         </div>
         <div class="table-wrapper">
@@ -30,9 +33,10 @@
                 <th>№</th>
                 <th>Ім'я</th>
                 <th>Прізвище</th>
+                <th>По батькові</th>
+                <th>Логін</th>
                 <th>Телефон</th>
-                <th>Дата народження</th>
-                <th>Абонемент</th>
+                <th>Категорія</th>
                 <th>Дії</th>
               </tr>
             </thead>
@@ -40,10 +44,46 @@
           </table>
         </div>
         <div class="pagination">
-          <div id="clients-info">Завантаження...</div>
+          <div id="clients-info">Немає даних</div>
         </div>
       </div>
+
+      <div id="client-memberships-panel" class="card" style="display:none;">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="client-memberships-title">Абонементи клієнта</div>
+            <div id="client-memberships-subtitle" class="muted-line"></div>
+          </div>
+          <button id="back-to-clients-btn" class="btn btn-ghost" type="button">Назад до клієнтів</button>
+          <button id="add-membership-btn" class="btn btn-primary" type="button">+ Додати абонемент</button>
+        </div>
+        <div id="client-memberships-list" class="membership-list"></div>
+      </div>
     </main>
+
+    <div id="membership-modal" class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">Додати абонемент клієнту</div>
+          <button class="close-btn" id="membership-close">x</button>
+        </div>
+        <div class="form-grid cols-1">
+          <div class="form-group">
+            <label for="membership-group">Група</label>
+            <select id="membership-group"></select>
+          </div>
+          <div class="form-group">
+            <label for="membership-subscription">Абонемент</label>
+            <select id="membership-subscription"></select>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="btn btn-ghost" id="membership-cancel">Скасувати</button>
+          <button class="btn btn-primary" id="membership-save">Підтвердити</button>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/frontend/layouts/sidebar.js"></script>
     <script type="module" src="/frontend/clients/clients.js"></script>
   </body>

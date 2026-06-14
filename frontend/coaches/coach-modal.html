@@ -1,11 +1,22 @@
 <div id="coach-modal" class="modal-overlay">
-  <div class="modal">
+  <div class="modal modal-wide">
     <div class="modal-header">
       <div class="modal-title" id="coach-modal-title">Додати тренера</div>
-      <button class="close-btn" id="coach-close">✕</button>
+      <button class="close-btn" id="coach-close">x</button>
     </div>
 
     <div class="form-grid cols-2">
+      <div class="form-group span2">
+        <label>Фото</label>
+        <div class="photo-upload">
+          <div id="coach-photo-preview" class="photo-preview"></div>
+          <label class="file-upload-btn" for="coach-photo">
+            <span>Обрати фото</span>
+            <small>PNG, JPG або WEBP</small>
+          </label>
+          <input id="coach-photo" class="file-input" type="file" accept="image/*" />
+        </div>
+      </div>
       <div class="form-group">
         <label for="coach-firstName">Ім'я</label>
         <input id="coach-firstName" type="text" placeholder="Олена" />
@@ -32,7 +43,7 @@
       </div>
       <div class="form-group" id="coach-password-group">
         <label for="coach-password">Пароль</label>
-        <input id="coach-password" type="password" placeholder="••••••••" />
+        <input id="coach-password" type="password" />
       </div>
       <div class="form-group span2">
         <label for="coach-description">Опис</label>
