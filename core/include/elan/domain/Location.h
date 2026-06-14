@@ -37,17 +37,17 @@ namespace domain
         int GetId() const;
         const char *GetAddress() const;
         int GetHallCount() const;
-        std::vector<Hall> Location::GetHalls() const;
+        std::vector<Hall> GetHalls() const;
 
         bool AddHall(Hall &hall);
         bool RemoveHall(int hallId);
-        bool Location::UpdateHall(int hallId, const char *name, int capacity);
+        bool UpdateHall(int hallId, const char *name, int capacity);
         const Hall* GetHallById(int hallId) const;
         int FindHallIndexById(int hallId) const;
 
         bool AddSchedule(const Schedule &schedule);
         bool RemoveSchedule(const Schedule &schedule);
-        std::vector<Schedule> Location::GetScheduleList() const;
+        std::vector<Schedule> GetScheduleList() const;
 
         // Удаліть
         void PrintLocation();
