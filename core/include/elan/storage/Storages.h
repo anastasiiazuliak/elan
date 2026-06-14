@@ -6,6 +6,7 @@
 #include "elan/domain/Employee.h"
 #include "elan/domain/Group.h"
 #include "elan/domain/Location.h"
+#include "elan/domain/Membership.h"
 #include "elan/domain/Subscription.h"
 #include "elan/domain/Style.h"
 #include "elan/common/constants.h"
@@ -57,6 +58,12 @@ namespace storages
     inline storage::Storage<domain::Admin>& Admins() {
         static storage::Storage<domain::Admin> s(
             constants::ADMIN_FILE, constants::ADMIN_ID_FILE);
+        return s;
+    }
+
+    inline storage::Storage<domain::Membership>& Memberships() {
+        static storage::Storage<domain::Membership> s(
+            constants::MEMBERSHIPS_FILE, constants::MEMBERSHIPS_ID_FILE);
         return s;
     }
 }
