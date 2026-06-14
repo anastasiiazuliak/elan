@@ -1,7 +1,6 @@
 #pragma once
 
 #include "elan/common/Constants.h"
-#include "elan/common/Category.h"
 
 #include <cstring>
 #include <iostream>
@@ -18,9 +17,9 @@ namespace domain
     {
         int id;
         char name[constants::NAME_LENGTH];
-        common::Category category;
         int duration;
         int numberOfWorkouts;
+        int price;
 
         void SetId(int id);
 
@@ -29,12 +28,12 @@ namespace domain
 
     public:
         Subscription() = default;
-        Subscription(const char* name, common::Category category, int duration, int numberOfWorkouts);
+        Subscription(const char* name, int duration, int numberOfWorkouts, int price);
         int GetId() const;
         const char* GetName() const;
-        const common::Category GetCategory() const;
         const int GetDuration() const;
         const int GetNumberOfWorkouts() const;
+        const int GetPrice() const;
 
         //Удаліть
         void PrintSubscription();

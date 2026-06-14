@@ -11,9 +11,9 @@ namespace dtos
     {
         int id;
         std::string name;
-        common::Category category;
         int duration;
         int numberOfWorkouts;
+        int price;
     };
 
     SubscriptionDto ToDto(const domain::Subscription &s);

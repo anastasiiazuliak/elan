@@ -24,12 +24,9 @@ namespace api
 
             dto.name = body["name"].s();
 
-            dto.category = static_cast<common::Category>(
-                body["category"].i()
-            );
-
             dto.duration = body["duration"].i();
             dto.numberOfWorkouts = body["numberOfWorkouts"].i();
+            dto.price = body["price"].i();
 
             auto domainObj = dtos::FromDto(dto);
 
@@ -54,9 +51,9 @@ namespace api
 
                 res[i]["id"] = dto.id;
                 res[i]["name"] = dto.name;
-                res[i]["category"] = static_cast<int>(dto.category);
                 res[i]["duration"] = dto.duration;
                 res[i]["numberOfWorkouts"] = dto.numberOfWorkouts;
+                res[i]["price"] = dto.price;
 
                 i++;
             }
@@ -79,9 +76,9 @@ namespace api
 
             res["id"] = dto.id;
             res["name"] = dto.name;
-            res["category"] = static_cast<int>(dto.category);
             res["duration"] = dto.duration;
             res["numberOfWorkouts"] = dto.numberOfWorkouts;
+            res["price"] = dto.price;
 
             return crow::response(res);
         });
@@ -106,12 +103,9 @@ namespace api
             dto.id = id;
             dto.name = body["name"].s();
 
-            dto.category = static_cast<common::Category>(
-                body["category"].i()
-            );
-
             dto.duration = body["duration"].i();
             dto.numberOfWorkouts = body["numberOfWorkouts"].i();
+            dto.price = body["price"].i();
 
             auto updated = dtos::FromDto(dto);
 

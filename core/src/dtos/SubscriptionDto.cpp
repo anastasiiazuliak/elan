@@ -7,19 +7,19 @@ namespace dtos
         return {
             s.GetId(),
             s.GetName(),
-            s.GetCategory(),
             s.GetDuration(),
-            s.GetNumberOfWorkouts()
+            s.GetNumberOfWorkouts(),
+            s.GetPrice()
         };
     }
 
     domain::Subscription FromDto(const SubscriptionDto &dto)
     {
-        return domain::Subscription (
+        return domain::Subscription(
             dto.name.c_str(),
-            dto.category,
             dto.duration,
-            dto.numberOfWorkouts
+            dto.numberOfWorkouts,
+            dto.price
         );
     }
 }
