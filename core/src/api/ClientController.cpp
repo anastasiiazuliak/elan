@@ -1,11 +1,12 @@
 #include "elan/api/ClientController.h"
 
 #include "elan/dtos/ClientDto.h"
-#include "elan/services/ClientService.h"
+#include "elan/storage/Storages.h"
 
 #ifdef DELETE
 #undef DELETE
 #endif
+
 
 namespace api
 {
@@ -23,14 +24,13 @@ namespace api
 
             dtos::ClientRequestDto dto;
 
-            dto.firstName = std::string(body["firstName"].s());
-            dto.lastName = std::string(body["lastName"].s());
-            dto.patronymic = std::string(body["patronymic"].s());
-            dto.birthDate = std::string(body["birthDate"].s());
-            dto.phone = std::string(body["phone"].s());
-            dto.username = std::string(body["username"].s());
-            dto.password = std::string(body["password"].s());
-            dto.subscriptionId = body["subscriptionId"].i();
+            dto.firstName = body["firstName"].s();
+            dto.lastName = body["lastName"].s();
+            dto.patronymic = body["patronymic"].s();
+            dto.birthDate = body["birthDate"].s();
+            dto.phone = body["phone"].s();
+            dto.username = body["username"].s();
+            dto.password = body["password"].s();
 
             auto client = dtos::FromDto(dto);
 
@@ -60,7 +60,7 @@ namespace api
                 res[i]["birthDate"] = dto.birthDate;
                 res[i]["phone"] = dto.phone;
                 res[i]["username"] = dto.username;
-                res[i]["subscriptionId"] = dto.subscriptionId;
+                res[i]["category"] = static_cast<int>(dto.category);
 
                 i++;
             }
@@ -88,7 +88,7 @@ namespace api
             res["birthDate"] = dto.birthDate;
             res["phone"] = dto.phone;
             res["username"] = dto.username;
-            res["subscriptionId"] = dto.subscriptionId;
+            res["category"] = static_cast<int>(dto.category);
 
             return crow::response(res);
         });
@@ -110,14 +110,13 @@ namespace api
 
             dtos::ClientRequestDto dto;
 
-            dto.firstName = std::string(body["firstName"].s());
-            dto.lastName = std::string(body["lastName"].s());
-            dto.patronymic = std::string(body["patronymic"].s());
-            dto.birthDate = std::string(body["birthDate"].s());
-            dto.phone = std::string(body["phone"].s());
-            dto.username = std::string(body["username"].s());
-            dto.password = std::string(body["password"].s());
-            dto.subscriptionId = body["subscriptionId"].i();
+            dto.firstName = body["firstName"].s();
+            dto.lastName = body["lastName"].s();
+            dto.patronymic = body["patronymic"].s();
+            dto.birthDate = body["birthDate"].s();
+            dto.phone = body["phone"].s();
+            dto.username = body["username"].s();
+            dto.password = body["password"].s();
 
             auto updated = dtos::FromDto(dto);
 
@@ -134,28 +133,6 @@ namespace api
             storages::Clients().Delete(id);
 
             return crow::response("deleted");
-        });
-
-        // CHANGE SUBSCRIPTION
-        CROW_ROUTE(app, "/clients/<int>/subscription/<int>")
-        .methods(crow::HTTPMethod::PATCH)
-        ([](int clientId, int subscriptionId)
-        {
-            bool ok =
-                service::ClientService::ChangeClientSubscription(
-                    clientId,
-                    subscriptionId);
-
-            if (!ok)
-            {
-                return crow::response(
-                    400,
-                    "Cannot change subscription");
-            }
-
-            return crow::response(
-                200,
-                "subscription changed");
         });
     }
 }

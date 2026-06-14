@@ -6,25 +6,18 @@ namespace domain
 {
     Client::Client() : Person()
     {
-        subscriptionId = 0;
         category = common::Category::Age_16_plus;
     };
 
-    Client::Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, int subscriptionId, const char *password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
+    Client::Client(const char *firstName, const char *lastName, const char *patronymic, common::Date birthDate, const char *phone, const char *password, const char *username) : Person(firstName, lastName, patronymic, birthDate, phone, password, username)
     {
-        this->subscriptionId = subscriptionId;
         int age = GetAge();
         category = common::determineCategory(age);
     }
 
-    int Client::GetSubscriptionId() const
+    common::Category Client::GetCategory() const
     {
-        return subscriptionId;
-    }
-
-    void Client::ChangeSubscription(int subscriptionId)
-    {
-        this->subscriptionId = subscriptionId;
+        return category;
     }
 
     // Удаліть
@@ -42,10 +35,6 @@ namespace domain
         std::cout << "Phone: "
                   << phone << "\n";
 
-        std::cout << "Subscription: "
-                  << subscriptionId << " ";
-
-        std::cout << "\n";
 
         std::cout << "Category: ";
         switch (category)

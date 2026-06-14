@@ -15,7 +15,6 @@ namespace dtos
         std::string phone;
         std::string password;
         std::string username;
-        int subscriptionId;
     };
 
     struct ClientResponseDto
@@ -27,7 +26,7 @@ namespace dtos
         std::string birthDate;
         std::string phone;
         std::string username;
-        int subscriptionId;
+        common::Category category;
     };
 
     ClientResponseDto ToDto(const domain::Client &c);

@@ -12,7 +12,8 @@ namespace dtos
             common::FormatDate(c.GetBirthDate()),
             c.GetPhone(),
             c.GetUsername(),
-            c.GetSubscriptionId()};
+            c.GetCategory()
+        };
     }
 
     domain::Client FromDto(const ClientRequestDto &dto)
@@ -23,7 +24,6 @@ namespace dtos
             dto.patronymic.c_str(),
             common::ParseDate(dto.birthDate),
             dto.phone.c_str(),
-            dto.subscriptionId,
             dto.password.c_str(),
             dto.username.c_str());
     }
