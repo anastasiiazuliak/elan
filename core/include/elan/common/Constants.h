@@ -12,6 +12,7 @@ namespace constants
     static constexpr int WORKING_HOURS = 13;
     static constexpr int NAME_LENGTH = 30;
     static constexpr int PHONE_LENGTH = 13;
+    static constexpr int MAX_SUBSCRIPTIONS = 10;
 
     static constexpr char *ADMIN_FILE = "../data/admin.bin";
     static constexpr char *ADMIN_ID_FILE = "../data/admin_id.bin";
@@ -30,6 +31,9 @@ namespace constants
 
     static constexpr char *LOCATIONS_FILE = "../data/locations.bin";
     static constexpr char *LOCATIONS_ID_FILE = "../data/locations_id.bin";
+
+    static constexpr char *MEMBERSHIPS_FILE = "../data/memberships.bin";
+    static constexpr char *MEMBERSHIPS_ID_FILE = "../data/memberships_id.bin";
 
     static constexpr char *STYLES_FILE = "../data/styles.bin";
     static constexpr char *STYLES_ID_FILE = "../data/styles_id.bin";
