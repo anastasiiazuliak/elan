@@ -1,200 +1,30 @@
 # Entities
 
-## Person
-```json
-{
-    "Id": "int",
-    "FirstName": "string",
-    "LastName": "string",
-    "Patronymic": "string",
-    "BirthDate": "datetime",
-    "Phone": "string",
-    "Username": "string",
-    "Password": "hash",
-    "Role": "Role"
-}
-```
+The following fields describe the C++ domain model. JSON response fields are defined separately by the API controllers and DTOs.
 
-Person є базовою сутністю системи. Вона містить персональні дані користувача, а також інформацію для авторизації: логін (Username), пароль (Password) та роль (Role). Від цієї сутності успадковуються клієнти, працівники та тренери.
+| Entity | Stored fields and purpose |
+| --- | --- |
+| `Person` | Base class for accounts. Holds ID, first name, last name, patronymic, birth date, phone, username, password hash, and role. Login reports the role associated with the account store. |
+| `Admin` | System administrator account. |
+| `Client` | Client account with an age category derived from the date of birth. |
+| `Employee` | Studio employee account with an assigned location ID. The demo uses `0` for an unassigned location. |
+| `Coach` | Coach account with a description and up to 10 style IDs. |
+| `Style` | Dance or fitness style with an ID, name, and description. |
+| `Group` | Named group with an ID, coach ID, style ID, skill level, age category, and up to 10 allowed subscription plan IDs. |
+| `Location` | Studio location with an ID, address, up to 5 halls, and weekly schedule slots. |
+| `Hall` | Room within a location with a local ID, name, capacity, and a type derived from capacity. |
+| `Schedule` | Weekly slot in a location, identified by hall, weekday, and hour. Holds a group ID and an occupancy flag. |
+| `Subscription` | Reusable plan with an ID, name, duration in days, number of visits, and price. |
+| `Membership` | Enrollment record with its own ID and references to a client, group, and subscription plan. Stores start and end dates, remaining visits, and completed visits. |
 
----
+## Enumerations and schedule
 
-## Client
-```json
-{
-    "Id": "int",
-    "SubscriptionId": "int",
-    "SubscriptionStartDate": "datetime",
-    "SubscriptionEndDate": "datetime",
-    "RemainingWorkouts": "int",
-    "CompletedWorkouts": "int",
-    "Category": "Category"
-}
-```
+| Value | Options |
+| --- | --- |
+| Role | System administrator (`Admin`, 0), client (`Client`, 1), employee (`Employee`, 2), coach (`Coach`, 3) |
+| Skill level | Beginner, Intermediate, Advanced |
+| Age category | 3–5, 5+, 6+, 7+, 10–12, 14+, 16+ |
+| Hall type | Large, Medium, Individual |
+| Schedule slots | Monday through Saturday, hourly from 08:00 through 20:00 |
 
-Client успадковує Person та представляє клієнта студії. Для клієнта зберігається інформація про активний абонемент, термін його дії, кількість доступних та використаних занять, а також категорія клієнта.
-
----
-
-## Employee
-```json
-{
-    "Id": "int",
-    "LocationId": "int",
-    "Email": "string"
-}
-```
-
-Employee успадковує Person та представляє працівника студії. Основними атрибутами є локація роботи та службова електронна адреса.
-
----
-
-## Coach
-```json
-{
-    "Id": "int",
-    "Styles": "int[]",
-    "Description": "string"
-}
-```
-
-Coach успадковує Person та представляє тренера студії. Для кожного тренера зберігається перелік стилів, які він викладає, а також його опис.
-
----
-
-## Group
-```json
-{
-    "Id": "int",
-    "Name": "string",
-    "CoachId": "int",
-    "StyleId": "int",
-    "SkillLevel": "SkillLevel",
-    "Clients": "Client[]"
-}
-```
-
-Group містить інформацію про навчальну групу. Кожна група має назву, тренера, стиль танцю, рівень підготовки та список клієнтів, які її відвідують.
-
-### SkillLevel
-```text
-Beginner
-Intermediate
-Advanced
-```
-
----
-
-## Location
-```json
-{
-    "Id": "int",
-    "Address": "string",
-    "Halls": "Hall[]",
-    "Schedule": "Schedule[]"
-}
-```
-
-Location описує одну з локацій студії. Вона містить адресу, список залів та розклад занять.
-
----
-
-## Hall
-```json
-{
-    "Id": "int",
-    "Name": "string",
-    "Type": "HallType",
-    "Capacity": "int"
-}
-```
-
-Hall представляє фізичний зал для проведення занять. Для кожного залу зберігається назва, тип та максимальна кількість відвідувачів.
-
-### HallType
-```text
-Large
-Medium
-Individual
-```
-
----
-
-## Schedule
-```json
-{
-    "GroupId": "int",
-    "HallId": "int",
-    "Day": "Day",
-    "Time": "Time",
-    "IsOccupied": "bool"
-}
-```
-
-Schedule використовується для формування розкладу занять. Він пов'язує групу та зал у певний день і час.
-
-### Day
-```text
-Monday
-Tuesday
-Wednesday
-Thursday
-Friday
-Saturday
-```
-
-### Time
-```text
-08:00
-09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
-16:00
-17:00
-18:00
-19:00
-20:00
-```
-
----
-
-## Style
-```json
-{
-    "Id": "int",
-    "Name": "string",
-    "Description": "string"
-}
-```
-
-Style описує танцювальний або спортивний напрямок студії. Містить назву стилю та його опис.
-
----
-
-## Subscription
-```json
-{
-    "Id": "int",
-    "Name": "string",
-    "Category": "Category",
-    "Duration": "int",
-    "NumberOfWorkouts": "int",
-    "GroupId": "int"
-}
-```
-
-Subscription описує абонементи студії. Для кожного абонемента зберігається назва, категорія клієнтів, тривалість дії, кількість занять та група, до якої він прив'язаний.
-
----
-
-## Role
-```text
-Admin
-Client
-Employee
-Coach
-```
+See [Relationships](relationships.md) for how these entities are connected.

@@ -1,154 +1,47 @@
-# 💃 Dance & Fitness Studio Management System Elan
+# Elan Dance & Fitness Studio
 
-## 📌 Опис проєкту
+I built Elan as my second-year college coursework project in C++. It uses the Crow C++ web framework to serve a browser interface and a JSON API for managing a dance and fitness studio.
 
-Даний проєкт представляє собою розробку інформаційної системи для автоматизації діяльності студії танцю та фітнесу. Система реалізована з використанням мови програмування C++ із інтеграцією веб-інтерфейсу для зручної взаємодії користувачів.
+The studio can maintain clients, coaches, staff, dance styles, groups, locations, halls, weekly schedules, and class passes. Memberships link clients to groups and track the visits covered by a pass.
 
-Основною метою курсового проєкту є створення ефективного інструменту для управління клієнтами, тренерами, групами та розкладом занять, що дозволяє оптимізувати внутрішні процеси студії та підвищити якість обслуговування.
+## Roles and demo sign-in
 
----
+| Role | Username | What the web interface supports |
+| --- | --- | --- |
+| System administrator | `demo-admin` | Manage studio catalogs, staff, groups, and schedules, and record attendance. |
+| Employee (location administrator) | `demo-employee` | Register clients, assign group memberships, and record attendance from the dashboard. |
+| Coach | `demo-coach` | View assigned groups, their schedules, and enrolled clients. |
+| Client | `demo-client` | View the personal dashboard and schedule, and browse studio listings. |
 
-## 🎯 Основні можливості системи
+The password for all four accounts is **`ElanDemo2026`**. These credentials are for the local demo.
 
-- Реєстрація та управління користувачами  
-- Запис клієнтів до танцювальних груп (самостійно або через працівника)  
-- Перегляд та управління розкладом занять  
-- Облік тренерів і клієнтів  
-- Управління абонементами  
-- Перегляд інформації про стилі танцю та доступні групи  
-- Робота з локаціями та залами  
+## Build and run on Windows
 
----
-
-## 👥 Ролі користувачів
-
-### 🛠 Системний адміністратор
-
-- Повний контроль над системою  
-- Створення та редагування:
-  - танцювальних груп  
-  - стилів танцю  
-  - абонементів  
-  - локацій та залів  
-- Призначення тренерів до груп  
-- Формування розкладу занять  
-- Перегляд усіх даних системи  
-
----
-
-### 🧑‍💼 Працівник
-
-- Реєстрація нових клієнтів  
-- Запис клієнтів до груп  
-- Перегляд інформації про:
-  - клієнтів  
-  - тренерів  
-  - групи  
-  - стилі танцю  
-  - локації  
-
----
-
-### 🧍 Клієнт
-
-- Запис до танцювальних груп  
-- Перегляд:
-  - власного розкладу занять  
-  - доступних груп  
-  - тренерів  
-  - стилів танцю  
-  - абонементів  
-- Можливість обрати декілька груп одночасно  
-
----
-
-### 🧑‍🏫 Тренер
-
-- Перегляд власного розкладу занять  
-- Перегляд списку своїх клієнтів  
-- Отримання інформації про групи, які він веде  
-
----
-
-## 🧩 Основні сутності системи
-
-- Користувач (системний адміністратор, працівник, клієнт, тренер)  
-- Танцювальна група  
-- Стиль танцю  
-- Абонемент  
-- Локація  
-- Зал  
-- Розклад занять  
-
----
-
-## 🔗 Основні зв’язки
-
-- Клієнт може бути записаний у декілька груп  
-- Група має одного тренера  
-- Кожна група пов’язана зі стилем танцю та рівнем підготовки  
-- Заняття проводяться відповідно до розкладу в конкретному залі  
-- Абонемент визначає доступ до занять  
-
----
-
-## 📁 Структура проєкту
-
-```
-ELAN/
-├── app/
-│   └── main.cpp           # Точка входу в програму
-├── build/                 # Збірка проекту
-├── core/
-│   └── include/elan/      # Заголовочні файли бібліотек
-│       ├── common/        # Загальні утиліти та допоміжні класи
-│       ├── domain/        # Опис основних доменних сутностей
-│       ├── services/      # Логіка сервісів (бізнес-логіка)
-│       └── storage/       # Інтерфейси та базові класи для роботи зі сховищем даних
-├── src/
-│   ├── common/            # Реалізація загальних утиліт
-│   ├── domain/            # Реалізація доменних класів
-│   ├── services/          # Реалізація бізнес-логіки сервісів
-│   └── storage/           # Реалізація класів зберігання (ClientStorage.cpp, EmployeeStorage.cpp тощо)
-├── docs/                  # Документація проекту
-├── .gitignore
-├── CMakeLists.txt         # Файл збірки проекту
-├── LICENSE
-└── README.md
-```
----
-
-## Збірка та запуск у Windows
-
-Потрібні CMake, Visual Studio з компонентом «Розробка класичних програм на C++» і Crow. Якщо Crow ще не встановлено, виконайте `vcpkg install crow:x64-windows`. Якщо vcpkg розташований за межами проєкту, передайте CMake шлях до його toolchain-файлу через `-DCMAKE_TOOLCHAIN_FILE=<шлях-до-vcpkg>/scripts/buildsystems/vcpkg.cmake` під час першої конфігурації.
-
-Виконайте в PowerShell з папки проєкту.
+Use CMake 3.16 or later, Visual Studio with the **Desktop development with C++** workload, and a bootstrapped vcpkg installation. Install Crow and run the following from the project root in PowerShell. This example assumes vcpkg is in a local `vcpkg/` folder. Adjust the vcpkg paths if you installed it elsewhere.
 
 ```powershell
-cmake -S . -B build
+.\vcpkg\vcpkg.exe install crow:x64-windows
+cmake -S . -B build "-DCMAKE_TOOLCHAIN_FILE=$PWD/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows -A x64
 cmake --build build --config Release
+.\build\Release\ELAN.exe --seed-demo
 .\build\Release\ELAN.exe
 ```
 
-Відкрийте [ELAN](http://127.0.0.1:18080/) і залиште сервер запущеним під час роботи. Для входу використовуйте обліковий запис із локального сховища `data/`. Під час першого запуску з порожнім сховищем облікових записів ще немає.
+Open [Elan](http://127.0.0.1:18080/) and sign in with one of the demo accounts. Run `--seed-demo` once on a fresh checkout, with the server stopped. It creates one account per role and requires a `data/` directory with no `.bin` files. Start the server without arguments on subsequent runs.
 
----
+Elan stores records and ID counters in local binary files under `data/`. The demo starts with empty studio catalogs. The demo employee has no assigned location until one is created and assigned. The browser interface is in Ukrainian.
 
-## 💻 Технології реалізації
+## Project layout
 
-- **Мова програмування:** C++  
-- **Архітектура:** клієнт-серверна  
-- **Інтерфейс:** веб-додаток  
-- **База даних:** бінарні файли (.dat)  
+| Path | Contents |
+| --- | --- |
+| `app/` | Server entry point and demo account setup |
+| `core/include/elan/` | Public headers for the API, domain model, services, DTOs, and storage |
+| `core/src/` | Implementations for those components |
+| `frontend/` | HTML, CSS, browser JavaScript, and assets |
+| `data/` | Local binary storage created at runtime |
+| `docs/` | Domain and data model documentation |
 
----
-
-## ⚙️ Переваги системи
-
-- Автоматизація ключових бізнес-процесів  
-- Зменшення кількості помилок при обліку  
-- Зручний доступ до інформації в режимі реального часу  
-- Гнучке управління розкладом і групами  
-- Підвищення ефективності роботи персоналу  
-
----
+- [Domain analysis](docs/domain-analysis.md)
+- [Entities](docs/entities.md)
+- [Relationships](docs/relationships.md)
