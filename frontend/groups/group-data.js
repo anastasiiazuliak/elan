@@ -1,6 +1,6 @@
 import { apiGet, unwrapData } from "/frontend/layouts/utils.js";
 
-export const API = "http://localhost:18080";
+export const API = window.location.origin;
 
 export const LEVEL_LABELS = {
   0: "Початківець",

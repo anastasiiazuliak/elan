@@ -14,7 +14,7 @@ import {
 } from "/frontend/layouts/confirm-modal.js";
 import { initSchedule, updateScheduleSelectors } from "./schedule.js";
 
-const API = "http://localhost:18080/locations";
+const API = "/locations";
 
 const DAY_LABELS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const TIME_LABELS = [

@@ -1,6 +1,6 @@
-import { apiGet, apiPatch, getCurrentUser, isClient, setText, unwrapData } from "/frontend/layouts/utils.js";
+import { apiGet, apiPatch, canMarkAttendance, getCurrentUser, isClient, isCoach, setText, unwrapData } from "/frontend/layouts/utils.js";
 
-const API = "http://localhost:18080";
+const API = window.location.origin;
 const DAY_LABELS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
 const TIME_LABELS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
 
@@ -75,11 +75,18 @@ async function getCurrentSessions() {
     currentSlots = await loadCurrentSlotsFromApi(day, time);
   }
 
-  return Promise.all(currentSlots.map(async slot => {
+  const sessions = await Promise.all(currentSlots.map(async slot => {
     const group = state.groups.find(item => String(item.id) === String(slot.groupId));
     const clients = group ? await apiGet(`${API}/groups/${group.id}/memberships`).then(unwrapData).catch(() => []) : [];
     return { ...slot, group, clients };
   }));
+
+  if (isCoach()) {
+    const coachId = getCurrentUser()?.id;
+    return sessions.filter(session => String(session.group?.coachId) === String(coachId));
+  }
+
+  return sessions;
 }
 
 async function loadCurrentSlotsFromApi(day, time) {
@@ -135,6 +142,7 @@ function renderClientRow(client, groupId) {
   const subscription = state.subscriptions.find(item => String(item.id) === String(client.subscriptionId))?.name || "Абонемент не вказаний";
   const key = attendanceKey(groupId, client.clientId);
   const marked = localStorage.getItem(key) === "1";
+  const status = marked ? "Відмічено" : "Очікує відмітки";
 
   return `
     <div class="attendance-row">
@@ -142,14 +150,18 @@ function renderClientRow(client, groupId) {
         <div class="client-name">${name}</div>
         <div class="client-note">${subscription} · залишок ${client.remainingWorkouts ?? 0}</div>
       </div>
-      <button class="attendance-btn ${marked ? "marked" : ""}" data-client-id="${client.clientId}" data-membership-id="${client.id}" data-group-id="${groupId}" ${marked ? "disabled" : ""}>
-        ${marked ? "Відмічено" : "Відмітити"}
-      </button>
+      ${canMarkAttendance()
+        ? `<button class="attendance-btn ${marked ? "marked" : ""}" data-client-id="${client.clientId}" data-membership-id="${client.id}" data-group-id="${groupId}" ${marked ? "disabled" : ""}>
+            ${marked ? "Відмічено" : "Відмітити"}
+          </button>`
+        : `<span class="attendance-status">${status}</span>`}
     </div>
   `;
 }
 
 function bindAttendanceButtons() {
+  if (!canMarkAttendance()) return;
+
   document.querySelectorAll(".attendance-btn:not(.marked)").forEach(button => {
     button.addEventListener("click", async () => {
       await apiPatch(`${API}/memberships/${button.dataset.membershipId}/use`);

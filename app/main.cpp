@@ -1,4 +1,6 @@
+#include <filesystem>
 #include <iostream>
+#include <stdexcept>
 
 #include "elan/api/AuthController.h"
 #include "elan/api/ClientController.h"
@@ -13,8 +15,15 @@
 
 #include "crow.h"
 
-int main()
+int main() try
 {
+    namespace fs = std::filesystem;
+    const auto projectRoot = fs::u8path(ELAN_PROJECT_ROOT);
+    fs::current_path(projectRoot);
+    if (!fs::is_regular_file("frontend/pages/login.html"))
+        throw std::runtime_error("Missing frontend/pages/login.html in the project directory");
+    fs::create_directories("data");
+
     crow::SimpleApp app;
 
     api::AuthController::RegisterRoutes(app);
@@ -36,12 +45,12 @@ int main()
      });
 
     CROW_ROUTE(app, "/frontend/<path>")
-    ([](std::string path)
-     { return serveFile("../frontend/" + path); });
+    ([](const std::string& path)
+     { return serveFile(path); });
 
     CROW_ROUTE(app, "/login")
     ([]()
-     { return serveFile("../frontend/pages/login.html"); });
+     { return serveFile("pages/login.html"); });
 
     CROW_ROUTE(app, "/register")
     ([]()
@@ -53,41 +62,55 @@ int main()
 
     CROW_ROUTE(app, "/employee/dashboard")
     ([]()
-     { return serveFile("../frontend/pages/dashboard.html"); });
+     { return serveFile("pages/dashboard.html"); });
 
     CROW_ROUTE(app, "/page/dashboard")
     ([]()
-     { return serveFile("../frontend/pages/dashboard.html"); });
+     { return serveFile("pages/dashboard.html"); });
+
+    CROW_ROUTE(app, "/page/my-trainings")
+    ([]()
+     { return serveFile("pages/my-groups.html"); });
+
+    CROW_ROUTE(app, "/page/my-groups")
+    ([]()
+     { return serveFile("pages/my-groups.html"); });
 
     CROW_ROUTE(app, "/page/styles")
     ([]()
-     { return serveFile("../frontend/pages/styles.html"); });
+     { return serveFile("pages/styles.html"); });
 
     CROW_ROUTE(app, "/page/clients")
     ([]()
-     { return serveFile("../frontend/pages/clients.html"); });
+     { return serveFile("pages/clients.html"); });
 
     CROW_ROUTE(app, "/page/coaches")
     ([]()
-     { return serveFile("../frontend/pages/coaches.html"); });
+     { return serveFile("pages/coaches.html"); });
 
     CROW_ROUTE(app, "/page/employees")
     ([]()
-     { return serveFile("../frontend/pages/employees.html"); });
+     { return serveFile("pages/employees.html"); });
 
     CROW_ROUTE(app, "/page/groups")
     ([]()
-     { return serveFile("../frontend/pages/groups.html"); });
+     { return serveFile("pages/groups.html"); });
 
     CROW_ROUTE(app, "/page/locations")
     ([]()
-     { return serveFile("../frontend/pages/locations.html"); });
+     { return serveFile("pages/locations.html"); });
 
     CROW_ROUTE(app, "/page/subscriptions")
     ([]()
-     { return serveFile("../frontend/pages/subscriptions.html"); });
+     { return serveFile("pages/subscriptions.html"); });
 
-    app.port(18080)
+    app.bindaddr("127.0.0.1")
+        .port(18080)
         .multithreaded()
         .run();
+}
+catch (const std::exception& error)
+{
+    std::cerr << "ELAN could not start on http://127.0.0.1:18080: " << error.what() << '\n';
+    return 1;
 }

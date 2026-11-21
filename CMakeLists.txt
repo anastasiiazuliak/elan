@@ -29,7 +29,7 @@ include_directories(
 # Automatically collect all .cpp files from project directories.
 # This eliminates the need to manually update the list
 # when new files are added.
-file(GLOB_RECURSE SOURCES
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     app/*.cpp
     core/src/api/*.cpp
     core/src/common/*.cpp
@@ -48,24 +48,18 @@ add_executable(ELAN ${SOURCES})
 # ============================================
 # Link Libraries
 # ============================================
-target_include_directories(ELAN PRIVATE
-    ${CMAKE_SOURCE_DIR}/vcpkg/installed/x64-mingw-dynamic/include
-)
+if(WIN32)
+    list(APPEND CMAKE_PREFIX_PATH
+        "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-windows"
+        "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-mingw-dynamic"
+    )
+    target_compile_definitions(ELAN PRIVATE _WIN32_WINNT=0x0601)
+endif()
 
-# ============================================
-# Notes
-# ============================================
-# - Build commands:
-#     mkdir build
-#     cd build
-#     cmake ..
-#     cmake --build .
-#
-# - This setup is platform-independent and works on:
-#     Windows / Linux / macOS
-#
-# - Designed for scalability and clean project structure
-# ===========================================
+find_package(Crow CONFIG REQUIRED)
+target_link_libraries(ELAN PRIVATE Crow::Crow)
+target_compile_definitions(ELAN PRIVATE ELAN_PROJECT_ROOT="${CMAKE_CURRENT_SOURCE_DIR}")
 
-#Compiler definition
-add_compile_definitions(_WIN32_WINNT=0x0601)
+if(MSVC)
+    target_compile_options(ELAN PRIVATE /utf-8)
+endif()

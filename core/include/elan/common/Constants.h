@@ -14,30 +14,30 @@ namespace constants
     static constexpr int PHONE_LENGTH = 13;
     static constexpr int MAX_SUBSCRIPTIONS = 10;
 
-    static constexpr char *ADMIN_FILE = "../data/admin.bin";
-    static constexpr char *ADMIN_ID_FILE = "../data/admin_id.bin";
+    static constexpr const char *ADMIN_FILE = "data/admin.bin";
+    static constexpr const char *ADMIN_ID_FILE = "data/admin_id.bin";
 
-    static constexpr char *CLIENTS_FILE = "../data/clients.bin";
-    static constexpr char *CLIENTS_ID_FILE = "../data/clients_id.bin";
+    static constexpr const char *CLIENTS_FILE = "data/clients.bin";
+    static constexpr const char *CLIENTS_ID_FILE = "data/clients_id.bin";
 
-    static constexpr char *COACHES_FILE = "../data/coaches.bin";
-    static constexpr char *COACHES_ID_FILE = "../data/coaches_id.bin";
+    static constexpr const char *COACHES_FILE = "data/coaches.bin";
+    static constexpr const char *COACHES_ID_FILE = "data/coaches_id.bin";
 
-    static constexpr char *EMPLOYEES_FILE = "../data/employees.bin";
-    static constexpr char *EMPLOYEES_ID_FILE = "../data/employees_id.bin";
+    static constexpr const char *EMPLOYEES_FILE = "data/employees.bin";
+    static constexpr const char *EMPLOYEES_ID_FILE = "data/employees_id.bin";
 
-    static constexpr char *GROUPS_FILE = "../data/groups.bin";
-    static constexpr char *GROUPS_ID_FILE = "../data/groups_id.bin";
+    static constexpr const char *GROUPS_FILE = "data/groups.bin";
+    static constexpr const char *GROUPS_ID_FILE = "data/groups_id.bin";
 
-    static constexpr char *LOCATIONS_FILE = "../data/locations.bin";
-    static constexpr char *LOCATIONS_ID_FILE = "../data/locations_id.bin";
+    static constexpr const char *LOCATIONS_FILE = "data/locations.bin";
+    static constexpr const char *LOCATIONS_ID_FILE = "data/locations_id.bin";
 
-    static constexpr char *MEMBERSHIPS_FILE = "../data/memberships.bin";
-    static constexpr char *MEMBERSHIPS_ID_FILE = "../data/memberships_id.bin";
+    static constexpr const char *MEMBERSHIPS_FILE = "data/memberships.bin";
+    static constexpr const char *MEMBERSHIPS_ID_FILE = "data/memberships_id.bin";
 
-    static constexpr char *STYLES_FILE = "../data/styles.bin";
-    static constexpr char *STYLES_ID_FILE = "../data/styles_id.bin";
+    static constexpr const char *STYLES_FILE = "data/styles.bin";
+    static constexpr const char *STYLES_ID_FILE = "data/styles_id.bin";
 
-    static constexpr char *SUBSCRIPTIONS_FILE = "../data/subscriptions.bin";
-    static constexpr char *SUBSCRIPTIONS_ID_FILE = "../data/subscriptions_id.bin";
+    static constexpr const char *SUBSCRIPTIONS_FILE = "data/subscriptions.bin";
+    static constexpr const char *SUBSCRIPTIONS_ID_FILE = "data/subscriptions_id.bin";
 }

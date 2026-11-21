@@ -31,6 +31,21 @@ namespace api
             dto.address = body["address"].s();
 
             auto location = dtos::FromDto(dto);
+
+            auto locations = storages::Locations().GetAll();
+
+            for (const auto& l : locations)
+            {
+                if (l.GetAddress() == dto.address)
+                {
+                    return crow::response(
+                        400,
+                        crow::json::wvalue{
+                            {"message", "Location already exists"}
+                        });
+                }
+            }
+
             storages::Locations().Add(location);
 
             return crow::response(201, crow::json::wvalue{
@@ -110,6 +125,21 @@ namespace api
             std::string address = body["address"].s();
 
             location.SetAddress(address.c_str());
+
+            auto locations = storages::Locations().GetAll();
+
+            for (const auto& l : locations)
+            {
+                if (l.GetId() != id && l.GetAddress() == address)
+                {
+                    return crow::response(
+                        400,
+                        crow::json::wvalue{
+                            {"message", "Location already exists"}
+                        });
+                }
+            }
+            
             storages::Locations().Update(id, location);
 
             return crow::response(200, crow::json::wvalue{

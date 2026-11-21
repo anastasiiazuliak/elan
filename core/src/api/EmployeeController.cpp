@@ -34,6 +34,16 @@ namespace api
 
             auto employee = dtos::FromDto(dto);
 
+            auto employees = storages::Employees().GetAll();
+
+            for (const auto& e : employees)
+            {
+                if (e.GetUsername() == dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
+
             storages::Employees().Add(employee);
 
             return crow::response(201, "created");
@@ -120,6 +130,16 @@ namespace api
             dto.username = body["username"].s();
 
             auto updated = dtos::FromDto(dto);
+
+            auto employees = storages::Employees().GetAll();
+
+            for (const auto& e : employees)
+            {
+                if (e.GetId() != id && e.GetUsername() == dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
 
             storages::Employees().Update(id, updated);
 

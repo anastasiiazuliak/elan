@@ -39,6 +39,16 @@ namespace api
 
             auto coach = dtos::FromDto(dto);
 
+            auto coaches = storages::Coaches().GetAll();
+
+            for (const auto& c : coaches)
+            {
+                if (c.GetUsername()== dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
+
             storages::Coaches().Add(coach);
 
             return crow::response(201, "created");
@@ -140,6 +150,16 @@ namespace api
             }
 
             auto updated = dtos::FromDto(dto);
+
+            auto coaches = storages::Coaches().GetAll();
+
+            for (const auto& c : coaches)
+            {
+                if (c.GetId() != id && c.GetUsername() == dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
 
             storages::Coaches().Update(id, updated);
 

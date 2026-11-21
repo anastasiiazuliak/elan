@@ -1,7 +1,7 @@
 import { apiDelete, apiGet, apiPost, apiPut, canManageCatalogs, closeModal, hideElement, openModal, renderTable } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
-const API = "http://localhost:18080/subscriptions";
+const API = "/subscriptions";
 
 let editingId = null;
 let fields = {};

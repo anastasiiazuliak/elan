@@ -1,8 +1,8 @@
 import { apiDelete, apiGet, apiPost, apiPut, closeModal, formatUaPhone, initPasswordReveal, initUaPhoneInput, isAdmin, openModal, renderTable } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
-const API = "http://localhost:18080/employees";
-const LOCS_API = "http://localhost:18080/locations";
+const API = "/employees";
+const LOCS_API = "/locations";
 
 let editingId = null;
 let fields = {};

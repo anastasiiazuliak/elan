@@ -34,6 +34,16 @@ namespace api
 
             auto client = dtos::FromDto(dto);
 
+            auto clients = storages::Clients().GetAll();
+
+            for (const auto& c : clients)
+            {
+                if (c.GetUsername() == dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
+
             storages::Clients().Add(client);
 
             return crow::response(201, "created");
@@ -119,6 +129,16 @@ namespace api
             dto.password = body["password"].s();
 
             auto updated = dtos::FromDto(dto);
+
+            auto clients = storages::Clients().GetAll();
+
+            for (const auto& c : clients)
+            {
+                if (c.GetId() != id && c.GetUsername() == dto.username)
+                {
+                    return crow::response(400, "Username already exists");
+                }
+            }
 
             storages::Clients().Update(id, updated);
 

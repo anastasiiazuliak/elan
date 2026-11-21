@@ -1,10 +1,10 @@
 import { apiGet, apiPost, apiPut, canCreateClient, closeModal, formatUaPhone, hideElement, initPasswordReveal, initUaPhoneInput, isClient, isLocationAdmin, openModal, renderTable, setText, unwrapData } from "/frontend/layouts/utils.js";
 import { API as ROOT_API, CATEGORY_LABELS, getCategory, getCategoryLabel } from "/frontend/groups/group-data.js";
 
-const API = "http://localhost:18080/clients";
-const GROUPS_API = "http://localhost:18080/groups";
-const SUBS_API = "http://localhost:18080/subscriptions";
-const MEMBERSHIPS_API = "http://localhost:18080/memberships";
+const API = "/clients";
+const GROUPS_API = "/groups";
+const SUBS_API = "/subscriptions";
+const MEMBERSHIPS_API = "/memberships";
 
 let editingId = null;
 let selectedClient = null;

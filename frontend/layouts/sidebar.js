@@ -1,4 +1,6 @@
-import { canCreateClient, canManageCatalogs, hideElement, icon, isClient, isLocationAdmin } from "/frontend/layouts/utils.js";
+import { canCreateClient, canManageCatalogs, hideElement, icon, isClient, isCoach, isLocationAdmin } from "/frontend/layouts/utils.js";
+
+const THEME_KEY = "elanTheme";
 
 const ROLE_LABELS = {
   0: "Системний адміністратор",
@@ -19,11 +21,13 @@ async function loadSidebar() {
   fillUserCard();
   bindLogout();
   applyRoleAccess();
+  initThemeToggle();
 }
 
 function applySidebarIcons() {
   const icons = {
     "/page/dashboard": "home",
+    "/page/my-groups": "groups",
     "/page/clients": "users",
     "/page/groups": "groups",
     "/page/employees": "staff",
@@ -92,6 +96,7 @@ function applyRoleAccess() {
   if (isClient()) {
     document.querySelector('a[href="/page/clients"]')?.remove();
     document.querySelector('a[href="/page/employees"]')?.remove();
+    document.querySelector('a[href="/page/my-groups"]')?.remove();
     [
       "add-coach-btn",
       "add-employee-btn",
@@ -102,9 +107,57 @@ function applyRoleAccess() {
     ].forEach(hideElement);
   }
 
+  if (isCoach()) {
+    document.querySelector('a[href="/page/dashboard"]')?.remove();
+    document.querySelector('a[href="/page/clients"]')?.remove();
+    document.querySelector('a[href="/page/employees"]')?.remove();
+    [
+      "add-coach-btn",
+      "add-employee-btn",
+      "add-group-btn",
+      "add-location-btn",
+      "add-style-btn",
+      "add-subscription-btn"
+    ].forEach(hideElement);
+  }
+
+  if (!isCoach()) {
+    document.querySelector('a[href="/page/my-groups"]')?.remove();
+  }
+
   if (!canManageCatalogs()) {
     document.querySelector('a[href="/page/employees"]')?.remove();
   }
+}
+
+function getStoredTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === "dark" || saved === "light") return saved;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  localStorage.setItem(THEME_KEY, theme);
+
+  const button = document.getElementById("theme-toggle");
+  if (button) {
+    const isDark = theme === "dark";
+    button.innerHTML = `
+      <span class="theme-toggle-icon">${icon(isDark ? "sun" : "moon")}</span>
+      <span class="theme-toggle-label">${isDark ? "Темна тема" : "Світла тема"}</span>`;
+    button.title = isDark ? "Світла тема" : "Темна тема";
+    button.setAttribute("aria-label", button.title);
+  }
+}
+
+function initThemeToggle() {
+  applyTheme(getStoredTheme());
+
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    applyTheme(isDark ? "light" : "dark");
+  });
 }
 
 document.addEventListener("DOMContentLoaded", loadSidebar);

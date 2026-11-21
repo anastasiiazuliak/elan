@@ -118,22 +118,19 @@ ELAN/
 ```
 ---
 
-## Збірка та запуск
+## Збірка та запуск у Windows
 
-```bash
-1.Створити папку для збірки та перейти в неї
-mkdir build
-cd build
+Потрібні CMake, Visual Studio з компонентом «Розробка класичних програм на C++» і Crow. Якщо Crow ще не встановлено, виконайте `vcpkg install crow:x64-windows`. Якщо vcpkg розташований за межами проєкту, передайте CMake шлях до його toolchain-файлу через `-DCMAKE_TOOLCHAIN_FILE=<шлях-до-vcpkg>/scripts/buildsystems/vcpkg.cmake` під час першої конфігурації.
 
-2.Згенерувати файли для збірки
-cmake ..
+Виконайте в PowerShell з папки проєкту.
 
-3.Зібрати проект
-cmake --build .
-
-4.Запустити програму
-Debug\ELAN.exe
+```powershell
+cmake -S . -B build
+cmake --build build --config Release
+.\build\Release\ELAN.exe
 ```
+
+Відкрийте [ELAN](http://127.0.0.1:18080/) і залиште сервер запущеним під час роботи. Для входу використовуйте обліковий запис із локального сховища `data/`. Під час першого запуску з порожнім сховищем облікових записів ще немає.
 
 ---
 

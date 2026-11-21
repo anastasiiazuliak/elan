@@ -1,8 +1,8 @@
 import { apiDelete, apiGet, apiPost, apiPut, canManageCatalogs, closeModal, formatUaPhone, hideElement, initPasswordReveal, initUaPhoneInput, isClient, openModal } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
-const API = "http://localhost:18080/coaches";
-const STYLES_API = "http://localhost:18080/styles";
+const API = "/coaches";
+const STYLES_API = "/styles";
 const PHOTO_STORE_KEY = "elanCoachPhotos";
 
 let editingId = null;

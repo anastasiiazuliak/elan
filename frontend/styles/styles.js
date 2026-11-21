@@ -1,7 +1,7 @@
 import { apiGet, apiPost, apiPut, apiDelete, canManageCatalogs, renderTable, filterTable, openModal, closeModal } from "/frontend/layouts/utils.js";
 import { loadConfirmModal, openConfirm } from "/frontend/layouts/confirm-modal.js";
 
-const API = "http://localhost:18080/styles";
+const API = "/styles";
 
 let editingId = null;
 let nameInput, descInput;

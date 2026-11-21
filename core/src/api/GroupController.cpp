@@ -35,6 +35,16 @@ namespace api
 
             auto domainObj = dtos::FromDto(dto);
 
+            auto groups = storages::Groups().GetAll();
+
+            for (const auto& g : groups)
+            {
+                if (g.GetName() == dto.name)
+                {
+                    return crow::response(400, "Group name already exists");
+                }
+            }
+
             storages::Groups().Add(domainObj);
 
             return crow::response(201, "created");
@@ -134,6 +144,16 @@ namespace api
             }
 
             auto updated = dtos::FromDto(dto);
+
+            auto groups = storages::Groups().GetAll();
+
+            for (const auto& g : groups)
+            {
+                if (g.GetId() != id && g.GetName() == dto.name)
+                {
+                    return crow::response(400, "Group name already exists");
+                }
+            }
 
             storages::Groups().Update(id, updated);
 

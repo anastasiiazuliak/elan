@@ -32,6 +32,17 @@
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(236,72,153,.08);
   --shadow:    0 4px 16px rgba(236,72,153,.12);
+
+  /* Status colors */
+  --green-bg: #dcfce7;
+  --green-text: #15803d;
+  --red-bg: #fee2e2;
+  --red-text: #b91c1c;
+  --amber-bg: #fef3c7;
+  --amber-text: #b45309;
+  --gray-bg: #f3f4f6;
+  --gray-text: #6b7280;
+  --fire-dot: #d1d5db;
 }
 
 *, *::before, *::after {

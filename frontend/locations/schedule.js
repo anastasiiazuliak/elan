@@ -1,7 +1,7 @@
 import { allLocations } from "./locations.js";
 import { openModal, closeModal, apiGet, apiPost, apiDelete, canManageCatalogs } from "/frontend/layouts/utils.js";
 
-const API_BASE = "http://localhost:18080";
+const API_BASE = window.location.origin;
 
 const DAY = ["Пн","Вт","Ср","Чт","Пт","Сб"];
 

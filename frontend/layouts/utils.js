@@ -56,6 +56,10 @@ export function isClient() {
   return getCurrentUser()?.role === ROLES.Client;
 }
 
+export function isCoach() {
+  return getCurrentUser()?.role === ROLES.Coach;
+}
+
 export function canManageCatalogs() {
   return isAdmin();
 }
@@ -90,7 +94,9 @@ const ICON_PATHS = {
   subscription: "M4 4h16v16H4zM8 8h8M8 12h8M8 16h5",
   plus: "M12 5v14M5 12h14",
   calendar: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2",
-  close: "M18 6 6 18M6 6l12 12"
+  close: "M18 6 6 18M6 6l12 12",
+  sun: "M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42",
+  moon: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79"
 };
 
 export function icon(name) {

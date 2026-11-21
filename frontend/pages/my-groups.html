@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elan - Мої групи</title>
+    <link rel="stylesheet" href="/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/frontend/css/dark-theme.css" />
+    <link rel="stylesheet" href="/frontend/css/sidebar.css" />
+    <link rel="stylesheet" href="/frontend/css/components.css" />
+    <link rel="stylesheet" href="/frontend/css/dashboard.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <main class="content">
+      <div class="page-header">
+        <div>
+          <h1 id="my-groups-title">Мої групи</h1>
+          <p class="page-subtitle" id="my-groups-subtitle">Немає даних</p>
+        </div>
+        <button id="back-to-my-groups" class="btn btn-ghost" type="button" style="display:none;">Назад до груп</button>
+      </div>
+
+      <section id="coach-groups">
+        <div class="card">
+          <div class="empty-panel">Немає даних</div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/frontend/layouts/sidebar.js"></script>
+    <script type="module" src="/frontend/coaches/my-groups.js"></script>
+  </body>
+</html>

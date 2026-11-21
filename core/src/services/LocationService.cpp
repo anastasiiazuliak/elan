@@ -1,6 +1,5 @@
 #include "elan/services/LocationService.h"
 
-
 namespace service
 {
     bool LocationService::AddHall(int locationId, domain::Hall &hall)
@@ -39,7 +38,7 @@ namespace service
         return storages::Locations().Update(locationId, loc);
     }
 
-    bool LocationService::UpdateHall(int locationId, int hallId, const char *name,int capacity)
+    bool LocationService::UpdateHall(int locationId, int hallId, const char *name, int capacity)
     {
         auto locOpt = storages::Locations().GetById(locationId);
 
@@ -56,7 +55,25 @@ namespace service
 
     bool LocationService::AddSchedule(int locationId, const domain::Schedule &s)
     {
+        auto allLocations = storages::Locations().GetAll();
+
+        for (const auto &location : allLocations)
+        {
+            auto schedules = location.GetScheduleList();
+
+            for (const auto &existing : schedules)
+            {
+                if (existing.groupId == s.groupId &&
+                    existing.day == s.day &&
+                    existing.time == s.time)
+                {
+                    return false;
+                }
+            }
+        }
+
         auto locOpt = storages::Locations().GetById(locationId);
+
         if (!locOpt.has_value())
         {
             return false;
@@ -99,11 +116,11 @@ namespace service
         if (!locOpt)
             return result;
 
-        const auto& loc = locOpt.value();
+        const auto &loc = locOpt.value();
 
         auto all = loc.GetScheduleList();
 
-        for (const auto& s : all)
+        for (const auto &s : all)
         {
             if (s.hallId == hallId)
                 result.push_back(s);
@@ -121,11 +138,11 @@ namespace service
         if (!locOpt)
             return result;
 
-        const auto& loc = locOpt.value();
+        const auto &loc = locOpt.value();
 
         auto all = loc.GetScheduleList();
 
-        for (const auto& s : all)
+        for (const auto &s : all)
         {
             if (s.day == day)
                 result.push_back(s);
@@ -143,11 +160,11 @@ namespace service
         if (!locOpt)
             return result;
 
-        const auto& loc = locOpt.value();
+        const auto &loc = locOpt.value();
 
         auto all = loc.GetScheduleList();
 
-        for (const auto& s : all)
+        for (const auto &s : all)
         {
             if (s.groupId == groupId)
                 result.push_back(s);

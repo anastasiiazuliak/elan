@@ -1,0 +1,196 @@
+/* ═══════════════════════════════════════
+   dark-theme.css — темна тема
+   Підключати ПІСЛЯ variables.css
+═══════════════════════════════════════ */
+
+html.dark,
+body.dark {
+  /* Pink palette (трохи приглушені для темного фону) */
+  --pink-50:  #17040d;
+  --pink-100: #250714;
+  --pink-200: #3a0a20;
+  --pink-400: #ff4f9d;
+  --pink-500: #ff1f7a;
+  --pink-600: #ff72b2;
+
+  /* Neutral */
+  --bg:             #080207;
+  --surface:        #12070f;
+  --text-primary:   #fff2f8;
+  --text-secondary: #e1b8cb;
+  --text-muted:     #9c6f85;
+  --border:         #331225;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, .45);
+  --shadow:    0 16px 36px rgba(0, 0, 0, .38);
+
+  /* Status colors */
+  --green-bg: #153323;
+  --green-text: #6ee7a8;
+  --red-bg: #3a0718;
+  --red-text: #ff8aa0;
+  --amber-bg: #382911;
+  --amber-text: #ffd166;
+  --gray-bg: #1c1118;
+  --gray-text: #c6a9b8;
+  --fire-dot: #7a3659;
+}
+
+/* Сайдбар трохи світліший за фон, але без різких границь */
+html.dark .sidebar {
+  background:
+    linear-gradient(180deg, rgba(255, 31, 122, 0.11), transparent 30%),
+    #0f060d;
+  border-color: rgba(255, 31, 122, 0.22);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 31, 122, 0.08) inset;
+}
+
+html.dark .sidebar-logo,
+html.dark .sidebar-footer {
+  border-color: rgba(255, 154, 210, 0.14);
+}
+
+html.dark .logo-icon {
+  background: rgba(255, 31, 122, 0.16);
+  color: var(--pink-600);
+  box-shadow: none;
+}
+
+html.dark .nav-label {
+  color: var(--text-muted);
+}
+
+html.dark .nav-item {
+  color: var(--text-secondary);
+}
+
+html.dark .nav-item:hover,
+html.dark .nav-item.active {
+  background: rgba(255, 31, 122, 0.14);
+  color: var(--pink-600);
+  box-shadow: none;
+}
+
+html.dark .user-card {
+  background: rgba(255, 31, 122, 0.08);
+  border: 1px solid rgba(255, 114, 178, 0.12);
+}
+
+html.dark .user-role {
+  color: var(--text-muted);
+}
+
+/* b2 у фоновому декорі — білий блоб не підходить на темному */
+html.dark .b2 {
+  background: #2d0619;
+}
+
+/* fire-dot має прозорий колір, тому окремо фіксуємо фон кружечка */
+html.dark .fire-dot {
+  background: #7a3659;
+}
+
+html.dark body {
+  background:
+    radial-gradient(circle at 12% -8%, rgba(255, 31, 122, 0.20), transparent 34%),
+    radial-gradient(circle at 96% 18%, rgba(255, 79, 157, 0.11), transparent 30%),
+    var(--bg);
+}
+
+html.dark .card,
+html.dark .btn-ghost,
+html.dark .logout-btn {
+  background: rgba(18, 7, 15, 0.94);
+}
+
+html.dark .theme-toggle {
+  background: rgba(255, 114, 178, 0.06);
+  border-color: rgba(255, 114, 178, 0.10);
+  box-shadow: none;
+}
+
+html.dark .theme-toggle:hover {
+  background: rgba(255, 114, 178, 0.09);
+  border-color: rgba(255, 114, 178, 0.16);
+}
+
+html.dark .theme-toggle-icon {
+  background: rgba(255, 31, 122, 0.12);
+  color: var(--pink-600);
+}
+
+html.dark .theme-toggle-label {
+  color: var(--text-muted);
+}
+
+html.dark .coach-card {
+  background:
+    linear-gradient(135deg, rgba(255, 31, 122, 0.11), rgba(18, 7, 15, 0.98) 42%, rgba(8, 2, 7, 0.98)),
+    #10060d;
+  border-color: rgba(255, 31, 122, 0.26);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+}
+
+html.dark .coach-card:hover {
+  border-color: rgba(255, 114, 178, 0.38);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.42);
+}
+
+html.dark .coach-photo,
+html.dark .photo-preview {
+  background: #1c0713;
+  border-color: rgba(255, 31, 122, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 114, 178, 0.08);
+}
+
+html.dark .coach-styles {
+  background: rgba(255, 31, 122, 0.14);
+  color: var(--pink-600);
+}
+
+html.dark .coach-details div {
+  background: rgba(255, 114, 178, 0.06);
+  border: 1px solid rgba(255, 114, 178, 0.08);
+}
+
+html.dark .schedule-grid {
+  background: #4a1030;
+  border-color: rgba(255, 31, 122, 0.42);
+}
+
+html.dark .sg-head,
+html.dark .sg-time {
+  background: #2b0719;
+  color: #ffc0dd;
+  border-color: rgba(255, 114, 178, 0.22);
+}
+
+html.dark .sg-cell {
+  background: #120710;
+  border-color: rgba(255, 114, 178, 0.18);
+}
+
+html.dark .sg-cell:hover {
+  background: #1d0a16;
+}
+
+html.dark .sg-event {
+  background: #ff2d83;
+  color: #fff8fb;
+  border: 1px solid #ff72b2;
+  box-shadow: none;
+}
+
+html.dark .sg-event small {
+  color: #ffe0ee;
+}
+
+html.dark .location-card,
+html.dark .modal {
+  background: #12070f;
+  border-color: rgba(255, 31, 122, 0.28);
+  color: var(--text-primary);
+}

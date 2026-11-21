@@ -92,6 +92,19 @@
   gap: 10px;
 }
 
+.coach-training-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.coach-training-card {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
 .client-session {
   display: flex;
   align-items: center;
@@ -115,7 +128,7 @@
   flex: 0 0 auto;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #f3f4f6;
+  background: var(--gray-bg);
   color: var(--text-muted);
   font-size: 12px;
   font-weight: 700;
@@ -143,7 +156,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #d1d5db;
+  background: var(--fire-dot);
 }
 
 .workout-balance.is-burning .fire-dot {

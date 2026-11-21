@@ -1,35 +1,43 @@
 # Entities
 
-## Користувач
-```
-"User": 
-{
-    "Id": "int",
-    "Username": "string",
-    "PersonId": "int"
-}
-```
-
-Сутність User відповідає за акаунт у системі. Кожен користувач має унікальний Id, логін (Username) та посилання на сутність Person, яка містить персональні дані. Через акаунт система визначає, чи користувач є клієнтом, адміністратором, директором чи тренером.
-
-## Людинка
-```
-"Person": 
+## Person
+```json
 {
     "Id": "int",
     "FirstName": "string",
     "LastName": "string",
     "Patronymic": "string",
     "BirthDate": "datetime",
-    "PhoneNumber": "string"
+    "Phone": "string",
+    "Username": "string",
+    "Password": "hash",
+    "Role": "Role"
 }
 ```
 
-Person є базовою сутністю, що містить персональні дані людини. Основні атрибути: Id, ім’я (FirstName), прізвище (LastName), по батькові (Patronymic), дата народження (BirthDate) та контактний номер телефону (PhoneNumber). Від цієї сутності успадковуються клієнти та працівники студії.
+Person є базовою сутністю системи. Вона містить персональні дані користувача, а також інформацію для авторизації: логін (Username), пароль (Password) та роль (Role). Від цієї сутності успадковуються клієнти, працівники та тренери.
 
-## Працівник
+---
+
+## Client
+```json
+{
+    "Id": "int",
+    "SubscriptionId": "int",
+    "SubscriptionStartDate": "datetime",
+    "SubscriptionEndDate": "datetime",
+    "RemainingWorkouts": "int",
+    "CompletedWorkouts": "int",
+    "Category": "Category"
+}
 ```
-"Employee": 
+
+Client успадковує Person та представляє клієнта студії. Для клієнта зберігається інформація про активний абонемент, термін його дії, кількість доступних та використаних занять, а також категорія клієнта.
+
+---
+
+## Employee
+```json
 {
     "Id": "int",
     "LocationId": "int",
@@ -37,90 +45,125 @@ Person є базовою сутністю, що містить персонал�
 }
 ```
 
-Сутність Employee успадковує всі атрибути Person та додає специфічні для працівника характеристики: локацію (Location) та робочу електронну адресу (Email). До цієї сутності належать адміністратори, директори та тренери.
+Employee успадковує Person та представляє працівника студії. Основними атрибутами є локація роботи та службова електронна адреса.
 
-## Тренер
-```
-"Coach": 
+---
+
+## Coach
+```json
 {
     "Id": "int",
-    "Styles": "string[]",
-    "Description": "string",
-    "Socials": "string[]"
+    "Styles": "int[]",
+    "Description": "string"
 }
 ```
 
-Coach є успадковує всі атрибути Person та додає специфічні для тренера характеристики. Основні атрибути включають перелік стилів танцю, які викладає тренер (Styles), опис (Description) а також контакти у соціальних мережах (Socials). Кожна група у студії має прив’язаного тренера.
+Coach успадковує Person та представляє тренера студії. Для кожного тренера зберігається перелік стилів, які він викладає, а також його опис.
 
-## Клієнт
-```
-"Client": 
+---
+
+## Group
+```json
 {
     "Id": "int",
-    "SubscriptionId": "int",
-    "Category": "string"
-}
-```
-
-Сутність Client успадковує Person та представляє відвідувачів студії. Кожен клієнт має абонемент (Subscription) і категорію (Category), яка визначає його вікову групу або рівень підготовки. Клієнти записуються на заняття у певні групи.
-
-## Група
-```
-"Group": 
-{
-    "Id": "int",
+    "Name": "string",
     "CoachId": "int",
-    "Style": "Style",
-    "SkillLevel": "string",     // beginner, intermediate, advanced
+    "StyleId": "int",
+    "SkillLevel": "SkillLevel",
     "Clients": "Client[]"
 }
 ```
 
-Group містить інформацію про певну танцювальну групу. Кожна група має унікальний Id, прив’язаного тренера (CoachId), стиль танцю (Style), рівень підготовки (SkillLevel) та список клієнтів, які відвідують цю групу (Clients[]). Групи формуються відповідно до рівня підготовки та стилю танцю.
+Group містить інформацію про навчальну групу. Кожна група має назву, тренера, стиль танцю, рівень підготовки та список клієнтів, які її відвідують.
 
-## Локація
+### SkillLevel
+```text
+Beginner
+Intermediate
+Advanced
 ```
-"Location": 
+
+---
+
+## Location
+```json
 {
     "Id": "int",
     "Address": "string",
-    "Halls": "Hall[]"
+    "Halls": "Hall[]",
+    "Schedule": "Schedule[]"
 }
 ```
 
-Сутність Location описує місце проведення занять студії. Вона містить Id, адресу (Adress) та перелік залів (Halls[]), які належать цій локації. Це дозволяє організувати розташування залів та планування занять.
+Location описує одну з локацій студії. Вона містить адресу, список залів та розклад занять.
 
-## Зал
-```
-"Hall": 
+---
+
+## Hall
+```json
 {
     "Id": "int",
-    "Type": "string",           // Large, Medium, Individual
+    "Name": "string",
+    "Type": "HallType",
     "Capacity": "int"
 }
 ```
 
-Hall представляє фізичний зал для занять танцями або фітнесом. Атрибути включають унікальний Id та тип залу (Type), наприклад велики (Large), середній (Medium) - для групових занятть, індів (Individual) для індивідуальних та  місткість (Capacity).
+Hall представляє фізичний зал для проведення занять. Для кожного залу зберігається назва, тип та максимальна кількість відвідувачів.
 
-## Абонемент
+### HallType
+```text
+Large
+Medium
+Individual
 ```
-"Subscription": 
+
+---
+
+## Schedule
+```json
 {
-    "Id": "int",
-    "Name": "string",
-    "Categories": "string[]",
-    "Duration": "int", ??
-    "1": "int",
-    "8": "int",
-    "12: "int"
+    "GroupId": "int",
+    "HallId": "int",
+    "Day": "Day",
+    "Time": "Time",
+    "IsOccupied": "bool"
 }
 ```
 
-Сутність Subscription відповідає за тарифи та пакети занять студії. Основні атрибути: Id, назва пакету (Name), категорії клієнтів (Categories[]), кількість занять. Абонементи дозволяють контролювати доступ клієнтів до занять у системі.
+Schedule використовується для формування розкладу занять. Він пов'язує групу та зал у певний день і час.
 
-##Стиль
+### Day
+```text
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
 ```
-"Style": 
+
+### Time
+```text
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+```
+
+---
+
+## Style
+```json
 {
     "Id": "int",
     "Name": "string",
@@ -128,29 +171,30 @@ Hall представляє фізичний зал для занять танц
 }
 ```
 
+Style описує танцювальний або спортивний напрямок студії. Містить назву стилю та його опис.
+
+---
+
+## Subscription
+```json
+{
+    "Id": "int",
+    "Name": "string",
+    "Category": "Category",
+    "Duration": "int",
+    "NumberOfWorkouts": "int",
+    "GroupId": "int"
+}
 ```
 
-    ###Стилі
-        Contemporary,
-        HipHop,
-        HighHeels,
-        Pilates,
-        FitnessMix,
-        FlyYoga,
-        BabyDance,
-        Modern,
-        JazzFunk,
-        StreetDance,
-        ChoreoDance,
-        BodyBallet,
-        GirlsDance,
-        FlyGimnastic,
-        Acrobatics,
-        LatinaDance,
-        Stretching,
-        MobilityMFR,
-        Yoga,
-        StepAerobics
-```
+Subscription описує абонементи студії. Для кожного абонемента зберігається назва, категорія клієнтів, тривалість дії, кількість занять та група, до якої він прив'язаний.
 
-Сутність стиль має атрибути Id, назву стилю(Name) i опис стилю Description
+---
+
+## Role
+```text
+Admin
+Client
+Employee
+Coach
+```

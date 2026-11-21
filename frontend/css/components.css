@@ -70,12 +70,12 @@ body {
 }
 
 .btn-danger {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--red-bg);
+  color: var(--red-text);
 }
 
 .btn-danger:hover {
-  background: #fecaca;
+  background: var(--pink-200);
 }
 
 .card {
@@ -209,11 +209,11 @@ tbody tr.clickable-row {
   font-weight: 700;
 }
 
-.badge-green { background: #dcfce7; color: #15803d; }
+.badge-green { background: var(--green-bg); color: var(--green-text); }
 .badge-pink { background: var(--pink-100); color: var(--pink-600); }
-.badge-gray { background: #f3f4f6; color: #6b7280; }
-.badge-amber { background: #fef3c7; color: #b45309; }
-.badge-red { background: #fee2e2; color: #b91c1c; }
+.badge-gray { background: var(--gray-bg); color: var(--gray-text); }
+.badge-amber { background: var(--amber-bg); color: var(--amber-text); }
+.badge-red { background: var(--red-bg); color: var(--red-text); }
 
 .empty-state,
 .empty-cell {
@@ -456,9 +456,9 @@ tbody tr.clickable-row {
 }
 
 .membership-card.inactive {
-  border-left-color: #9ca3af;
-  background: #f3f4f6;
-  color: #6b7280;
+  border-left-color: var(--gray-text);
+  background: var(--gray-bg);
+  color: var(--gray-text);
 }
 
 .membership-title {
